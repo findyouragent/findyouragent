@@ -1,0 +1,32 @@
+{
+  "name": "findyouragent-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/index.js",
+    "dev": "node --env-file-if-exists=.env --watch src/index.js",
+    "preflight:prod": "node src/production-config.js",
+    "test": "node --test test/production-config.test.mjs test/build-seed.test.mjs && node test/agent-metadata.test.mjs && node test/categorize.test.mjs && node test/score.test.mjs && node test/readonly.test.mjs && node test/safe-fetch.test.mjs && node test/uptime.test.mjs && node test/activity-store.test.mjs && node test/classify.test.mjs && node test/agent-detail.test.mjs && node test/try-example.test.mjs && node test/try-result.test.mjs && node test/mcp-recovery.test.mjs && node test/task-presets.test.mjs && node test/advantage-result.test.mjs && node test/price.test.mjs && node test/nonjson-reply.test.mjs && node test/scan-retry.test.mjs && node test/registry-contract.test.mjs && node test/registry.test.mjs && node test/machine.test.mjs && node test/search.test.mjs && node test/escrow-census.test.mjs && node test/smoke.test.mjs && node ../web/test/narrate.test.mjs && node --test test/sweep.test.mjs test/advantage-report.test.mjs test/data-export.test.mjs && node --test test/search-policy.test.mjs && node --test test/persistence-order.test.mjs && node --test test/persistence-replay.test.mjs && node --test test/memory-anchor.test.mjs test/identity-document.test.mjs test/identity-verifier.test.mjs && node --test test/range-assessment.test.mjs test/range-task-preset.test.mjs",
+    "smoke": "node smoke.js",
+    "smoke:release": "node smoke.js --release",
+    "seed": "node seed/build-seed.mjs",
+    "curate": "node curate.js",
+    "advantage": "node advantage.js",
+    "census": "node escrow-census.mjs",
+    "data:export": "node --env-file-if-exists=.env data-export.mjs",
+    "test:reference": "node --test test/grid-cost-check.test.mjs test/bort-reference-agent.test.mjs test/showcase-crosscheck.test.mjs",
+    "demo:grid": "node grid-cost-demo.mjs",
+    "test:security": "node --test test/cache.test.mjs test/safe-fetch-transport.test.mjs test/work-admission.test.mjs"
+  },
+  "overrides": {
+    "qs": "6.16.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "undici": "7.29.1"
+  }
+}

@@ -1,0 +1,207 @@
+/*
+  A trace: a list of steps that resolve one at a time, narrated while it runs
+  and kept afterwards as the record of how a result was reached.
+
+  Two things use it. The verification check, whose steps are network probes and
+  are not known in advance. And the escrow hire, whose five steps ARE known in
+  advance — which is why a row can be pending here: when each remaining step
+  costs a wallet signature, how many are left is the useful thing to show.
+*/
+
+.trace {
+  margin-bottom: 14px;
+}
+
+.trace-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: color var(--ease);
+}
+
+.trace-head:hover {
+  color: var(--text-hi);
+}
+
+.trace-title {
+  letter-spacing: -0.01em;
+}
+
+.trace-chevron {
+  color: var(--text-dim);
+  transition: transform 250ms var(--ease);
+}
+
+.trace-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+/* ── The 3x3 dot loader ───────────────────────────────────────────────────
+   Nine dots lit in a sweep. Motion that means one specific thing — a step is
+   in flight right now — which is the only kind this site keeps. */
+.pixel-dots {
+  display: grid;
+  grid-template-columns: repeat(3, 3px);
+  gap: 1.5px;
+  flex-shrink: 0;
+}
+
+.pixel-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-mid);
+  opacity: 0.2;
+  animation: pixel-on 650ms cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+@keyframes pixel-on {
+  0%, 100% { opacity: 0.15; transform: scale(0.9); }
+  50% { opacity: 0.95; transform: scale(1.1); }
+}
+
+/* ── The rail ─────────────────────────────────────────────────────────────
+   Collapses on a grid row rather than max-height, so it fits its content
+   exactly however many steps ran. */
+.trace-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 280ms cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 200ms ease;
+}
+
+.trace-body.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.trace-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.trace-rail {
+  margin: 6px 0 0 5px;
+  padding: 2px 0 2px 12px;
+  border-left: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.trace-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  animation: trace-in 250ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes trace-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* A step that resolved. Not a tick: a tick would read as "passed", and plenty
+   of these lines report that something was absent or did not answer. It marks
+   that the step came back, nothing more. */
+.trace-mark {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* A step that has not started. Hollow, because nothing has happened yet. */
+.trace-mark.is-pending {
+  background: none;
+  border: 1px solid var(--text-faint);
+  width: 5px;
+  height: 5px;
+}
+
+.trace-mark.is-failed {
+  background: var(--danger);
+}
+
+.trace-spinner {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid var(--hairline-strong);
+  border-top-color: var(--text-mid);
+  flex-shrink: 0;
+  align-self: center;
+  animation: trace-spin 700ms linear infinite;
+}
+
+@keyframes trace-spin {
+  to { transform: rotate(360deg); }
+}
+
+.trace-text {
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* The resolved rows of a check are log output and stay mono. A status sentence
+   about the page is not a line the check produced, so it takes the header's
+   face rather than sitting in a different font from the thing it belongs to. */
+.trace-waiting {
+  font-family: var(--font-body);
+}
+
+.trace-row.is-running .trace-text {
+  color: var(--text-mid);
+}
+
+.trace-row.is-pending .trace-text {
+  color: var(--text-faint);
+}
+
+.trace-row.is-failed .trace-text {
+  color: var(--danger);
+}
+
+/* What a step actually did, when that is not the same as what it was for:
+   an approval that needed no signature because the allowance was already
+   there, or the transaction hash that proves the step happened. */
+.trace-detail {
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+
+.trace-detail a {
+  color: var(--text-dim);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline-strong);
+}
+
+.trace-detail a:hover {
+  color: var(--text-hi);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-dot,
+  .trace-spinner,
+  .trace-row {
+    animation: none;
+  }
+
+  .pixel-dot { opacity: 0.6; }
+
+  .trace-body {
+    transition: none;
+  }
+}

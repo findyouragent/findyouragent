@@ -1,0 +1,3 @@
+# Local development. Copy to web/.env.
+# VITE_* values are public in the compiled browser application.
+VITE_VERIFY_API=http://localhost:8787

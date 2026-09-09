@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fya-paid-call-evidence",
+  "title": "Paid Venus account assessment",
+  "environment": "local-development",
+  "provider": "BORT COIN DEPLOYER AGENT",
+  "sameTeamProvider": true,
+  "paidCallEvidence": true,
+  "paidHireEvidence": false,
+  "independentCustomerEvidence": false,
+  "execution": false,
+  "healthCorrectness": "corroborated-at-settlement-block",
+  "qualification": "Paid A2A assessment through a local FYA build with a matching settled BSC payment. A separate historical RPC reconstruction at settlement block 120767416 reproduces all three reported health figures at their displayed precision. BORT operates this provider and builds FYA. The provider gave no exact observation time or block; the original export has no receipt or nonce cryptographically binding the answer to the supplied transaction.",
+  "runId": "6bd495d4-4fe2-4ec4-9126-55f42d4e656a",
+  "quoteRunId": "d14a7946-cb9e-47fe-8c30-cf1ed288ab56",
+  "endpoint": "https://api.bortagent.xyz/api/a2a/11168",
+  "transaction": {
+    "chainId": 56,
+    "txHash": "0x01ffcac0a7a2ac0995f4f861ed0162206ca0c508df24b3f9c3b9fcdfcebd0e1d",
+    "blockNumber": 120767416,
+    "amountRaw": "100000000000000000",
+    "token": "0xcE24439F2D9C6a2289F741120FE202248B666666",
+    "payTo": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee"
+  },
+  "artifacts": [
+    {
+      "href": "/evidence/paid-call-2026-09-09/paid-result.json",
+      "bytes": 2440,
+      "sha256": "51693bd056b082830bfea037c3abf53c64cef09fbbfa09ef8c5949c789058134",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/payment-challenge.json",
+      "bytes": 2353,
+      "sha256": "304d371e832563b63966e482c02fecb2e565108c46b9722008e67c4e580d5003",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/user-observation.png",
+      "bytes": 683396,
+      "sha256": "7fe70f9a4001ab087d46d561945709a856d1d80e6b534467a188c0a7df79eba5",
+      "mediaType": "image/png"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/user-quote.png",
+      "bytes": 508809,
+      "sha256": "00782c30198d9adba30c802a66313ba3f2a2a7db7b491b7c94a4c48194778429",
+      "mediaType": "image/png"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/user-response.png",
+      "bytes": 345077,
+      "sha256": "12c8bc5ffbec8d1a3132efb9c572a1ec6021e1d46195aa6ca8c54acceb3e9217",
+      "mediaType": "image/png"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/health-at-settlement/health-corroboration.json",
+      "bytes": 365,
+      "sha256": "4519989fa943995dc44b5586546beb8e551c8ee925e43f90a7b33dcf0233778a",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/health-at-settlement/rpc-raw.json",
+      "bytes": 7424,
+      "sha256": "8727a0233b9c78ba9f1a8de92fdb70fc8bc6398d7b68c62e62d876027ad88a9b",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/onchain/payment-verification.json",
+      "bytes": 2854,
+      "sha256": "b7b603bd8010d5e56221c30ca67060e66874fba8479346db9221e6e4338037f5",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/onchain/rpc-raw.json",
+      "bytes": 11892,
+      "sha256": "ce2bb68351d9e97a2195e6fac535801f32898e0dd4cc8294a35a9e0c92ef3cb0",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/source/card-11168-paid-01.body",
+      "bytes": 8589,
+      "sha256": "86df8cbf5c38922fc65f1e37da2c2f8f80aed88f8b7671013c94f560aa4b1c01",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/source/card-11168-paid-01.json",
+      "bytes": 546,
+      "sha256": "d35498ed2ff7f19e1ec392ee00e501bdb731654500c81be3565e3a965d8fdf5c",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/source/metadata-338558.body",
+      "bytes": 5008,
+      "sha256": "f54565f7c2ef798a4035247207914018409744085bc05c42674f9bc3b00b993e",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/source/metadata-338558.json",
+      "bytes": 501,
+      "sha256": "0c6a4abef5fd30ca87246e5dcc2b9717b483823e59543f34a5d55c52301f531d",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/health-verification/health-corroboration.json",
+      "bytes": 2562,
+      "sha256": "c1281faeaa13b0ba44ea4fa78d615ab2dbae0c37030c3bb2140d6239e08c7d8b",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/health-verification/rpc-raw.json",
+      "bytes": 23282,
+      "sha256": "0d508a4413d807b975a977edd47fc57424d7a523340318e2af699445483e916c",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/health-verification/market-semantics.json",
+      "bytes": 6548,
+      "sha256": "04a27540ee12b5f78b5b3db4fe8e180bf735abb0369b4e7470e86dd57ef83c51",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/health-verification/publicnode-attempt.json",
+      "bytes": 7835,
+      "sha256": "d5b3f147ecdeeb80c76f2e33a6a0e5e91792bed5918881f3d9c84f0496d43d57",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/paid-call-2026-09-09/health-verification/nodereal-probe.json",
+      "bytes": 7776,
+      "sha256": "0b9c705e898bf894418efba4ec90090160596f9dbc46791ab236302a28456856",
+      "mediaType": "application/json"
+    }
+  ],
+  "healthVerification": {
+    "status": "corroborated-at-settlement-block",
+    "href": "/evidence/paid-call-2026-09-09/health-verification/health-corroboration.json",
+    "blockNumber": 120767416,
+    "blockHash": "0x03cc45d9cb9c63106e905ea593ef9312fc2277720991f418d17c53d74d122004",
+    "comparedFields": [
+      "healthFactor",
+      "borrowedUsd",
+      "headroomUsd"
+    ],
+    "comparison": "Exact fixed-point reconstruction with nearest rounding to three health-factor decimals and two USD decimals.",
+    "originalTaskStatus": "not_evaluated",
+    "providerObservationBlockKnown": false,
+    "scope": "A retrospective corroboration of this historical snapshot; not proof of the provider data source, future safety or continuous monitoring."
+  }
+}

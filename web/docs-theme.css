@@ -1,0 +1,423 @@
+/*
+  The documentation surface.
+
+  It inherits tokens.css whole — BNB Chain's palette, the two faces, the one
+  type ramp — so the docs and the app cannot drift into looking like two
+  products. What differs is the job: the app is a dense terminal of rows and
+  verdicts, and this is prose that has to be readable for ten minutes at a
+  stretch. So the body size steps up from 13px to 15px, the measure is capped,
+  and the only decoration is a hairline.
+*/
+
+* { box-sizing: border-box; margin: 0; }
+
+html { color-scheme: dark; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-0);
+  color: var(--text-mid);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--text-hi); text-decoration-color: var(--hairline-strong); text-underline-offset: 3px; }
+a:hover { color: var(--brand); text-decoration-color: var(--brand-line); }
+
+code, pre, .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+.micro-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* top bar --------------------------------------------------------------- */
+
+.docs-top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 24px;
+  background: color-mix(in srgb, var(--bg-0) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-md);
+  color: var(--text-hi);
+  text-decoration: none;
+}
+
+/* The mark, at the size the app's header uses. It replaced a green dot that
+   the app had already retired, so the two headers had drifted apart. */
+.brand-mark {
+  display: block;
+  flex-shrink: 0;
+}
+
+.docs-tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm);
+  padding: 1px 6px;
+}
+
+.docs-top-links {
+  margin-left: auto;
+  display: flex;
+  gap: 18px;
+  font-size: var(--text-sm);
+}
+
+.docs-top-links a { color: var(--text-dim); text-decoration: none; }
+.docs-top-links a:hover { color: var(--text-hi); }
+
+/* shell ----------------------------------------------------------------- */
+
+.docs-shell {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr) 210px;
+  gap: 40px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  align-items: start;
+}
+
+.sidebar { position: sticky; top: 74px; max-height: calc(100vh - 96px); overflow-y: auto; }
+.sidebar-mobile { display: none; }
+
+.sidebar-nav .micro-label { margin: 20px 0 8px; }
+.sidebar-nav .micro-label:first-of-type { margin-top: 0; }
+.sidebar-nav ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1px; }
+
+/* The 12px left padding was 10px plus a 2px transparent border, carried by
+   every item so the current one could turn its border gold without shifting
+   the rest. The rail is gone, so the border is just padding now. */
+.sidebar-nav a {
+  display: block;
+  padding: 5px 10px 5px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-dim);
+  font-size: var(--text-base);
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.sidebar-nav a:hover { color: var(--text-hi); background: var(--bg-1); }
+
+/* Three marks, not four. The current page was saying so in brighter text, a
+   filled block, heavier weight AND a gold rail down its left edge — the same
+   accent-rail idiom the verdict narrative used to carry, and the one thing
+   here a reader has to be taught. The filled block is what every sidebar in
+   the world uses for "you are here"; it does not need an escort. */
+.sidebar-nav a[aria-current='page'] {
+  color: var(--text-hi);
+  background: var(--bg-1);
+  font-weight: 500;
+}
+
+/* search ---------------------------------------------------------------- */
+
+.search { position: relative; margin-bottom: 20px; }
+
+.search input {
+  width: 100%;
+  padding: 7px 10px;
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text-hi);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+}
+
+.search input::placeholder { color: var(--text-faint); }
+.search input:focus { outline: none; border-color: var(--brand-line); }
+
+.search-results {
+  list-style: none;
+  padding: 4px;
+  margin: 6px 0 0;
+  background: var(--bg-2);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.search-results li { display: flex; flex-direction: column; padding: 6px 8px; border-radius: var(--radius-sm); }
+.search-results li:hover { background: var(--bg-3); }
+.search-results a { font-size: var(--text-base); text-decoration: none; }
+.search-results span { font-size: var(--text-xs); color: var(--text-dim); }
+.search-empty { font-size: var(--text-sm); color: var(--text-dim); }
+
+/* prose ----------------------------------------------------------------- */
+
+.docs-main { min-width: 0; }
+/* The measure, in em rather than ch.
+
+   `ch` is the advance of "0", which in IBM Plex Sans is markedly wider than
+   the average lowercase letter — so `74ch` rendered 666px and fit 100 real
+   characters per line, a third over what it was asking for. Counted properly
+   the average advance here is ~0.44em, so 33em lands at ~75 characters, the
+   top of the readable range.
+
+   em also holds that count steady across sizes, which ch does not: the same
+   666px box fit 100 characters at 15px and 83 at 12px. Anything that sets a
+   measure uses this number, whatever size it is set in. */
+.prose { max-width: 33em; }
+.eyebrow { margin-bottom: 10px; }
+
+.prose h1 {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-hi);
+  margin-bottom: 18px;
+}
+
+.prose h2 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--text-hi);
+  margin: 46px 0 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--hairline);
+}
+
+.prose h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-hi);
+  margin: 30px 0 10px;
+}
+
+.prose h4 {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--text-hi);
+  margin: 22px 0 8px;
+}
+
+.prose p { margin: 0 0 16px; }
+.prose img { display: block; max-width: 100%; height: auto; }
+.prose ul, .prose ol { margin: 0 0 16px; padding-left: 22px; }
+.prose li { margin-bottom: 7px; }
+.prose li > ul, .prose li > ol { margin-top: 7px; }
+.prose strong { color: var(--text-hi); font-weight: 600; }
+
+.prose hr { border: 0; border-top: 1px solid var(--hairline); margin: 36px 0; }
+
+.anchor {
+  margin-left: 8px;
+  color: var(--text-faint);
+  text-decoration: none;
+  font-weight: 400;
+  opacity: 0;
+  transition: opacity var(--ease);
+}
+
+h2:hover .anchor, h3:hover .anchor, .anchor:focus { opacity: 1; }
+
+/* code ------------------------------------------------------------------ */
+
+.prose :not(pre) > code {
+  background: var(--bg-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: 1px 5px;
+  font-size: 0.88em;
+  color: var(--text-hi);
+  overflow-wrap: anywhere;
+}
+
+.prose pre {
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 0 0 18px;
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+.prose pre code { color: var(--text-mid); }
+
+/* tables ---------------------------------------------------------------- */
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 20px;
+  font-size: var(--text-base);
+  display: block;
+  overflow-x: auto;
+}
+
+.prose th {
+  text-align: left;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--hairline-strong);
+  padding: 8px 12px 8px 0;
+  white-space: nowrap;
+}
+
+.prose td {
+  border-bottom: 1px solid var(--hairline);
+  padding: 9px 12px 9px 0;
+  vertical-align: top;
+}
+
+.prose td code { white-space: nowrap; }
+
+/* blockquote, used for the one-line statement each page opens with ------- */
+
+/* The rule stays, the accent does not.
+
+   This element does two jobs here: the statement each page opens with, and
+   real quotation — honesty.md sets "This endpoint did not answer when we
+   called it at 14:02." against "This agent is dead." to show which sentence a
+   field earns. A rule beside a quotation is typography older than the web and
+   it is not going anywhere. What made it read as decoration was the colour:
+   gold is this site's accent, and an accent down the left edge is the same
+   idiom as the sidebar's current-page rail and the verdict narrative's tone
+   bars. A quotation is not a status, so its rule is a hairline. */
+.prose blockquote {
+  margin: 0 0 24px;
+  padding-left: 16px;
+  border-left: 2px solid var(--hairline-strong);
+  color: var(--text-hi);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+}
+
+.prose blockquote p { margin-bottom: 8px; }
+.prose blockquote p:last-child { margin-bottom: 0; }
+
+/* notices ---------------------------------------------------------------- */
+
+/* A bordered box on a filled ground, and nothing else.
+
+   It had a thickened left edge that .notice-warn recoloured amber — and every
+   one of the 18 notices in the built docs is `notice notice-warn`. There is no
+   plain variant. The colour was marking a distinction against a sibling that
+   does not exist, on a box already set apart by a full border, a background
+   and its padding. `.notice-warn` is left in the markup with no rule: when a
+   second kind of notice is written, it can earn its own. */
+.notice {
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm);
+  background: var(--bg-1);
+  padding: 12px 14px;
+  margin: 0 0 22px;
+  font-size: var(--text-base);
+}
+
+.notice p { margin: 0; }
+
+/* cards on the index page ------------------------------------------------ */
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin: 0 0 28px; }
+
+.card {
+  display: block;
+  padding: 14px 16px;
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+}
+
+.card:hover { border-color: var(--hairline-strong); background: var(--bg-2); }
+.card strong { display: block; color: var(--text-hi); font-size: var(--text-md); margin-bottom: 4px; }
+.card span { display: block; color: var(--text-dim); font-size: var(--text-base); line-height: 1.5; }
+
+/* pager ------------------------------------------------------------------ */
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--hairline);
+  max-width: 33em;
+}
+
+.pager a {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 14px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--text-hi);
+  font-size: var(--text-base);
+  min-width: 0;
+}
+
+.pager a:hover { border-color: var(--hairline-strong); background: var(--bg-1); }
+.pager-next { text-align: right; margin-left: auto; }
+
+.page-source {
+  margin-top: 32px;
+  max-width: 33em;
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+.page-source a { color: var(--text-dim); }
+
+/* on this page ----------------------------------------------------------- */
+
+.toc-rail { position: sticky; top: 74px; }
+.toc ul { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 4px; }
+.toc a { display: block; color: var(--text-dim); font-size: var(--text-sm); line-height: 1.4; text-decoration: none; }
+.toc a:hover { color: var(--text-hi); }
+.toc-3 { padding-left: 12px; }
+
+/* narrow ----------------------------------------------------------------- */
+
+@media (max-width: 1080px) {
+  .docs-shell { grid-template-columns: 230px minmax(0, 1fr); }
+  .toc-rail { display: none; }
+}
+
+@media (max-width: 760px) {
+  .docs-shell { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 20px 16px 60px; }
+  .sidebar { position: static; max-height: none; }
+  .sidebar-desktop { display: none; }
+  .sidebar-mobile { display: block; border: 1px solid var(--hairline); border-radius: var(--radius-md); padding: 10px 14px; }
+  .sidebar-mobile summary { cursor: pointer; font-size: var(--text-base); color: var(--text-hi); }
+  .sidebar-mobile .sidebar-nav { margin-top: 12px; }
+  .docs-top { padding: 10px 16px; }
+  .docs-top-links a:not(:last-child) { display: none; }
+  .prose h1 { font-size: 25px; }
+}

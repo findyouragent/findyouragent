@@ -1,0 +1,37 @@
+{
+  "name": "findyouragent-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:release": "node check-release-config.mjs && vite build",
+    "preview": "vite preview",
+    "test": "node test/narrate.test.mjs && node test/plain.test.mjs && node test/media.test.mjs && node test/pricing.test.mjs && node test/hire-session.test.mjs && node test/escrow-record.test.mjs && node test/machine-readable.test.mjs && node test/docs.test.mjs && node test/try-record.test.mjs && node test/try-session.test.mjs && node test/compare-evidence.test.mjs && node --test test/comparison-export.test.mjs && node test/registry-detail.test.mjs && node test/registry.test.mjs && node test/browse-recovery.test.mjs && node test/provider-handoffs.test.mjs && node test/release-config.test.mjs && node --test test/payment-challenge.test.mjs test/transaction-receipt.test.mjs test/payment-hire-recovery.test.mjs && node test/evidence.test.mjs && node --test test/paid-call-evidence.test.mjs test/paid-health-evidence.test.mjs && node test/evaluator-scan.test.mjs && node --test test/i18n.test.mjs && node --test test/payment-lifecycle.test.mjs && node --test test/saved-agent-evidence.test.mjs && node --test test/logic-activity.test.mjs test/memory-evidence.test.mjs test/verification-error.test.mjs && npm run test:navigation",
+    "scan:evaluator": "node evaluator-scan.mjs",
+    "test:navigation": "node --test test/read-session.test.mjs test/client-read-session.test.mjs",
+    "test:security": "node --test test/deliverable.test.mjs"
+  },
+  "dependencies": {
+    "@google/model-viewer": "^3.5.0",
+    "@web3icons/react": "^4.1.21",
+    "ethers": "^5.7.2",
+    "lucide-react": "^1.33.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "overrides": {
+    "@ethersproject/providers": {
+      "ws": "8.21.0"
+    }
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.4.1",
+    "marked": "^18.0.11",
+    "vite": "^6.3.5"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "status": "incomplete",
+  "checkedAt": "2026-09-08T22:43:54.408Z",
+  "rpcOrigin": "https://bsc-dataseed1.binance.org",
+  "blockTag": "0x732c3b8",
+  "blockNumber": 120767416,
+  "error": "RPC error {\"code\":-32000,\"message\":\"missing trie node\"}",
+  "stop": "Historical read failed or was unavailable; no alternate RPC and no further health read attempted."
+}

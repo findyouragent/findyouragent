@@ -1,0 +1,122 @@
+/*
+  The palette is BNB Chain's own, not a taste of ours.
+
+  This site measures agents on one chain, and the chain publishes a palette:
+  #F0B90B, the near-black surfaces, the #0ECB81 / #F6465D up-down pair, and the
+  #EAECEF → #848E9C text ramp. Taking it whole is the decision — every value
+  below is a real Binance token, so the surface is inherited rather than
+  invented, and the mint-on-black it replaces (#2fe6a8, 218 elements) was the
+  single most recognizable signature of a generated interface.
+
+  It also settles the contrast failure for free: the old --text-dim #5f6b78 ran
+  3.0–3.7:1 against these surfaces and failed WCAG AA on every one of them.
+  #848E9C clears 4.5:1 everywhere it carries body text.
+*/
+:root {
+  /* surface: registry terminal. darkest base, rows one step up, hairlines not shadows */
+  --bg-0: #0b0e11;
+  --bg-1: #181a20;
+  --bg-2: #1e2329;
+  --bg-3: #2b3139;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+
+  /* text: 16.4 / 10.2 / 5.8 against bg-0, so every rung carries body copy */
+  --text-hi: #eaecef;
+  --text-mid: #b7bdc6;
+  --text-dim: #848e9c;
+
+  /* Three registers that never borrow from each other.
+
+     --live / --stale / --danger describe an AGENT: it answered, it went quiet,
+     it failed. Green used to do this job AND paint the furniture — the selected
+     tab, a focus ring, a hovered name — which meant the page's own chrome was
+     making a claim about liveness in places where nothing had been measured.
+
+     --gold is the scarce action colour, and stays scarce: money leaves the
+     wallet. One step warmer and heavier than --stale, so a paid action never
+     reads as a status.
+
+     --brand is the site's own furniture and its mark. It holds gold's value
+     today; the note below says why it is still its own token. */
+  --live: #0ecb81;
+  --live-dim: rgba(14, 203, 129, 0.12);
+
+  /* A check that came back clean, written into running text — the summaries
+     down the evidence panel. Named for its job, not its hue, because the hue
+     has already moved once.
+
+     It is a muted gold rather than --gold itself, and the distance is the
+     point. Straight --gold sits 1.26:1 from --stale, which paints the word
+     "active" in the verdict banner directly above these rows, and 1.00:1 from
+     the hire button beside it — three different claims in one colour. At
+     #c99a2b it reads 1.81:1 from the verdict word and 1.43:1 from the CTA,
+     while still clearing AA on --bg-1 at 6.74:1. The dots and the banners keep
+     --live; this is the quieter register the panel is written in. */
+  --finding: #c99a2b;
+
+  /* The logo's colour. Green was the obvious choice and the wrong one twice
+     over: a mark painted in the signal colour reads as a status light, saying
+     "this is live" in the one place on the site where nothing is measured, and
+     green-plus-white on a rounded tile is a memecoin launchpad's signature,
+     which is not the neighbourhood this sits in.
+
+     It holds the same value as --gold today — BNB Chain's own colour, which is
+     what this product is built on — but it stays a separate token, because one
+     names an ecosystem and the other names an action. If the hire button's
+     gold ever moves, the logo should not follow it. */
+  --brand: #f0b90b;
+  /* The mark and the furniture at rim weight, same as --gold-line is to gold. */
+  --brand-line: rgba(240, 185, 11, 0.42);
+  --stale: #fcd535;
+  --stale-dim: rgba(252, 213, 53, 0.1);
+  --unproven: #848e9c;
+  --unproven-dim: rgba(132, 142, 156, 0.14);
+  --gold: #f0b90b;
+  --gold-dim: rgba(240, 185, 11, 0.14);
+  --danger: #f6465d;
+  /* Outlined controls carry the action colour at rest as a hairline, not as a
+     fill. These are the only alpha variants, and they live here so a palette
+     change reaches them: three hardcoded rgba() mints survived the switch to
+     BNB green and painted last palette outlines around this one's text. */
+  --live-line: rgba(14, 203, 129, 0.42);
+  --gold-line: rgba(240, 185, 11, 0.42);
+
+  /* One step above bg-3: scroll thumbs at hover, and the dash that stands in
+     for a reading nobody took. */
+  --bg-4: #3d4652;
+  --text-faint: #4a525d;
+
+  /* type */
+  /* Two families, and the split is semantic: display and body are the same
+     sans because both are human text, and mono is reserved for strings a
+     machine produced. --font-display survives as a role rather than a face —
+     it marks what is a heading, and it is the one hook to change if headings
+     ever take their own face again. */
+  --font-display: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* One ramp, and every size on the page comes from it. Eleven distinct sizes
+     between 10 and 18px were painting the try panel alone, which is what a
+     stylesheet grown one rule at a time looks like. 11px is the floor for
+     anything functional; 10px survives only as non-interactive smallprint. */
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-base: 13px;
+  --text-md: 15px;
+  --text-lg: 18px;
+  --text-xl: 26px;
+
+  /* geometry + motion */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --maxw: 1280px;
+  /* One inset for every panel interior. Five different values were in play
+     (12/14/16/18/20), so content started at a different x in each panel and
+     they read as unrelated objects however well their edges lined up. 18 is
+     the value most of them already used. */
+  --pad-panel: 18px;
+  --measure: 68ch;
+  --ease: 150ms ease;
+}

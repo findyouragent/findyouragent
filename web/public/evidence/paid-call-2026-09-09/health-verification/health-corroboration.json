@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "status": "complete",
+  "checkedAt": "2026-09-08T23:07:11.294Z",
+  "blockNumber": 120767416,
+  "blockTag": "0x732c3b8",
+  "chainId": 56,
+  "account": "0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173",
+  "comptroller": "0xfD36E2c2a6789Db23113685031d7F16329158384",
+  "rpcOrigin": "https://bsc-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3",
+  "source": "https://docs.nodereal.io/reference/getting-started-with-your-api",
+  "blockHash": "0x03cc45d9cb9c63106e905ea593ef9312fc2277720991f418d17c53d74d122004",
+  "blockTimestamp": "2026-09-08T22:36:45.000Z",
+  "liquidity": {
+    "errorCode": "0",
+    "liquidityRaw": "1213191186868957470",
+    "shortfallRaw": "0"
+  },
+  "oracle": "0x6592b5DE802159F3E74B2486b091D11a8256ab8A",
+  "mintedVAIRaw": "0",
+  "markets": [
+    {
+      "vToken": "0xA07c5b74C9B40447a954e1466938b865b6BBea36",
+      "symbol": "vBNB",
+      "underlying": null,
+      "underlyingDecimals": 18,
+      "snapshotError": "0",
+      "vTokenBalanceRaw": "19643732",
+      "borrowBalanceRaw": "0",
+      "exchangeRateRaw": "249457683175249292108748315",
+      "oracleUnderlyingPriceRaw": "752523000000000000000",
+      "borrowUsdRaw": "0"
+    },
+    {
+      "vToken": "0xfD5840Cd36d94D7229439859C0112a4185BC0255",
+      "symbol": "vUSDT",
+      "underlying": "0x55d398326f99059fF775485246999027B3197955",
+      "underlyingDecimals": 18,
+      "snapshotError": "0",
+      "vTokenBalanceRaw": "0",
+      "borrowBalanceRaw": "1737048586040949169",
+      "exchangeRateRaw": "264813723973737119736175931",
+      "oracleUnderlyingPriceRaw": "999895728977811800",
+      "borrowUsdRaw": "1736867462209292111"
+    }
+  ],
+  "totals": {
+    "borrowUsdRaw": "1736867462209292111",
+    "borrowUsd": "1.736867462209292111",
+    "liquidityUsd": "1.21319118686895747",
+    "shortfallUsd": "0.0",
+    "impliedAdjustedCollateralUsdRaw": "2950058649078249581",
+    "healthRatio": "1.698493819054"
+  },
+  "providerReported": {
+    "healthFactor": "1.698",
+    "borrowedUsd": "1.74",
+    "headroomUsd": "1.21"
+  },
+  "comparison": {
+    "debtRounded": "1.74",
+    "liquidityRounded": "1.21",
+    "healthRounded": "1.698",
+    "debtMatches": true,
+    "liquidityMatches": true,
+    "healthMatches": true
+  },
+  "borrowingPower": {
+    "errorCode": "0",
+    "availableRaw": "1213191186868957470",
+    "deficitRaw": "0",
+    "availableUsd": "1.21319118686895747"
+  },
+  "scope": "Independent RPC reconstruction at the named block. This is not a provider-declared observation block, proof of its data source, or an evaluation of future safety."
+}

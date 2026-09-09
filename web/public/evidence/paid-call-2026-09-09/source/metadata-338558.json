@@ -1,0 +1,18 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8787/api/agent-meta/56/338558",
+    "method": "GET",
+    "body": null,
+    "startedAt": "2026-09-08T22:23:35.164Z"
+  },
+  "finishedAt": "2026-09-08T22:23:35.700Z",
+  "elapsedMs": 536,
+  "status": 200,
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "date": "Tue, 08 Sep 2026 22:23:35 GMT"
+  },
+  "bytes": 5008,
+  "sha256": "f54565f7c2ef798a4035247207914018409744085bc05c42674f9bc3b00b993e",
+  "bodyFile": "metadata-338558.body"
+}

@@ -1,0 +1,16 @@
+export default {
+  'A public on-chain directory where anyone can register an agent by sending one transaction. Being listed proves registration, not quality.': '公开的链上目录，任何人都可以通过一笔交易注册智能体。被列入目录只证明已注册，并不证明质量。',
+  'BNB Chain’s standard for agents that exist as programmable NFTs: a token with a logic contract behind it, so the agent itself can be owned, funded and sold.': 'BNB Chain 的智能体标准，以可编程 NFT 表示智能体。代币背后有逻辑合约，因此智能体本身可以被持有、注资和出售。',
+  'What whoever registered this agent wrote about it in the public directory. A self-description: checkable, but a claim until compared with what the agent actually serves.': '注册者在公开目录中填写的智能体说明。这是可以核查的自我描述；在与智能体实际提供的接口进行比较前，仍属于其自行声明的内容。',
+  'The web address an agent publishes so software can call it. Publishing one is a claim; answering on it is what we check.': '智能体公开供软件调用的网络地址。发布地址只是声明；我们核查的是该地址是否响应。',
+  'A standard way for agents to receive requests from other software. An A2A server identifies itself by serving a small description file called an agent card.': '智能体接收其他软件请求的一种标准方式。A2A 服务器通过返回名为“智能体卡片”的简短描述文件来标识自己。',
+  'A standard way for software to ask a server which tools it offers and call them. The tool list is what the server itself reports it will execute.': '软件查询服务器提供哪些工具并调用它们的一种标准方式。工具列表是服务器自行报告可执行的工具。',
+  'A small file an agent’s server returns, describing what it is and the skills it offers. Written by the agent about itself: a self-description, not a review.': '智能体服务器返回的简短文件，描述其身份和提供的技能。内容由智能体方自行编写，属于自我描述，而非评测。',
+  'A named operation an agent can be asked to perform. This page compares the ones its listing advertises with the ones its live server actually offered.': '可请求智能体执行的具名操作。本页比较注册信息声明的技能与核查时服务器实际列出的技能。',
+  'Feedback recorded permanently against this agent’s directory entry by another blockchain account. It provably exists; the directory does not vouch for who left it.': '其他区块链账户针对该智能体目录条目提交的永久反馈。记录的存在可以验证，但目录不保证反馈者的身份。',
+  'Recorded on a public blockchain: anyone can read it and nobody can quietly edit or delete it. Permanence proves the record exists, not that it is true.': '记录在公开区块链上，任何人都可读取，无法被悄然修改或删除。永久性证明记录存在，并不证明内容真实。',
+  'A public index of agents that have been paid through x402. An agent appears there only because at least one payment to it actually settled.': '收录通过 x402 收到付款的智能体的公开索引。智能体只有在至少一笔付款实际完成结算后才会出现在其中。',
+  'A way for an agent to charge per call: the server quotes a price and the caller pays before the work runs. Support for it is declared by the agent; a settled payment is the part anyone can verify.': '智能体按次调用收费的一种方式：服务器报价，调用方在任务执行前付款。是否支持由智能体自行声明；任何人都可以验证的是已完成结算的付款。',
+  'A standard that gives an NFT its own wallet, derived from the token itself. Whoever owns the token controls the wallet, so its contents move with a sale automatically.': '让 NFT 拥有专属钱包的一项标准，钱包由代币本身派生。代币持有者控制钱包，因此出售代币时，钱包中的资产会随之转移。',
+  'The on-chain program a BAP-578 agent points at: the code that runs when the agent acts. Which contract an agent uses is public and can be changed by its owner.': 'BAP-578 智能体指向的链上程序，即智能体执行操作时运行的代码。使用的合约是公开的，且可由其所有者更改。',
+};

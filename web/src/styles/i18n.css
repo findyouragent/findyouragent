@@ -1,0 +1,54 @@
+/* The language picker shares the header's quiet text controls and themed list. */
+.language-select {
+  flex-shrink: 0;
+}
+.language-select .sel-trigger {
+  min-height: 36px;
+  padding: 6px 12px;
+  gap: 8px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-mid);
+  font-weight: 400;
+  line-height: 1.5;
+  transition: color var(--ease), background-color var(--ease);
+}
+.language-select .sel-trigger:hover,
+.language-select .sel-trigger[aria-expanded='true'] {
+  background: var(--bg-2);
+  color: var(--text-hi);
+}
+.language-select .sel-list {
+  left: auto;
+  min-width: 140px;
+}
+
+html:lang(zh-CN) {
+  --text-base: 14px;
+  --text-sm: 13px;
+  --text-xs: 12px;
+  --font-body: 'IBM Plex Sans', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
+  --font-display: var(--font-body);
+  --font-mono: 'JetBrains Mono', 'Microsoft YaHei', ui-monospace, monospace;
+}
+html:lang(zh-CN) body { line-height: 1.7; }
+html:lang(zh-CN) :is(.micro-label, .tab, h1, h2, h3) { letter-spacing: normal; }
+html:lang(zh-CN) :is(button, .btn, .topnav-link) { white-space: normal; }
+html:lang(zh-CN) :is(p, li, dd, .table-empty, .tab-note) { overflow-wrap: anywhere; }
+.language-note { color: var(--text-mid); line-height: 1.7; margin-block: 10px; }
+
+@media (max-width: 1000px) {
+  .topbar { flex-wrap: wrap; }
+  .topbar-search { min-width: 180px; }
+  .topbar-right { gap: 8px; }
+  .topnav-link { padding-inline: 8px; }
+}
+@media (max-width: 640px) {
+  .topbar-right { display: contents; }
+  .topnav { order: 2; flex-basis: 100%; flex-wrap: wrap; }
+  .language-select { margin-inline-start: auto; }
+  .language-select .sel-trigger,
+  .language-select .sel-opt { min-height: 44px; }
+  html:lang(zh-CN) .topbar-search input { font-size: 16px; }
+}

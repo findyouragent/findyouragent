@@ -1,0 +1,89 @@
+/* Task entry and selection keep the explorer's existing palette and compact
+   table. Listing a capability is deliberately separate from executing it. */
+.task-entry { margin: 18px 0 20px; }
+.task-entry-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.task-entry-head h2 { font-size: var(--text-lg); font-weight: 600; line-height: 1.4; }
+.task-entry-head > a { color: var(--text-mid); font-size: var(--text-sm); flex-shrink: 0; }
+.task-entry-links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 12px; border-block: 1px solid var(--hairline-strong); }
+.task-entry-links > a { padding: 12px 14px; color: var(--text-hi); text-decoration: none; border-bottom: 2px solid transparent; }
+.task-entry-links > a + a { border-left: 1px solid var(--hairline); }
+.task-entry-links > a:hover { background: var(--bg-1); }
+.task-entry-links > a[aria-current="page"] { background: var(--bg-1); border-bottom-color: var(--brand); }
+.task-entry-name { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-weight: 600; }
+.task-entry-name svg { flex-shrink: 0; color: var(--text-dim); }
+.task-entry-count { display: block; margin-top: 4px; font-size: var(--text-sm); color: var(--text-dim); }
+.task-entry-note { color: var(--text-dim); font-size: var(--text-sm); margin-top: 8px; max-width: 90ch; }
+.comparison-selection { margin: 12px 0; color: var(--text-mid); font-size: var(--text-sm); }
+.comparison-selection.has-selection { position: sticky; top: 0; z-index: 3; padding: 10px 12px; border: 1px solid var(--hairline-strong); border-radius: var(--radius-sm); background: var(--bg-0); }
+.comparison-selection-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.compare .compare-manage button { background: none; border: 0; padding: 0; color: var(--text-mid); font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.compare .compare-manage button:hover { color: var(--text-hi); }
+.comparison-clear { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; padding: 6px 12px; border: 1px solid var(--hairline-strong); border-radius: var(--radius-md); background: transparent; color: var(--text-mid); font: inherit; font-weight: 500; cursor: pointer; }
+.comparison-clear:hover { background: var(--bg-1); border-color: var(--text-mid); color: var(--text-hi); }
+.comparison-clear svg { flex-shrink: 0; }
+.comparison-selection-body { display: flex; align-items: center; gap: 10px 18px; margin-top: 8px; }
+.comparison-selection ul { list-style: none; padding: 3px; display: flex; gap: 8px; flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: thin; }
+.comparison-selection li { display: flex; align-items: center; gap: 12px; flex-shrink: 0; max-width: min(320px, 100%); min-height: 60px; padding: 8px 8px 8px 12px; border: 1px solid var(--hairline); border-radius: var(--radius-md); background: var(--bg-1); }
+.comparison-agent-label { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.comparison-agent-name { color: var(--text-hi); font-size: var(--text-base); font-weight: 500; overflow-wrap: anywhere; }
+.comparison-selection li small { color: var(--text-dim); font-size: var(--text-xs); white-space: nowrap; }
+.comparison-agent-remove { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; padding: 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-mid); cursor: pointer; }
+.comparison-agent-remove:hover { background: var(--bg-3); color: var(--text-hi); }
+.comparison-selection .comparison-open { flex-shrink: 0; width: auto; min-height: 44px; }
+.agent-table.has-selection .trow { grid-template-columns: 28px minmax(220px, 2fr) minmax(140px, 1fr) 76px 66px 80px 180px; gap: 10px; }
+.agent-table.has-selection .trow.is-selected { background: var(--bg-2); }
+.agent-table.has-selection .tcell-select { justify-content: center; }
+.agent-table.has-selection .row-select { display: grid; place-items: center; width: 32px; min-height: 44px; cursor: pointer; }
+.agent-table.has-selection .row-select:has(input:disabled) { cursor: not-allowed; }
+.agent-table.has-selection .row-select input { width: 16px; height: 16px; accent-color: var(--brand); cursor: inherit; }
+.agent-table.has-selection .tcell-actions { flex-wrap: wrap; gap: 8px 10px; }
+.compare .compare-manage { display: flex; flex-wrap: wrap; gap: 12px 24px; margin: 0 0 18px; color: var(--text-mid); font-size: var(--text-sm); }
+.compare-table-actions { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+.compare-table-actions .flow-btn { min-height: 44px; }
+.compare .compare-picker { margin: 0 0 20px; max-width: 680px; }
+.compare .compare-search label { display: block; margin-bottom: 6px; color: var(--text-hi); font-size: var(--text-base); }
+.compare .compare-search-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; }
+.compare .compare-search-controls input { flex: 1 1 200px; min-width: 0; min-height: 40px; padding: 8px 12px; border: 1px solid var(--hairline-strong); border-radius: var(--radius-sm); background: var(--bg-1); color: var(--text-hi); font: inherit; }
+.compare .compare-search-controls input::placeholder { color: var(--text-dim); }
+.compare .compare-search-controls button { min-height: 36px; }
+.compare .compare-search-controls a { color: var(--text-mid); font-size: var(--text-sm); }
+.compare .compare-search-message { margin-top: 10px; font-size: var(--text-sm); color: var(--text-mid); }
+.compare .compare-search-results ul { padding: 0; list-style: none; margin: 8px 0 0; border-top: 1px solid var(--hairline); }
+.compare .compare-search-results li { display: flex; gap: 16px; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--hairline); }
+.compare .compare-search-results li > span { min-width: 0; overflow-wrap: anywhere; }
+.compare .compare-search-results strong { display: block; font-size: var(--text-base); font-weight: 500; }
+.compare .compare-search-results small { color: var(--text-dim); font-size: var(--text-xs); }
+.compare .compare-search-results button { min-height: 36px; flex-shrink: 0; }
+.compare .compare-advanced { color: var(--text-dim); font-size: var(--text-sm); margin-top: 12px; }
+.compare .compare-advanced summary { cursor: pointer; width: fit-content; padding-block: 4px; }
+.compare .compare-advanced .compare-add { margin: 8px 0 0; flex-wrap: wrap; }
+.compare .compare-advanced input { min-height: 36px; max-width: 100%; }
+.compare .compare-remove { min-width: 28px; min-height: 28px; justify-content: center; }
+
+@media (max-width: 1100px) {
+  .agent-table.has-selection .trow { grid-template-columns: 30px minmax(0, 1fr) minmax(0, 1fr); padding: 10px 14px; row-gap: 8px; }
+  .agent-table.has-selection .thead { display: none; }
+  .agent-table.has-selection .tcell-select { grid-column: 1; grid-row: 1; align-self: start; }
+  .agent-table.has-selection .tcell-agent { grid-column: 2 / -1; grid-row: 1; }
+  .agent-table.has-selection .tcell-proto { grid-column: 2 / -1; }
+  .agent-table.has-selection .tcell-num { justify-content: flex-start; flex-wrap: wrap; gap: 2px 6px; font-size: var(--text-sm); }
+  .agent-table.has-selection .tcell-num::before { content: attr(data-label); font: inherit; color: var(--text-dim); margin: 0; text-transform: none; letter-spacing: normal; }
+  .agent-table.has-selection .tcell-num[data-label="feedbacks"],
+  .agent-table.has-selection .tcell-num[data-label="updated"] { grid-column: 2; }
+  .agent-table.has-selection .tcell-num[data-label="score"] { grid-column: 3; }
+  .agent-table.has-selection .tcell-actions { grid-column: 2 / -1; justify-content: flex-start; min-height: 36px; gap: 12px 18px; }
+  .agent-table.has-selection .tcell-actions a { display: inline-flex; align-items: center; min-height: 32px; }
+}
+@media (max-width: 700px) {
+  .task-entry-head { align-items: flex-start; }
+  .task-entry-head h2 { font-size: var(--text-md); }
+  .task-entry-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .task-entry-links > a { padding: 10px; }
+  .task-entry-links > a:nth-child(3) { border-left: 0; }
+  .task-entry-links > a:nth-child(n+3) { border-top: 1px solid var(--hairline); }
+  .task-entry-name { font-size: var(--text-sm); }
+  .comparison-selection-body { flex-direction: column; align-items: stretch; gap: 8px; margin-top: 4px; }
+  .comparison-selection ul { flex: auto; }
+  .comparison-clear { min-height: 44px; }
+  .compare .compare-grid { padding: 8px; }
+}

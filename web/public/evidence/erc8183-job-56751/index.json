@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fya-erc8183-job-evidence",
+  "title": "ERC-8183 hire and funding",
+  "environment": "local-development",
+  "observedDate": "2026-09-09",
+  "addedAt": "2026-09-09T00:41:58.599Z",
+  "jobId": "56751",
+  "agent": {
+    "chainId": 56,
+    "registryTokenId": "338558",
+    "bap578TokenId": "11168",
+    "name": "BORT COIN DEPLOYER AGENT",
+    "providerWallet": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee"
+  },
+  "providerAttribution": "BORT operates the provider and builds FYA.",
+  "independentCustomerEvidence": false,
+  "fundingEvidence": true,
+  "deliveryCommitmentEvidence": true,
+  "successfulAssessmentEvidence": false,
+  "finalSettlementEvidence": false,
+  "paidHireEvidence": false,
+  "qualification": "Five unchanged user screenshots document the local FYA hire flow through funding. The original address supplied by the assistant was malformed. The agent submitted an authentic input-validation error; the requested Venus assessment was not performed. This archive does not establish a completed successful escrow hire or final payment release.",
+  "transaction": {
+    "chainId": 56,
+    "txHash": "0x85c37e74f16b8084221add242267827e5c482e534538276160faf0e1c795368f",
+    "href": "https://bscscan.com/tx/0x85c37e74f16b8084221add242267827e5c482e534538276160faf0e1c795368f",
+    "blockNumber": 120781984,
+    "timestamp": "2026-09-09T00:26:12.000Z",
+    "amountRaw": "1000000000000000000",
+    "token": "0xcE24439F2D9C6a2289F741120FE202248B666666",
+    "recipient": "0xEa4DAa3100A767e86FDed867729ae7446476EBA6"
+  },
+  "delivery": {
+    "statusAtCheck": "submitted",
+    "checkedAt": "2026-09-09T00:33:14.869Z",
+    "submittedAt": "2026-09-09T00:27:54.000Z",
+    "fundingToSubmissionSeconds": 102,
+    "cid": "QmcJETsLABNY5WHSnKpyuxowuKGtDxmjcVvzn8dvtk7NZw",
+    "commitment": "0xcf650a7815f0a7e16efa0509da68309e9eaa59a2fffc6bcc6df8fa791f9e632a",
+    "binding": "SHA-256 of the raw single-block UnixFS DAG-PB root matches the on-chain commitment; manifest job/provider fields match.",
+    "outcome": "input-validation-error",
+    "assessmentPerformed": false,
+    "finalSettlementObserved": false
+  },
+  "limits": [
+    "Screenshots establish the pictured UI states and are not independent chain proofs.",
+    "Exact screenshot capture timestamps were not supplied; the user provided the step order.",
+    "The observed 45.5-second UI funding duration differs from the 102 seconds between the recorded funding and submission timestamps.",
+    "The submission-event log query was rate-limited; submitted status and timestamp were read from the job and policy contracts.",
+    "Historical state at the funding block was unavailable on the public RPC; the successful receipt and kernel funding event are preserved."
+  ],
+  "screenshots": [
+    {
+      "step": 1,
+      "title": "Hire available",
+      "caption": "The agent page exposes the ERC-8183 hire action and the published 1 U starting price.",
+      "href": "/evidence/erc8183-job-56751/screenshots/01-hire.png",
+      "source": "user-supplied screenshot",
+      "captureTime": null,
+      "edited": false,
+      "width": 1293,
+      "height": 813,
+      "bytes": 485880,
+      "sha256": "778ce3e9c8ba86739dfcf280b5e70e62e46f3f6aff7069cbafee6c689966ec3f"
+    },
+    {
+      "step": 2,
+      "title": "Choose the job",
+      "caption": "The user selects the Venus account health report and enters the original request. The captured request contains the malformed address supplied by the assistant.",
+      "href": "/evidence/erc8183-job-56751/screenshots/02-job.png",
+      "source": "user-supplied screenshot",
+      "captureTime": null,
+      "edited": false,
+      "width": 1299,
+      "height": 804,
+      "bytes": 463268,
+      "sha256": "ccc668ad1c875742091793de1f15e4a56d23741e0859bcee0f54f7e4d25572a0"
+    },
+    {
+      "step": 3,
+      "title": "Review the request",
+      "caption": "The review displays the on-chain description, 1 U budget, provider wallet, dispute window and up to five wallet confirmations.",
+      "href": "/evidence/erc8183-job-56751/screenshots/03-review.png",
+      "source": "user-supplied screenshot",
+      "captureTime": null,
+      "edited": false,
+      "width": 1288,
+      "height": 808,
+      "bytes": 437048,
+      "sha256": "7b61362ee99e42ff4ee2507bdc917f3f75479be2dcb5f4fff32dd2c1098f0f84"
+    },
+    {
+      "step": 4,
+      "title": "Wallet confirmation sequence",
+      "caption": "Approval, job creation, policy registration and budget setting are shown; funding is still awaiting wallet confirmation in this frame.",
+      "href": "/evidence/erc8183-job-56751/screenshots/04-wallet-steps.png",
+      "source": "user-supplied screenshot",
+      "captureTime": null,
+      "edited": false,
+      "width": 1309,
+      "height": 810,
+      "bytes": 401274,
+      "sha256": "50d1660cb5c32101f4da7e019731195392f9be777f7e9fc2755839ac0c9acfc6"
+    },
+    {
+      "step": 5,
+      "title": "Funding confirmed",
+      "caption": "FYA displays job #56751 as funded with 1 U. The interface reports escrow opened in 45.5 seconds; this is the displayed UI timing, not the funding-to-delivery interval.",
+      "href": "/evidence/erc8183-job-56751/screenshots/05-funded.png",
+      "source": "user-supplied screenshot",
+      "captureTime": null,
+      "edited": false,
+      "width": 1288,
+      "height": 811,
+      "bytes": 414808,
+      "sha256": "827c1681c360a55b3405668bc6a1231ebbc945bf5be65e8f391877373502bce3"
+    }
+  ],
+  "artifacts": [
+    {
+      "href": "/evidence/erc8183-job-56751/screenshots/01-hire.png",
+      "bytes": 485880,
+      "sha256": "778ce3e9c8ba86739dfcf280b5e70e62e46f3f6aff7069cbafee6c689966ec3f",
+      "mediaType": "image/png"
+    },
+    {
+      "href": "/evidence/erc8183-job-56751/screenshots/02-job.png",
+      "bytes": 463268,
+      "sha256": "ccc668ad1c875742091793de1f15e4a56d23741e0859bcee0f54f7e4d25572a0",
+      "mediaType": "image/png"
+    },
+    {
+      "href": "/evidence/erc8183-job-56751/screenshots/03-review.png",
+      "bytes": 437048,
+      "sha256": "7b61362ee99e42ff4ee2507bdc917f3f75479be2dcb5f4fff32dd2c1098f0f84",
+      "mediaType": "image/png"
+    },
+    {
+      "href": "/evidence/erc8183-job-56751/screenshots/04-wallet-steps.png",
+      "bytes": 401274,
+      "sha256": "50d1660cb5c32101f4da7e019731195392f9be777f7e9fc2755839ac0c9acfc6",
+      "mediaType": "image/png"
+    },
+    {
+      "href": "/evidence/erc8183-job-56751/screenshots/05-funded.png",
+      "bytes": 414808,
+      "sha256": "827c1681c360a55b3405668bc6a1231ebbc945bf5be65e8f391877373502bce3",
+      "mediaType": "image/png"
+    },
+    {
+      "href": "/evidence/erc8183-job-56751/verification.json",
+      "bytes": 3963,
+      "sha256": "d3a3f744b8bbf8fcdcbe19b365fbca9fea6f637ae26086e0a86e513273cfd0e7",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56751/rpc-raw.json",
+      "bytes": 35753,
+      "sha256": "8f925269546e3a771f2d4a7696b4897ca35dc1ee4b2e686acda3793b4d0df00d",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56751/delivery-original.json",
+      "bytes": 1889,
+      "sha256": "5528082dab8bdf589aa1b2785bb4d18e930338ff8a9cb00360a754a129b60a2a",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56751/delivery-verification.json",
+      "bytes": 2851,
+      "sha256": "1e349bc7d68c63e4ce1d443164566a79a175d15bfbad2745ed02b2e2b0cdaabe",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56751/ipfs-root-block.bin",
+      "bytes": 1900,
+      "sha256": "cf650a7815f0a7e16efa0509da68309e9eaa59a2fffc6bcc6df8fa791f9e632a",
+      "mediaType": "application/octet-stream"
+    },
+    {
+      "href": "/evidence/erc8183-job-56751/delivery-requests.json",
+      "bytes": 1080,
+      "sha256": "918bbd5e1c84fcef2e2be6a0cdb4d91cac819cbfab41ea06f1aac16296d31c0d",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56751/submission-event-rpc.json",
+      "bytes": 578,
+      "sha256": "ceacccc86614719c3e409c21b7a9b0d31f0f1ec9a09ee9af55a33bc43c099820",
+      "mediaType": "application/json"
+    }
+  ]
+}

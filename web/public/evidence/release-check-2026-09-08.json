@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fya-development-release-check-excerpt",
+  "status": "failed",
+  "observedDate": "2026-09-08",
+  "startedAt": null,
+  "finishedAt": null,
+  "dateBasis": "Dated development checkpoint and source log filesystem modification time. The log did not record exact test start/end times.",
+  "sourceLog": {
+    "artifact": "runtime-release-smoke.log",
+    "sha256": "c45d4015cdcb69c2f0521969689dc51c06ee8936a9399de328334f96c6017230",
+    "bytes": 2022,
+    "modifiedAt": "2026-09-08T10:06:37.419Z",
+    "published": false,
+    "explanation": "Only selected check-result lines and totals are transcribed here. This JSON is a derived excerpt, not the original log or a signed report."
+  },
+  "captureRevision": null,
+  "environment": {
+    "kind": "local-development",
+    "apiBase": "http://localhost:8787"
+  },
+  "command": "node smoke.js --release",
+  "commandDirectory": "server",
+  "counts": {
+    "passed": 6,
+    "failed": 1,
+    "incomplete": 6
+  },
+  "checks": [
+    {
+      "status": "incomplete",
+      "name": "registry reachable",
+      "detail": "registry-unavailable (HTTP 502); required evidence is incomplete. No automatic retry. Current rate/retry headers: x-ratelimit-limit=60, x-ratelimit-remaining=57. Respect Retry-After before rerunning."
+    },
+    {
+      "status": "incomplete",
+      "name": "registry statistics",
+      "detail": "registry-unavailable (HTTP 502); required evidence is incomplete. No automatic retry. Current rate/retry headers: x-ratelimit-limit=60, x-ratelimit-remaining=59. Respect Retry-After before rerunning."
+    },
+    {
+      "status": "incomplete",
+      "name": "registry category search",
+      "detail": "registry read unavailable; further registry queries skipped"
+    },
+    {
+      "status": "pass",
+      "name": "service healthy",
+      "detail": "formula v0.8, sweep queued 0"
+    },
+    {
+      "status": "incomplete",
+      "name": "verdict carries evidence",
+      "detail": "registry-unavailable (HTTP 502); required evidence is incomplete. No automatic retry. Current rate/retry headers: x-ratelimit-limit=20, x-ratelimit-remaining=19. Respect Retry-After before rerunning."
+    },
+    {
+      "status": "incomplete",
+      "name": "nameplate check",
+      "detail": "registry read unavailable; further registry queries skipped"
+    },
+    {
+      "status": "pass",
+      "name": "history accumulates",
+      "detail": "20 check(s) on record"
+    },
+    {
+      "status": "pass",
+      "name": "summary counts real checks",
+      "detail": "33440 run, 23663 unique, live=6"
+    },
+    {
+      "status": "pass",
+      "name": "capability search returns usable agents",
+      "detail": "3 stored matches for \"liquidity\""
+    },
+    {
+      "status": "pass",
+      "name": "marketplace MCP search returns usable agents",
+      "detail": "3 stored matches"
+    },
+    {
+      "status": "incomplete",
+      "name": "agent metadata resolves",
+      "detail": "registry-unavailable (HTTP 502); required evidence is incomplete. No automatic retry. Current rate/retry headers: x-ratelimit-limit=20, x-ratelimit-remaining=18. Respect Retry-After before rerunning."
+    },
+    {
+      "status": "fail",
+      "name": "try relay reaches the agent",
+      "detail": "interface HTTP 502: error=The agent registry could not supply this agent’s current endpoint. Try again shortly.; code=request-timeout; source=registry; phase=agent-detail; retryable=false"
+    },
+    {
+      "status": "pass",
+      "name": "bad input is rejected",
+      "detail": "400 on a non-numeric tokenId"
+    }
+  ],
+  "conclusion": "This recorded run failed. Registry reads were unavailable, and the Try interface failed during endpoint lookup before a task submission. Earlier successful task captures do not pass this later release gate.",
+  "paidHireEvidence": false,
+  "deployedReleaseEvidence": false
+}

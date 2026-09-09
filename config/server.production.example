@@ -1,0 +1,10 @@
+# Non-secret deployment example. Set credentials in your hosting platform.
+NODE_ENV=production
+PORT=8787
+DATA_DIR=/var/data
+ALLOWED_ORIGIN=https://findyouragent.xyz
+SWEEP_ENABLED=false
+
+# Provision these separately if required by your deployment.
+# SCAN8004_API_KEY=your-registry-key
+# BSC_RPC_URL=https://your-bsc-rpc.example

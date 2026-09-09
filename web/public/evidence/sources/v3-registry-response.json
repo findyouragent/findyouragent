@@ -1,0 +1,527 @@
+{
+  "id": "e23561b4-9c33-455a-919e-caacd92df808",
+  "owner_id": "c0fa08b2-67d0-4c50-90e9-d809b4e4e92b",
+  "owner_address": "0xda977767452c5dd021624511f14df67b6c9c2c1b",
+  "owner_ens": null,
+  "owner_username": null,
+  "owner_avatar_url": null,
+  "owner_publisher_tier": null,
+  "owner_certified_name": null,
+  "creator_address": "0xda977767452c5dd021624511f14df67b6c9c2c1b",
+  "agent_id": "56:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432:45650",
+  "token_id": "45650",
+  "chain_id": 56,
+  "chain_type": "evm",
+  "is_testnet": false,
+  "contract_address": "0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+  "name": "V3 Pools powered by HeyAnon",
+  "description": "Safe execution layer for Uniswap V3-style concentrated liquidity on BSC, Ethereum, Arbitrum, Base, Optimism, Polygon, Avalanche, Plasma, HyperEVM, Monad, and Robinhood Chain. Use getDexInfo to discover which DEX (Uniswap, PancakeSwap, ProjectX, or OkuTrade) and fee tiers are available per chain. Validates price ranges, estimates optimal tick spacing, checks token approvals before returning pre-validated calldata. Covers creating pools/positions, increasing/decreasing liquidity, collecting fees, single-side positions, and range estimation.",
+  "agent_type": null,
+  "is_verified": false,
+  "star_count": 0,
+  "watch_count": 0,
+  "supported_protocols": [
+    "MCP",
+    "Web"
+  ],
+  "agent_wallet": "0xda977767452c5dd021624511f14df67b6c9c2c1b",
+  "x402_supported": true,
+  "image_url": "https://api.8004scan.io/api/v1/media/agents/56/45650/image",
+  "tags": [],
+  "categories": [],
+  "services": {
+    "mcp": {
+      "endpoint": "https://erc8004.heyanon.ai/mcp/v3pools",
+      "version": "2025-06-18",
+      "tools": [
+        "getSupportedChains",
+        "getDexInfo",
+        "collectFees",
+        "createPool",
+        "createPosition",
+        "decreaseLiquidity",
+        "getAllPositionsIds",
+        "getLpPosition",
+        "increaseLiquidity",
+        "createSingleSidePosition",
+        "estimateAmountsForPositionCreation",
+        "estimateRangesAndAmountsForUsdPositionCreation",
+        "estimateRangesForSellingUsdSingleSide",
+        "estimateRangesForBuyingUsdSingleSide",
+        "estimateAmountsForIncreasePosition",
+        "getCurrentPoolPrice",
+        "getPredefinedPriceRanges"
+      ],
+      "prompts": [],
+      "resources": []
+    },
+    "web": {
+      "endpoint": "https://heyanon.ai"
+    }
+  },
+  "scores": {
+    "quality": 0,
+    "popularity": 5.84726684522911,
+    "activity": 10,
+    "wallet": 20.3362451125,
+    "freshness": 28.993595126671952,
+    "metadata_completeness": 80,
+    "health_score": 100,
+    "breakdown": {
+      "version": "5.2",
+      "algorithm": "v5_leaderboard_policy",
+      "dimensions": {
+        "service": {
+          "score": 90,
+          "weight": 0.25,
+          "details": {
+            "has_a2a": false,
+            "has_mcp": true,
+            "mcp_stats": {
+              "has_name": true,
+              "server_name": "heyanon-erc8004-v3pools",
+              "tools_count": 17,
+              "prompts_count": 0,
+              "server_version": "1.0.0",
+              "resources_count": 0
+            },
+            "a2a_quality": null,
+            "final_score": 90,
+            "mcp_quality": 90,
+            "health_status": "healthy",
+            "integrity_tier": "healthy",
+            "aggregation_method": "max",
+            "discoverability_tier": "ready"
+          }
+        },
+        "momentum": {
+          "score": 5.02,
+          "weight": 0.1,
+          "details": {
+            "final_score": 5.018449114590282,
+            "activity_score": 10,
+            "activity_source": "legacy_scores",
+            "freshness_score": 0.03689822918056386,
+            "days_since_creation": 166
+          }
+        },
+        "publisher": {
+          "score": 43.14,
+          "weight": 0.2,
+          "details": {
+            "cert_bonus": 0,
+            "final_score": 43.13858805382813,
+            "is_certified": false,
+            "wallet_score": 37.13858805382813,
+            "wallet_source": "agent_wallet",
+            "wallet_address": "0xda977767452c5dd021624511f14df67b6c9c2c1b",
+            "validation_bonus": 6,
+            "validation_score": 30,
+            "certification_tier": null,
+            "owner_certified_name": null,
+            "owner_publisher_tier": null,
+            "has_chain_wallet_data": true,
+            "has_address_wallet_data": true
+          }
+        },
+        "compliance": {
+          "score": 80,
+          "weight": 0.15,
+          "details": {
+            "error_count": 0,
+            "final_score": 80,
+            "parse_status": "success",
+            "parse_penalty": 1,
+            "warning_count": 0,
+            "verification_bonus": 0,
+            "is_endpoint_verified": false,
+            "metadata_completeness_score": 80
+          }
+        },
+        "engagement": {
+          "score": 5.11,
+          "weight": 0.3,
+          "details": {
+            "chat_count": 0,
+            "global_max": {
+              "max_chats": 0,
+              "max_stars": 4013,
+              "max_views": 9871,
+              "total_agents": 863174,
+              "calculated_at": "2026-09-01T01:03:00.879049+00:00",
+              "max_feedbacks": 294812,
+              "mainnet_agents": 540955,
+              "testnet_agents": 322219,
+              "agents_with_feedbacks": 155409
+            },
+            "star_count": 0,
+            "view_count": 22,
+            "final_score": 5.1136318901437114,
+            "average_score": 0,
+            "feedback_count": 3,
+            "feedback_score": 0,
+            "feedback_weight": 0.3,
+            "popularity_score": 10.227263780287423,
+            "recent_chat_count": 0,
+            "recent_feedback_count": 3,
+            "satisfaction_component": 0
+          }
+        }
+      },
+      "raw_scores": {
+        "wallet": 20.3362451125,
+        "quality": 0,
+        "activity": 10,
+        "metadata": 80,
+        "freshness": 28.993595126671952,
+        "popularity": 5.84726684522911
+      },
+      "final_score": 30.46208541166901,
+      "multipliers": {
+        "no_service": {
+          "note": "Built into service dimension (cap at 30)",
+          "applied": true,
+          "has_a2a": false,
+          "has_mcp": false
+        },
+        "completeness": {
+          "tier": "complete",
+          "value": 1
+        }
+      },
+      "leaderboard_policy": {
+        "notes": [],
+        "version": "5.2",
+        "weights": {
+          "proof": 0.85,
+          "support": 0.15
+        },
+        "algorithm": "v5_leaderboard_policy",
+        "score_band": {
+          "floor": 30,
+          "ceiling": 55
+        },
+        "merit_score": 1.848341646676027,
+        "proof_score": 0,
+        "evidence_tier": "early",
+        "support_score": 49.28911057802739,
+        "feedback_count": 3,
+        "integrity_tier": "healthy",
+        "support_details": {
+          "reach_score": 5.096500000000001,
+          "trust_score": 56.0532726977424,
+          "feedback_volume_proxy": 39.21732415391565
+        },
+        "base_evidence_rank": 0,
+        "discoverability_tier": "ready",
+        "feedback_signal_score": 0,
+        "discoverability_factor": 1,
+        "weighted_support_score": 12.322277644506848,
+        "effective_evidence_rank": 0
+      }
+    },
+    "last_scored_at": "2026-09-03T14:14:22.240218+00:00"
+  },
+  "total_score": 30.45,
+  "cross_chain_links": [
+    {
+      "target_chain_id": 1088,
+      "target_registry": "0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+      "target_token_id": "137",
+      "target_agent_id": null,
+      "linked_agent_id": "ddfd1f2f-b9fb-4d97-8107-642dfd003e38",
+      "verification_status": "owner_match"
+    },
+    {
+      "target_chain_id": 1,
+      "target_registry": "0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+      "target_token_id": "29063",
+      "target_agent_id": null,
+      "linked_agent_id": "963716b1-2d14-4c50-b89e-cb35cc1ad391",
+      "verification_status": "owner_match"
+    },
+    {
+      "target_chain_id": 42161,
+      "target_registry": "0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+      "target_token_id": "715",
+      "target_agent_id": null,
+      "linked_agent_id": "6799687e-a67f-4a0e-a39a-fcf19a74df73",
+      "verification_status": "owner_match"
+    },
+    {
+      "target_chain_id": 8453,
+      "target_registry": "0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+      "target_token_id": "33802",
+      "target_agent_id": null,
+      "linked_agent_id": "714a6768-aa97-452c-a1fd-8ef24c46b94c",
+      "verification_status": "owner_match"
+    },
+    {
+      "target_chain_id": 10,
+      "target_registry": "0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+      "target_token_id": "458",
+      "target_agent_id": null,
+      "linked_agent_id": "72ff84c9-91b4-4711-b303-c533f1a90ee6",
+      "verification_status": "owner_match"
+    },
+    {
+      "target_chain_id": 137,
+      "target_registry": "0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+      "target_token_id": "331",
+      "target_agent_id": null,
+      "linked_agent_id": "e8ff2d70-6218-4884-a06f-5325199a4525",
+      "verification_status": "owner_match"
+    },
+    {
+      "target_chain_id": 43114,
+      "target_registry": "0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+      "target_token_id": "1741",
+      "target_agent_id": null,
+      "linked_agent_id": "8ff289f7-1f70-46c9-bdd1-97800bcc14ad",
+      "verification_status": "owner_match"
+    }
+  ],
+  "cross_chain_versions": null,
+  "created_block_number": 87329988,
+  "created_tx_hash": "0x46a615009693d5a3438ebc35f0077fabe7c9d5d743bca0c2dec55b56e02c6ed9",
+  "is_endpoint_verified": false,
+  "endpoint_verified_at": null,
+  "endpoint_verified_domain": null,
+  "endpoint_verification_error": "erc8004.heyanon.ai: HTTP 404; heyanon.ai: HTTP 404; x.com: Connection error: ClientResponseError; t.me: Invalid JSON response; discord.com: HTTP 404",
+  "endpoint_last_checked_at": "2026-09-07T12:02:00.510263Z",
+  "is_active": true,
+  "supported_trust_models": [
+    "reputation"
+  ],
+  "health_status": {
+    "services": {
+      "mcp": {
+        "stats": {
+          "has_name": true,
+          "server_name": "heyanon-erc8004-v3pools",
+          "tools_count": 17,
+          "prompts_count": 0,
+          "server_version": "1.0.0",
+          "resources_count": 0
+        },
+        "domain": "erc8004.heyanon.ai",
+        "status": "healthy",
+        "message": "MCP server with 17 tools (cached)",
+        "checked_at": "2026-09-07T12:02:00.510077+00:00",
+        "latency_ms": 542.07,
+        "domain_verified": false,
+        "verification_error": "HTTP 404",
+        "verification_status": "failed"
+      },
+      "web": {
+        "domain": "heyanon.ai",
+        "status": "skipped",
+        "message": "Service type not health-checked: web",
+        "checked_at": "2026-09-07T12:02:00.510154+00:00",
+        "latency_ms": null,
+        "domain_verified": false,
+        "verification_error": "Endpoint not health-checked",
+        "verification_status": "skipped"
+      },
+      "discord": {
+        "domain": "discord.com",
+        "status": "skipped",
+        "message": "Service type not health-checked: discord",
+        "checked_at": "2026-09-07T12:02:00.510263+00:00",
+        "latency_ms": null,
+        "domain_verified": false,
+        "verification_error": "Endpoint not health-checked",
+        "verification_status": "skipped"
+      },
+      "twitter": {
+        "domain": "x.com",
+        "status": "skipped",
+        "message": "Service type not health-checked: twitter",
+        "checked_at": "2026-09-07T12:02:00.510214+00:00",
+        "latency_ms": null,
+        "domain_verified": false,
+        "verification_error": "Endpoint not health-checked",
+        "verification_status": "skipped"
+      },
+      "telegram": {
+        "domain": "t.me",
+        "status": "skipped",
+        "message": "Service type not health-checked: telegram",
+        "checked_at": "2026-09-07T12:02:00.510247+00:00",
+        "latency_ms": null,
+        "domain_verified": false,
+        "verification_error": "Endpoint not health-checked",
+        "verification_status": "skipped"
+      }
+    },
+    "checked_at": "2026-09-07T12:02:00.510358+00:00",
+    "agent_wallet": null,
+    "health_score": 100,
+    "owner_wallet": {
+      "status": "healthy",
+      "message": "Balance: 0.0018 native, Txns: 29",
+      "checked_at": "2026-09-07T12:02:00.510311+00:00",
+      "latency_ms": null
+    },
+    "overall_status": "healthy",
+    "verification_summary": {
+      "any_verified": false,
+      "verified_count": 0,
+      "verifiable_count": 1
+    }
+  },
+  "health_score": 100,
+  "health_checked_at": "2026-09-07T12:02:00.510385Z",
+  "total_feedbacks": 3,
+  "total_validations": 0,
+  "successful_validations": 0,
+  "average_score": 0,
+  "rank": 541,
+  "network_rank": 541,
+  "parse_status": {
+    "info": [],
+    "errors": [],
+    "status": "success",
+    "warnings": [],
+    "last_parsed_at": "2026-08-24T19:53:09.395812+00:00"
+  },
+  "raw_metadata": {
+    "onchain": [
+      {
+        "key": "agentWallet",
+        "value": "0xda977767452c5dd021624511f14df67b6c9c2c1b",
+        "decoded": "0xda977767452c5dd021624511f14df67b6c9c2c1b"
+      }
+    ],
+    "offchain_uri": "ipfs://bafkreihieg77na75qwuthry4w4splip6g24kpy4ftbor3qi4lrmacuk4cu",
+    "offchain_content": {
+      "name": "V3 Pools powered by HeyAnon",
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "image": "https://cyan-accepted-chinchilla-436.mypinata.cloud/ipfs/bafkreiekpmpewvyvmrlqotlg2orwxaccrn5r3zlqwr6hyrailjlwqrr6ae",
+      "active": true,
+      "services": [
+        {
+          "name": "MCP",
+          "tools": [
+            "getSupportedChains",
+            "getDexInfo",
+            "collectFees",
+            "createPool",
+            "createPosition",
+            "decreaseLiquidity",
+            "getAllPositionsIds",
+            "getLpPosition",
+            "increaseLiquidity",
+            "createSingleSidePosition",
+            "estimateAmountsForPositionCreation",
+            "estimateRangesAndAmountsForUsdPositionCreation",
+            "estimateRangesForSellingUsdSingleSide",
+            "estimateRangesForBuyingUsdSingleSide",
+            "estimateAmountsForIncreasePosition",
+            "getCurrentPoolPrice",
+            "getPredefinedPriceRanges"
+          ],
+          "version": "2025-06-18",
+          "endpoint": "https://erc8004.heyanon.ai/mcp/v3pools",
+          "capabilities": [
+            "tools"
+          ]
+        },
+        {
+          "name": "web",
+          "endpoint": "https://heyanon.ai"
+        },
+        {
+          "name": "twitter",
+          "endpoint": "https://x.com/heyanonai"
+        },
+        {
+          "name": "telegram",
+          "endpoint": "https://t.me/realwagmi"
+        },
+        {
+          "name": "discord",
+          "endpoint": "https://discord.com/invite/realwagmi"
+        }
+      ],
+      "updatedAt": 1787596511,
+      "description": "Safe execution layer for Uniswap V3-style concentrated liquidity on BSC, Ethereum, Arbitrum, Base, Optimism, Polygon, Avalanche, Plasma, HyperEVM, Monad, and Robinhood Chain. Use getDexInfo to discover which DEX (Uniswap, PancakeSwap, ProjectX, or OkuTrade) and fee tiers are available per chain. Validates price ranges, estimates optimal tick spacing, checks token approvals before returning pre-validated calldata. Covers creating pools/positions, increasing/decreasing liquidity, collecting fees, single-side positions, and range estimation.",
+      "x402Support": true,
+      "registrations": [
+        {
+          "agentId": 29063,
+          "agentRegistry": "eip155:1:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+        },
+        {
+          "agentId": 715,
+          "agentRegistry": "eip155:42161:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+        },
+        {
+          "agentId": 33802,
+          "agentRegistry": "eip155:8453:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+        },
+        {
+          "agentId": 458,
+          "agentRegistry": "eip155:10:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+        },
+        {
+          "agentId": 331,
+          "agentRegistry": "eip155:137:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+        },
+        {
+          "agentId": 1741,
+          "agentRegistry": "eip155:43114:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+        },
+        {
+          "agentId": 45650,
+          "agentRegistry": "eip155:56:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+        },
+        {
+          "agentId": 10227,
+          "agentRegistry": "eip155:143:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+        },
+        {
+          "agentId": 35,
+          "agentRegistry": "eip155:4663:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+        }
+      ],
+      "supportedTrust": [
+        "reputation"
+      ]
+    }
+  },
+  "field_sources": {
+    "name": "offchain",
+    "description": "offchain",
+    "image": "offchain",
+    "agent_wallet": "hardcoded",
+    "agent_wallet_chain_id": null,
+    "x402_supported": "offchain",
+    "mcp_server": null,
+    "a2a_endpoint": null,
+    "tags": null,
+    "categories": null,
+    "capabilities": null,
+    "active": "offchain",
+    "services": "offchain",
+    "updatedAt": "offchain",
+    "agent_type": "offchain",
+    "registrations": "offchain",
+    "supportedTrust": "offchain"
+  },
+  "ens": null,
+  "did": null,
+  "mcp_server": "https://erc8004.heyanon.ai/mcp/v3pools",
+  "mcp_version": "2025-06-18",
+  "a2a_endpoint": null,
+  "a2a_version": null,
+  "agent_url": null,
+  "quality_score": 0,
+  "popularity_score": 5.84726684522911,
+  "activity_score": 10,
+  "wallet_score": 20.3362451125,
+  "freshness_score": 28.993595126671952,
+  "metadata_completeness_score": 80,
+  "created_at": "2026-03-18T15:16:36Z",
+  "updated_at": "2026-09-07T12:01:43.630197Z"
+}

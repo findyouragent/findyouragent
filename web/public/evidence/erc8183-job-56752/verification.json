@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "checkedAt": "2026-09-09T00:54:28.953Z",
+  "txHash": "0xced5cc37f44921af7bfddd6480d428d395b54b298de8176887a6b969d185ab9c",
+  "rpcUrl": "https://bsc-dataseed1.binance.org",
+  "chainId": 56,
+  "addresses": {
+    "kernel": "0xEa4DAa3100A767e86FDed867729ae7446476EBA6",
+    "router": "0x51895229E12F9876011789B04f8698af06cCD6DA",
+    "policy": "0x9C01845705b3078Aa2e8cfF7520a6376FD766dE5",
+    "provider": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee",
+    "token": "0xcE24439F2D9C6a2289F741120FE202248B666666"
+  },
+  "jobId": "56752",
+  "funding": {
+    "from": "0x54e5651a7f62859cccb5b75613165a69c24ecb4e",
+    "to": "0xea4daa3100a767e86fded867729ae7446476eba6",
+    "callPath": "direct kernel call",
+    "blockNumber": 120785441,
+    "blockHash": "0xb9bd0a539fbedaf1f3d92a33a0e9a21912e4f44fda180c3aba235d3ce5b3d0dc",
+    "timestamp": "2026-09-09T00:52:09.000Z",
+    "status": "0x1",
+    "decodedBudgetWei": "1000000000000000000",
+    "logs": [
+      {
+        "address": "0xce24439f2d9c6a2289f741120fe202248b666666",
+        "event": "Transfer",
+        "values": {
+          "from": "0x54E5651a7f62859CcCB5B75613165a69C24ECb4e",
+          "to": "0xEa4DAa3100A767e86FDed867729ae7446476EBA6",
+          "value": "1000000000000000000"
+        },
+        "logIndex": 443
+      },
+      {
+        "address": "0xea4daa3100a767e86fded867729ae7446476eba6",
+        "event": "JobFunded",
+        "values": {
+          "jobId": "56752",
+          "client": "0x54E5651a7f62859CcCB5B75613165a69C24ECb4e",
+          "provider": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee",
+          "amount": "1000000000000000000"
+        },
+        "logIndex": 444
+      }
+    ]
+  },
+  "observed": {
+    "blockNumber": 120785752,
+    "blockHash": "0xa8066ed33e0f7f5de389d592367bc764d21f2003244ae0bc6c78d3f5931ca9b0",
+    "timestamp": "2026-09-09T00:54:29.000Z"
+  },
+  "fundedJob": null,
+  "historicalStateError": "{\"code\":-32000,\"message\":\"missing trie node\"}",
+  "currentJob": {
+    "jobId": "56752",
+    "client": "0x54E5651a7f62859CcCB5B75613165a69C24ECb4e",
+    "provider": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee",
+    "evaluator": "0x51895229E12F9876011789B04f8698af06cCD6DA",
+    "description": "[venus-account-health-report] Use check_lending_health to assess wallet_address 0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173 on Venus, BSC.\n\nReturn the account, protocol/network, observation time in UTC, health factor, borrowed value, and remaining borrowing headroom with units. Include the actual tool output and source block if available. If there is no debt, state that explicitly. Report unavailable fields as unknown; do not invent values.\n\nThis is one read-only assessment. Do not repay, trade, approve, transfer funds, or start monitoring.",
+    "budgetWei": "1000000000000000000",
+    "budgetU": "1.0",
+    "expiresAt": "2026-09-21T00:51:44.000Z",
+    "statusCode": 2,
+    "status": "submitted",
+    "deliverable": "0xbe59737972adf79a1923e4a898bd240e8569e0726d1d3139291fc9e2ed2b65b9"
+  },
+  "requestedWallet": "0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173",
+  "actualPolicy": "0x9C01845705b3078Aa2e8cfF7520a6376FD766dE5",
+  "checks": {
+    "chainIsBsc": true,
+    "fundingReceiptSucceeded": true,
+    "jobIdMatchesExpected": true,
+    "requestedWalletValid": true,
+    "calldataBudgetIs1U": true,
+    "fundingEventMatches": true,
+    "tokenMovedToEscrow": true,
+    "jobProviderMatches": true,
+    "jobClientMatches": true,
+    "jobBudgetMatches": true,
+    "evaluatorMatchesRouter": true,
+    "policyMatchesConfigured": true,
+    "fundedAtFundingBlock": null
+  },
+  "limitations": [
+    "Funding is not delivery or final payment release.",
+    "A published hire menu does not establish provider readiness.",
+    "Provider output must be checked separately for correctness."
+  ],
+  "delivery": {
+    "submittedAtUnix": 1788915231,
+    "submittedAt": "2026-09-09T00:53:51.000Z",
+    "disputeWindowSeconds": 604800,
+    "eligibleToSettleAt": "2026-09-16T00:53:51.000Z",
+    "disputed": false,
+    "committed": true,
+    "cid": "Qmb9hHNafffcmHQCdbnbdTdxngCfvhMD2c8ntM5ERqWnxg"
+  }
+}

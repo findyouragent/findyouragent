@@ -1,0 +1,9 @@
+# Local development values. Copy to server/.env and configure locally.
+# No credential is required to run the offline test suite.
+PORT=8787
+ALLOWED_ORIGIN=http://localhost:5173
+SWEEP_ENABLED=false
+
+# Optional server-side provider configuration. Supply your own values locally.
+# SCAN8004_API_KEY=your-registry-key
+# BSC_RPC_URL=https://your-bsc-rpc.example

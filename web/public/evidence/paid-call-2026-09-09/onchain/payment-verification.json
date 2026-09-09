@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-08T22:41:02.419Z",
+  "rpcOrigin": "https://bsc-dataseed1.binance.org",
+  "chainId": 56,
+  "txHash": "0x01ffcac0a7a2ac0995f4f861ed0162206ca0c508df24b3f9c3b9fcdfcebd0e1d",
+  "token": "0xcE24439F2D9C6a2289F741120FE202248B666666",
+  "payTo": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee",
+  "expectedAmountRaw": "100000000000000000",
+  "receipt": {
+    "status": "0x1",
+    "blockNumber": 120767416,
+    "blockHash": "0x03cc45d9cb9c63106e905ea593ef9312fc2277720991f418d17c53d74d122004",
+    "transactionIndex": 5,
+    "gasUsed": "0x19592",
+    "effectiveGasPrice": "0x59682f00",
+    "from": "0x5fb8d3b40c1e7b0d9a804550e3bc0903659d25b3",
+    "to": "0xce24439f2d9c6a2289f741120fe202248b666666"
+  },
+  "block": {
+    "number": 120767416,
+    "hash": "0x03cc45d9cb9c63106e905ea593ef9312fc2277720991f418d17c53d74d122004",
+    "timestampUnix": 1788907005,
+    "timestamp": "2026-09-08T22:36:45.000Z"
+  },
+  "confirmations": {
+    "latestBlock": 120767988,
+    "count": 572
+  },
+  "calldata": {
+    "selector": "0xcf092995",
+    "from": "0x54E5651a7f62859CcCB5B75613165a69C24ECb4e",
+    "to": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee",
+    "valueRaw": "100000000000000000",
+    "validAfter": "0",
+    "validBefore": "1788907589",
+    "noncePresent": true,
+    "signaturePresent": true,
+    "signatureByteLength": 65
+  },
+  "tokenTransferLogs": [
+    {
+      "address": "0xcE24439F2D9C6a2289F741120FE202248B666666",
+      "from": "0x54E5651a7f62859CcCB5B75613165a69C24ECb4e",
+      "to": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee",
+      "amountRaw": "100000000000000000",
+      "logIndex": 44,
+      "transactionIndex": 5
+    }
+  ],
+  "authorizationUsedLogCount": 1,
+  "checks": {
+    "chainIsBsc": true,
+    "receiptSucceeded": true,
+    "txTargetsExpectedToken": true,
+    "erc3009Selector": true,
+    "authorizationTargetMatches": true,
+    "authorizationAmountMatches": true,
+    "transferToMatches": true,
+    "transferFromMatchesCalldata": true,
+    "authorizationUsedEventObserved": true,
+    "requestWindow": {
+      "startedAt": "2026-09-08T22:36:36.341Z",
+      "finishedAt": "2026-09-08T22:36:45.738Z",
+      "blockTimestamp": "2026-09-08T22:36:45.000Z"
+    }
+  },
+  "limitations": [
+    "This proves an on-chain successful transaction and token transfer matching the expected asset, recipient and amount if checks pass; it does not prove the provider performed useful work.",
+    "The FYA downloaded result reported HTTP 200 and paymentSubmitted:true but no paymentReceipt field; this artifact does not infer settlement metadata from the UI export.",
+    "The transaction calldata contains the authorization nonce/signature, but this summary intentionally does not reproduce those values.",
+    "No provider-signed attestation or same-message cryptographic binding is present in the FYA export."
+  ]
+}

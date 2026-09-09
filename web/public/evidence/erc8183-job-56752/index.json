@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fya-erc8183-job-evidence",
+  "title": "ERC-8183 Venus account report",
+  "environment": "local-development",
+  "observedDate": "2026-09-09",
+  "addedAt": "2026-09-09T01:03:40.096Z",
+  "jobId": "56752",
+  "previousAttempt": "/evidence/erc8183-job-56751/index.json",
+  "agent": {
+    "chainId": 56,
+    "registryTokenId": "338558",
+    "bap578TokenId": "11168",
+    "name": "BORT COIN DEPLOYER AGENT",
+    "providerWallet": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee"
+  },
+  "providerAttribution": "BORT operates the provider and builds FYA.",
+  "independentCustomerEvidence": false,
+  "fundingEvidence": true,
+  "deliveryCommitmentEvidence": true,
+  "assessmentDeliveredEvidence": true,
+  "successfulAssessmentEvidence": false,
+  "fullCorrectnessEstablished": false,
+  "finalSettlementEvidence": false,
+  "paidHireEvidence": false,
+  "qualification": "The corrected request funded 1 U and received an authentic committed Venus report. The debt figure is corroborated at the funding block; other figures are not an exact displayed-precision match at that proxy block. Final payment release has not been observed.",
+  "transaction": {
+    "chainId": 56,
+    "txHash": "0xced5cc37f44921af7bfddd6480d428d395b54b298de8176887a6b969d185ab9c",
+    "href": "https://bscscan.com/tx/0xced5cc37f44921af7bfddd6480d428d395b54b298de8176887a6b969d185ab9c",
+    "blockNumber": 120785441,
+    "timestamp": "2026-09-09T00:52:09.000Z",
+    "amountRaw": "1000000000000000000",
+    "token": "0xcE24439F2D9C6a2289F741120FE202248B666666",
+    "recipient": "0xEa4DAa3100A767e86FDed867729ae7446476EBA6"
+  },
+  "delivery": {
+    "statusAtCheck": "submitted",
+    "checkedAt": "2026-09-09T00:54:28.953Z",
+    "observedBlock": {
+      "blockNumber": 120785752,
+      "blockHash": "0xa8066ed33e0f7f5de389d592367bc764d21f2003244ae0bc6c78d3f5931ca9b0",
+      "timestamp": "2026-09-09T00:54:29.000Z"
+    },
+    "submittedAt": "2026-09-09T00:53:51.000Z",
+    "fundingToSubmissionSeconds": 102,
+    "cid": "Qmb9hHNafffcmHQCdbnbdTdxngCfvhMD2c8ntM5ERqWnxg",
+    "commitment": "0xbe59737972adf79a1923e4a898bd240e8569e0726d1d3139291fc9e2ed2b65b9",
+    "originalFileSha256": "0e2012b082803cb5560c984bbb3d0d15d539d61c01a3b499549ca30756738d80",
+    "binding": "SHA-256 of the raw single-block UnixFS DAG-PB root matches the on-chain commitment; manifest job/provider/agent fields match.",
+    "outcome": "account-report-delivered",
+    "assessmentPerformed": "provider-reported with partial numerical corroboration",
+    "providerFigures": {
+      "healthFactor": "1.704",
+      "borrowedUsd": "1.74",
+      "liquidationHeadroomUsd": "1.22"
+    },
+    "correctness": {
+      "status": "partially_corroborated",
+      "assessmentDelivered": true,
+      "fullCorrectnessEstablished": false,
+      "requestedAccountMatches": true,
+      "protocolMatches": true,
+      "providerObservationTime": null,
+      "providerSourceBlock": null,
+      "providerToolOutputForm": "Text quoted inside the delivered report; not an independently captured tool execution trace.",
+      "historicalCheck": "/evidence/erc8183-job-56752/corroboration/health-corroboration.json",
+      "comparison": {
+        "borrowedNearestCent": "1.74",
+        "borrowedMatchesNearestCent": true,
+        "liquidityNearestCent": "1.23",
+        "deliveredHeadroom": "1.22",
+        "headroomMatchesNearestCent": false,
+        "headroomMatchesTruncationToCents": true,
+        "headroomSemanticsVerified": false,
+        "healthRatioAtProxy": "1.706426186947",
+        "deliveredHealthFactor": "1.704",
+        "healthRatioRounded3": "1.706",
+        "healthRatioExactMatch": false,
+        "healthFactorDifference": "0.002426186947"
+      },
+      "limitation": "Funding block is a preselected temporal proxy. Borrowed value matches to cents. Health ratio differs at displayed precision; liquidity rounds to 1.23 rather than the reported liquidation headroom of 1.22. Provider timing and headroom semantics remain unverified. This does not prove either exact correctness or provider error at its unknown observation block."
+    },
+    "eligibleToSettleAt": "2026-09-16T00:53:51.000Z",
+    "disputedAtCheck": false,
+    "finalSettlementObserved": false
+  },
+  "limits": [
+    "This is a read-only account report, not ongoing monitoring, trading, rebalancing or debt repayment.",
+    "The provider explicitly reports observation time and source block as unknown. Its generatedAt timestamp does not supply the missing data-observation time.",
+    "Funding-block reconstruction is a temporal proxy, not proof of the provider actual source block. Headroom semantics remain unverified.",
+    "Settlement eligibility after the recorded seven-day window is conditional on the job remaining eligible; it does not prove payment release.",
+    "The user screenshot shows the hire composition form and part of the previous job; it does not show job 56752 funding confirmation. Funding is proved separately by receipt and events.",
+    "The submission-event log query was rate-limited and historical kernel state failed on the first RPC; those errors remain preserved alongside successful receipt, current-state and independent historical Venus reads."
+  ],
+  "screenshots": [
+    {
+      "title": "User-provided hire form",
+      "caption": "Context supplied with the new transaction link. The frame shows the composition form, not job 56752 funding confirmation.",
+      "href": "/evidence/erc8183-job-56752/screenshots/user-hire-form.png",
+      "bytes": 328472,
+      "sha256": "cee9958e482987c010e672221b0c2b874aac014163f9945face3864afcf31528",
+      "mediaType": "image/png",
+      "source": "user-supplied screenshot",
+      "captureTime": null,
+      "edited": false,
+      "width": 1798,
+      "height": 1134
+    }
+  ],
+  "artifacts": [
+    {
+      "href": "/evidence/erc8183-job-56752/verification.json",
+      "bytes": 4094,
+      "sha256": "c097ac2a25ff651f0de1a4126cd3f0f85f3d82629273b79f60d9af275c39ce41",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56752/rpc-raw.json",
+      "bytes": 34156,
+      "sha256": "fe40980d273c57d0d4b5b965c763cb8d37954df33ba55725696feb52295942bb",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56752/delivery-original.json",
+      "bytes": 2337,
+      "sha256": "0e2012b082803cb5560c984bbb3d0d15d539d61c01a3b499549ca30756738d80",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56752/delivery-verification.json",
+      "bytes": 4472,
+      "sha256": "660e6568461fcfde0af2106b7bd217badd373c5b78290492db6ff6089147f9bd",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56752/ipfs-root-block.bin",
+      "bytes": 2348,
+      "sha256": "be59737972adf79a1923e4a898bd240e8569e0726d1d3139291fc9e2ed2b65b9",
+      "mediaType": "application/octet-stream"
+    },
+    {
+      "href": "/evidence/erc8183-job-56752/delivery-requests.json",
+      "bytes": 1080,
+      "sha256": "12aa450573d4d0d9f39ee269af2fa6625d6d6ee32da6a4f13c82ba7bc6ec05c6",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56752/submission-event-rpc.json",
+      "bytes": 578,
+      "sha256": "103d8766976de2561ed79ab3eb93ecb4e078b92bb3fb0b8001abfc20b25f3cff",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56752/corroboration/health-corroboration.json",
+      "bytes": 2938,
+      "sha256": "bc81e76e0f7032c3487795eb1d19663bd5d372dcb053a8bc48dc1de9ccd65f44",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56752/corroboration/rpc-raw.json",
+      "bytes": 23347,
+      "sha256": "765a307429d88d42402e3570200d323df7345af8813f3707f7f4cedabf304083",
+      "mediaType": "application/json"
+    },
+    {
+      "href": "/evidence/erc8183-job-56752/corroboration/verify-funding-block.mjs",
+      "bytes": 7148,
+      "sha256": "9800400b1d6b718d62136d97428eb159132c9eb0b920dcdd8bb38fd28c715799",
+      "mediaType": "text/javascript"
+    },
+    {
+      "href": "/evidence/erc8183-job-56752/screenshots/user-hire-form.png",
+      "bytes": 328472,
+      "sha256": "cee9958e482987c010e672221b0c2b874aac014163f9945face3864afcf31528",
+      "mediaType": "image/png"
+    }
+  ]
+}

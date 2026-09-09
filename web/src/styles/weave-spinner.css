@@ -1,0 +1,117 @@
+/*
+  The loom. Every distance is derived from --wv, the size the component sets,
+  so one number scales the whole figure — the original hardcoded 160px against
+  40px travels, which comes apart the moment it is asked to be any other size.
+*/
+
+.weave {
+  position: relative;
+  width: var(--wv, 120px);
+  height: var(--wv, 120px);
+  transform-style: preserve-3d;
+  perspective: calc(var(--wv, 120px) * 7.5);
+  flex-shrink: 0;
+}
+
+.weave-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--wv) * 0.075);
+  height: calc(var(--wv) * 0.075);
+  border-radius: 50%;
+  background: var(--brand);
+  transform: translate(-50%, -50%);
+  /* One short halo, not the two stacked bloom layers of the original. Enough
+     that the node reads as lit; not so much that it hazes the panel. */
+  box-shadow: 0 0 calc(var(--wv) * 0.07) rgba(240, 185, 11, 0.45);
+  animation: weave-node 1.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+}
+
+.weave-thread {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, var(--brand-line), transparent);
+  transform-origin: center;
+}
+
+/* The two vertical threads take the gradient down their length instead. */
+.weave-t2,
+.weave-t4 {
+  background: linear-gradient(180deg, transparent, var(--brand-line), transparent);
+}
+
+.weave-t1 {
+  width: 100%;
+  height: 2px;
+  top: 30%;
+  left: 0;
+  animation: weave-1 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.weave-t2 {
+  width: 2px;
+  height: 100%;
+  top: 0;
+  left: 70%;
+  animation: weave-2 2.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+}
+
+.weave-t3 {
+  width: 100%;
+  height: 2px;
+  bottom: 30%;
+  left: 0;
+  animation: weave-3 2.4s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+.weave-t4 {
+  width: 2px;
+  height: 100%;
+  top: 0;
+  left: 30%;
+  animation: weave-4 2.6s cubic-bezier(0.36, 0, 0.66, -0.56) infinite;
+}
+
+/* Four durations that share no common factor, so the threads never resolve
+   into a repeating pattern the eye can lock onto. */
+@keyframes weave-1 {
+  0%, 100% { transform: translateY(0) rotateX(0deg) rotateZ(0deg); opacity: 0.75; }
+  50% { transform: translateY(calc(var(--wv) * 0.25)) rotateX(60deg) rotateZ(20deg); opacity: 1; }
+}
+
+@keyframes weave-2 {
+  0%, 100% { transform: translateX(0) rotateY(0deg) rotateZ(0deg); opacity: 0.75; }
+  50% { transform: translateX(calc(var(--wv) * -0.25)) rotateY(60deg) rotateZ(-20deg); opacity: 1; }
+}
+
+@keyframes weave-3 {
+  0%, 100% { transform: translateY(0) rotateX(0deg) rotateZ(0deg); opacity: 0.75; }
+  50% { transform: translateY(calc(var(--wv) * -0.25)) rotateX(-60deg) rotateZ(15deg); opacity: 1; }
+}
+
+@keyframes weave-4 {
+  0%, 100% { transform: translateX(0) rotateY(0deg) rotateZ(0deg); opacity: 0.75; }
+  50% { transform: translateX(calc(var(--wv) * 0.25)) rotateY(-60deg) rotateZ(-15deg); opacity: 1; }
+}
+
+@keyframes weave-node {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.35); }
+}
+
+/* A reader who asked for less motion still needs to know something is loading.
+   The figure stays and the text beside it does the work; nothing moves. */
+@media (prefers-reduced-motion: reduce) {
+  .weave-thread,
+  .weave-node {
+    animation: none;
+  }
+}
+
+/* The panel this lands in was built for a 14px spinner sitting beside its
+   label. At this size they stack. */
+.table-status.is-loading {
+  flex-direction: column;
+  gap: 16px;
+  padding: 40px 0;
+}

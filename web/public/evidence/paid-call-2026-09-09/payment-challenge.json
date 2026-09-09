@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fya-observed-agent-result",
+  "runId": "d14a7946-cb9e-47fe-8c30-cf1ed288ab56",
+  "agent": {
+    "chainId": 56,
+    "tokenId": "338558",
+    "endpointUsed": "https://api.bortagent.xyz/api/a2a/11168"
+  },
+  "request": {
+    "protocol": "a2a",
+    "message": "Use check_lending_health to read wallet_address 0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173 on BSC Venus. Return the exact account, protocol/network, observation time, health factor, borrowed value and remaining borrowing headroom with units, using the actual tool result. If there is no debt, report that explicitly; if a field is unavailable, report unknown. Do not invent values or call this ongoing protection. Do not repay, trade, approve, move funds, or start monitoring. This is one read-only account assessment."
+  },
+  "observation": {
+    "version": 1,
+    "runId": "d14a7946-cb9e-47fe-8c30-cf1ed288ab56",
+    "protocol": "a2a",
+    "endpoint": "https://api.bortagent.xyz/api/a2a/11168",
+    "phase": "message/send",
+    "startedAt": "2026-09-08T22:36:21.601Z",
+    "finishedAt": "2026-09-08T22:36:22.588Z",
+    "checkedAt": "2026-09-08T22:36:22.588Z",
+    "latencyMs": 987,
+    "captureComplete": true,
+    "transport": {
+      "status": 402,
+      "ok": false,
+      "received": true
+    },
+    "outcome": "payment_required",
+    "reason": "upstream-payment-required",
+    "task": {
+      "status": "not_evaluated"
+    },
+    "providerTaskId": null
+  },
+  "response": {
+    "body": {
+      "x402Version": 1,
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "eip155:56",
+          "maxAmountRequired": "100000000000000000",
+          "amount": "100000000000000000",
+          "resource": "/api/a2a/11168",
+          "description": "Read-only A2A query to BORT agent 11168",
+          "mimeType": "application/json",
+          "payTo": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee",
+          "maxTimeoutSeconds": 120,
+          "asset": "0xcE24439F2D9C6a2289F741120FE202248B666666",
+          "extra": {
+            "name": "United Stables",
+            "version": "1"
+          }
+        }
+      ]
+    },
+    "captureComplete": true
+  },
+  "limitations": "FYA observed this response. Task checks do not independently verify the provider data. This file is not a provider-signed attestation or settlement receipt."
+}

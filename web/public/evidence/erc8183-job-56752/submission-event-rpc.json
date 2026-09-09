@@ -1,0 +1,26 @@
+{
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "eth_getLogs",
+    "params": [
+      {
+        "address": "0xEa4DAa3100A767e86FDed867729ae7446476EBA6",
+        "fromBlock": "0x7330a21",
+        "toBlock": "0x7330b58",
+        "topics": [
+          "0x80c17db79857f338a6a6df68a6883ecc0ce78e2202fe61ed979733573f40538e",
+          "0x000000000000000000000000000000000000000000000000000000000000ddb0"
+        ]
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "error": {
+      "code": -32005,
+      "message": "limit exceeded"
+    }
+  }
+}

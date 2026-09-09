@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fya-observed-agent-result",
+  "runId": "75a37619-cd92-4286-ba6b-79c3e0448e68",
+  "agent": {
+    "chainId": 56,
+    "tokenId": "45650",
+    "endpointUsed": "https://erc8004.heyanon.ai/mcp/v3pools"
+  },
+  "request": {
+    "protocol": "mcp",
+    "tool": "getLpPosition",
+    "arguments": {
+      "lpPositions": [
+        {
+          "chainName": "bsc",
+          "positionId": "7337249"
+        }
+      ]
+    },
+    "presetId": "pancake-bsc-lp-position",
+    "presetVersion": 1,
+    "inputKind": "public-fixture"
+  },
+  "observation": {
+    "version": 1,
+    "runId": "75a37619-cd92-4286-ba6b-79c3e0448e68",
+    "protocol": "mcp",
+    "endpoint": "https://erc8004.heyanon.ai/mcp/v3pools",
+    "phase": "tools/call",
+    "startedAt": "2026-09-07T23:52:30.262Z",
+    "finishedAt": "2026-09-07T23:52:36.087Z",
+    "checkedAt": "2026-09-07T23:52:36.087Z",
+    "latencyMs": 5825,
+    "captureComplete": true,
+    "transport": {
+      "status": 201,
+      "ok": true,
+      "received": true
+    },
+    "outcome": "response_received",
+    "reason": "mcp-content-received",
+    "task": {
+      "presetId": "pancake-bsc-lp-position",
+      "presetVersion": 1,
+      "criteriaVersion": 1,
+      "checks": [
+        {
+          "id": "task",
+          "label": "Reply identifies the requested concentrated-liquidity lookup",
+          "passed": true
+        },
+        {
+          "id": "scope",
+          "label": "One BSC Pancake position matches #7337249",
+          "passed": true
+        },
+        {
+          "id": "assets",
+          "label": "The reported USDT/WBNB assets and 0.05% fee match the public fixture",
+          "passed": true
+        },
+        {
+          "id": "metrics",
+          "label": "Liquidity, amounts, fees and prices preserve nonnegative decimal precision",
+          "passed": true
+        }
+      ],
+      "status": "passed",
+      "limitation": "Checks confirm the requested position, protocol, asset pair and decimal-shaped reported fields. They do not independently verify current amounts, prices, ownership or returns. The historical position was created outside FYA; this task only reads it."
+    },
+    "providerTaskId": null
+  },
+  "response": {
+    "body": {
+      "jsonrpc": "2.0",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"project\":\"v3pools\",\"operation\":\"getLpPosition\",\"data\":{\"positions\":[{\"chainName\":\"bsc\",\"protocol\":\"Pancake\",\"positionId\":\"7337249\",\"token0\":{\"symbol\":\"usdt\",\"address\":\"0x55d398326f99059fF775485246999027B3197955\"},\"token1\":{\"symbol\":\"wbnb\",\"address\":\"0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c\"},\"fee\":\"0.05%\",\"liquidity\":\"2461321976867509016\",\"amount0\":\"1.222199004061548134\",\"amount0Pct\":37.65306122448979,\"amount1\":\"0.002724088693079089\",\"amount1Pct\":62.34693877551021,\"pendingFee0\":\"0.008003883565438253\",\"pendingFee1\":\"0.000010764483126021\",\"currentPrice\":\"0.001350202170831537\",\"lowerPrice\":\"0.001270091197254025\",\"upperPrice\":\"0.001400856460509205\"}]}}"
+          }
+        ],
+        "structuredContent": {
+          "project": "v3pools",
+          "operation": "getLpPosition",
+          "data": {
+            "positions": [
+              {
+                "chainName": "bsc",
+                "protocol": "Pancake",
+                "positionId": "7337249",
+                "token0": {
+                  "symbol": "usdt",
+                  "address": "0x55d398326f99059fF775485246999027B3197955"
+                },
+                "token1": {
+                  "symbol": "wbnb",
+                  "address": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+                },
+                "fee": "0.05%",
+                "liquidity": "2461321976867509016",
+                "amount0": "1.222199004061548134",
+                "amount0Pct": 37.65306122448979,
+                "amount1": "0.002724088693079089",
+                "amount1Pct": 62.34693877551021,
+                "pendingFee0": "0.008003883565438253",
+                "pendingFee1": "0.000010764483126021",
+                "currentPrice": "0.001350202170831537",
+                "lowerPrice": "0.001270091197254025",
+                "upperPrice": "0.001400856460509205"
+              }
+            ]
+          }
+        }
+      },
+      "id": 1
+    },
+    "captureComplete": true
+  },
+  "limitations": "FYA observed this response. Task checks do not independently verify the provider data. This file is not a provider-signed attestation or settlement receipt."
+}

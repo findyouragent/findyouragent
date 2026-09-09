@@ -1,0 +1,165 @@
+{
+  "startedAt": "2026-09-08T21:04:39.975Z",
+  "type": "live-local-range-assessment",
+  "mockedResponses": false,
+  "walletOrPaymentSubmitted": false,
+  "requests": [
+    {
+      "path": "/src/api/client.js",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/src/api/registry-detail.js",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/src/api/registry.js",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/src/api/read-session.js",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/summary",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/summary",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/history/56/338475",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/agents/56/338475",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/verdicts",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/history/56/338475",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/verdicts",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/escrow/0x38c6fc4a5525b37f9545423a7132157f69ce08da",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/verify/56/338475",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/agent-meta/56/338475",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/activity/56/338475",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/history/56/338475",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/try/56/338475/interface",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/try/56/338475",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/verdicts",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/verdicts",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/history/56/338475",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/verdicts",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/escrow/0x38c6fc4a5525b37f9545423a7132157f69ce08da",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/history/56/338475",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/activity/56/338475",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/history/56/338475",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/verdicts",
+      "method": "POST",
+      "status": 200
+    }
+  ],
+  "pageErrors": [],
+  "downloads": [
+    {
+      "file": "live-result.json",
+      "bytes": 51568,
+      "sha256": "262cdfb5b342d11ebc95690c84e9a5e4feba9a56d789fd789c26b6ac84d0ead5"
+    }
+  ],
+  "passed": true,
+  "result": {
+    "runId": "e5418971-010a-41e8-abde-152faefd85cd",
+    "status": "passed",
+    "corroboration": "passed",
+    "block": {
+      "number": "120755186",
+      "hash": "0x8ffc78a7590a297751324e937543bdf64ba99a44775fa329dead40a7985e877e",
+      "timestamp": "1788901501"
+    },
+    "providerDecision": "hold"
+  },
+  "mobileOverflow": false,
+  "finishedAt": "2026-09-08T21:05:04.285Z"
+}

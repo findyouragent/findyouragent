@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "checkedAt": "2026-09-09T00:33:14.869Z",
+  "txHash": "0x85c37e74f16b8084221add242267827e5c482e534538276160faf0e1c795368f",
+  "rpcUrl": "https://bsc-dataseed1.binance.org",
+  "chainId": 56,
+  "addresses": {
+    "kernel": "0xEa4DAa3100A767e86FDed867729ae7446476EBA6",
+    "router": "0x51895229E12F9876011789B04f8698af06cCD6DA",
+    "policy": "0x9C01845705b3078Aa2e8cfF7520a6376FD766dE5",
+    "provider": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee",
+    "token": "0xcE24439F2D9C6a2289F741120FE202248B666666"
+  },
+  "jobId": "56751",
+  "funding": {
+    "from": "0x54e5651a7f62859cccb5b75613165a69c24ecb4e",
+    "to": "0xdb9b1e94b5b69df7e401ddbede43491141047db3",
+    "callPath": "wallet-wrapped call; kernel event verified",
+    "blockNumber": 120781984,
+    "blockHash": "0x497d2d980878cc30c89276379232beaa383d71bacee62d0afdd4b27b3783bbec",
+    "timestamp": "2026-09-09T00:26:12.000Z",
+    "status": "0x1",
+    "decodedBudgetWei": null,
+    "logs": [
+      {
+        "address": "0xce24439f2d9c6a2289f741120fe202248b666666",
+        "event": "Transfer",
+        "values": {
+          "from": "0x54E5651a7f62859CcCB5B75613165a69C24ECb4e",
+          "to": "0xEa4DAa3100A767e86FDed867729ae7446476EBA6",
+          "value": "1000000000000000000"
+        },
+        "logIndex": 96
+      },
+      {
+        "address": "0xea4daa3100a767e86fded867729ae7446476eba6",
+        "event": "JobFunded",
+        "values": {
+          "jobId": "56751",
+          "client": "0x54E5651a7f62859CcCB5B75613165a69C24ECb4e",
+          "provider": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee",
+          "amount": "1000000000000000000"
+        },
+        "logIndex": 97
+      }
+    ]
+  },
+  "observed": {
+    "blockNumber": 120782922,
+    "blockHash": "0x99177b111bb143a3edc9cc6daad4431a463c791b520709c7c1613a53fa7f5c90",
+    "timestamp": "2026-09-09T00:33:15.000Z"
+  },
+  "fundedJob": null,
+  "historicalStateError": "{\"code\":-32000,\"message\":\"missing trie node\"}",
+  "currentJob": {
+    "jobId": "56751",
+    "client": "0x54E5651a7f62859CcCB5B75613165a69C24ECb4e",
+    "provider": "0x35573171fEDc3528421A4aaF625d7be56C93f9Ee",
+    "evaluator": "0x51895229E12F9876011789B04f8698af06cCD6DA",
+    "description": "[venus-account-health-report] Use check_lending_health to assess wallet_address 0x94bD6175e45f5b1054700bb4CaBcA1Ab4c15173 on Venus, BSC.\n\nReturn the account, protocol/network, observation time in UTC, health factor, borrowed value, and remaining borrowing headroom with units. Include the actual tool output and source block if available. If there is no debt, state that explicitly. Report unavailable fields as unknown; do not invent values.\n\nThis is one read-only assessment. Do not repay, trade, approve, transfer funds, or start monitoring.",
+    "budgetWei": "1000000000000000000",
+    "budgetU": "1.0",
+    "expiresAt": "2026-09-21T00:25:40.000Z",
+    "statusCode": 2,
+    "status": "submitted",
+    "deliverable": "0xcf650a7815f0a7e16efa0509da68309e9eaa59a2fffc6bcc6df8fa791f9e632a"
+  },
+  "actualPolicy": "0x9C01845705b3078Aa2e8cfF7520a6376FD766dE5",
+  "checks": {
+    "chainIsBsc": true,
+    "fundingReceiptSucceeded": true,
+    "calldataBudgetIs1U": null,
+    "fundingEventMatches": true,
+    "tokenMovedToEscrow": true,
+    "jobProviderMatches": true,
+    "jobClientMatches": true,
+    "jobBudgetMatches": true,
+    "evaluatorMatchesRouter": true,
+    "policyMatchesConfigured": true,
+    "fundedAtFundingBlock": null
+  },
+  "limitations": [
+    "Funding is not delivery or final payment release.",
+    "A published hire menu does not establish provider readiness.",
+    "Provider output must be checked separately for correctness."
+  ],
+  "delivery": {
+    "submittedAtUnix": 1788913674,
+    "submittedAt": "2026-09-09T00:27:54.000Z",
+    "disputeWindowSeconds": 604800,
+    "eligibleToSettleAt": "2026-09-16T00:27:54.000Z",
+    "disputed": false,
+    "committed": true,
+    "cid": "QmcJETsLABNY5WHSnKpyuxowuKGtDxmjcVvzn8dvtk7NZw"
+  }
+}

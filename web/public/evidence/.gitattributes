@@ -1,0 +1,4 @@
+# These dated evidence files have published byte-level SHA-256 digests.
+# Preserve original browser-download line endings across Git checkouts.
+* -text
+** -text

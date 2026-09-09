@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fya-range-assessment-evidence",
+  "title": "Public LP position: range assessment",
+  "capturedAt": "2026-09-08T21:05:02.518Z",
+  "environment": "local-development",
+  "mockedProviderResponses": false,
+  "provider": {
+    "chainId": 56,
+    "tokenId": "338475",
+    "endpoint": "https://hallmark-agents.vercel.app/mcp/rebalancer",
+    "attribution": "Publicly branded Hallmark Range Keeper endpoint. This capture does not establish legal operator independence."
+  },
+  "request": {
+    "protocol": "mcp",
+    "tool": "analyse",
+    "arguments": {
+      "tokenId": "7337249",
+      "chainId": 56,
+      "driftToleranceBps": 0
+    },
+    "presetId": "pancake-bsc-range-assessment",
+    "presetVersion": 1,
+    "inputKind": "public-fixture"
+  },
+  "outcome": {
+    "task": "passed",
+    "decision": "hold",
+    "corroboration": "passed",
+    "block": {
+      "number": "120755186",
+      "hash": "0x8ffc78a7590a297751324e937543bdf64ba99a44775fa329dead40a7985e877e",
+      "timestamp": "1788901501"
+    }
+  },
+  "captureFormat": "The downloaded FYA record preserves the complete parsed provider response and separate original RPC response text. The relay JSON is preserved as received by the browser. This is not a provider-signed attestation.",
+  "qualification": {
+    "analysisOnly": true,
+    "execution": false,
+    "payment": false,
+    "continuousMonitoring": false,
+    "independentUserTest": false,
+    "deployedReleaseTest": false,
+    "limitation": "FYA checks the reported position, pool state and range membership through a separate public RPC at the provider block. This does not verify strategy quality, gas costs, profitability, approvals or ownership by you. No rebalance, payment or ongoing monitoring is performed."
+  },
+  "selection": "One actual developer-run browser task and download. Not an availability benchmark. Synthetic failure and boundary tests are separate implementation references.",
+  "artifacts": [
+    {
+      "href": "/evidence/range-assessment-2026-09-09/live-result.json",
+      "mediaType": "application/json",
+      "bytes": 51568,
+      "sha256": "262cdfb5b342d11ebc95690c84e9a5e4feba9a56d789fd789c26b6ac84d0ead5"
+    },
+    {
+      "href": "/evidence/range-assessment-2026-09-09/live-relay-response.json",
+      "mediaType": "application/json",
+      "bytes": 44075,
+      "sha256": "a49c3f661b6804fc80e6dfa3ff3235b8fbc6c09a422b7205040765e9c00c4407"
+    },
+    {
+      "href": "/evidence/range-assessment-2026-09-09/interface-initial.json",
+      "mediaType": "application/json",
+      "bytes": 2366,
+      "sha256": "c94fc4f769361eb4ecab0509cb4c2b4cc3201ccd4856ce63ac416c652f85c534"
+    },
+    {
+      "href": "/evidence/range-assessment-2026-09-09/live-journey.json",
+      "mediaType": "application/json",
+      "bytes": 3373,
+      "sha256": "9ea1d1f0d5a4527afa8845ec18bc78ce3f7aac529282b6e8867992d75cf79e5b"
+    }
+  ]
+}

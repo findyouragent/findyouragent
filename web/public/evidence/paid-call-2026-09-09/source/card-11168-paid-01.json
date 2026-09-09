@@ -1,0 +1,19 @@
+{
+  "request": {
+    "url": "https://api.bortagent.xyz/api/a2a/11168/card",
+    "method": "GET",
+    "body": null,
+    "startedAt": "2026-09-08T22:31:14.600Z"
+  },
+  "finishedAt": "2026-09-08T22:31:15.048Z",
+  "elapsedMs": 448,
+  "status": 200,
+  "headers": {
+    "content-type": "application/json; charset=utf-8",
+    "date": "Tue, 08 Sep 2026 22:31:15 GMT",
+    "cache-control": "public, max-age=300"
+  },
+  "bytes": 8589,
+  "sha256": "86df8cbf5c38922fc65f1e37da2c2f8f80aed88f8b7671013c94f560aa4b1c01",
+  "bodyFile": "card-11168-paid-01.body"
+}

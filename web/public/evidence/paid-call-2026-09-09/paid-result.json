@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fya-observed-agent-result",
+  "runId": "6bd495d4-4fe2-4ec4-9126-55f42d4e656a",
+  "agent": {
+    "chainId": 56,
+    "tokenId": "338558",
+    "endpointUsed": "https://api.bortagent.xyz/api/a2a/11168"
+  },
+  "request": {
+    "protocol": "a2a",
+    "message": "Use check_lending_health to read wallet_address 0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173 on BSC Venus. Return the exact account, protocol/network, observation time, health factor, borrowed value and remaining borrowing headroom with units, using the actual tool result. If there is no debt, report that explicitly; if a field is unavailable, report unknown. Do not invent values or call this ongoing protection. Do not repay, trade, approve, move funds, or start monitoring. This is one read-only account assessment.",
+    "paymentSubmitted": true
+  },
+  "observation": {
+    "version": 1,
+    "runId": "6bd495d4-4fe2-4ec4-9126-55f42d4e656a",
+    "protocol": "a2a",
+    "endpoint": "https://api.bortagent.xyz/api/a2a/11168",
+    "phase": "message/send",
+    "startedAt": "2026-09-08T22:36:36.341Z",
+    "finishedAt": "2026-09-08T22:36:45.738Z",
+    "checkedAt": "2026-09-08T22:36:45.738Z",
+    "latencyMs": 9397,
+    "captureComplete": true,
+    "transport": {
+      "status": 200,
+      "ok": true,
+      "received": true
+    },
+    "outcome": "response_received",
+    "reason": "a2a-message-received",
+    "task": {
+      "status": "not_evaluated"
+    },
+    "providerTaskId": null
+  },
+  "response": {
+    "body": {
+      "jsonrpc": "2.0",
+      "id": "b49eebbf-a375-466f-a4de-901366719f0f",
+      "result": {
+        "kind": "message",
+        "role": "agent",
+        "parts": [
+          {
+            "kind": "text",
+            "text": "Account: 0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173\nProtocol/network: Venus on BSC\nObservation time: now\nHealth factor: 1.698 (1.0 is the liquidation line)\nBorrowed value: $1.74\nRemaining borrowing headroom before liquidation: $1.21\n\nThe account has a small active borrow. This was one read-only assessment; no funds were moved, repaid, traded, approved, or monitored."
+          }
+        ],
+        "messageId": "a2a-11168-1788906997580",
+        "final": true
+      }
+    },
+    "captureComplete": true
+  },
+  "limitations": "FYA observed this response. Task checks do not independently verify the provider data. This file is not a provider-signed attestation or settlement receipt."
+}

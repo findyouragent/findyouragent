@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: findyouragent-verify
+    runtime: node
+    rootDir: server
+    plan: starter
+    # Local persistence and background sweeps require one writer.
+    numInstances: 1
+    # Deploy after CI passes.
+    autoDeployTrigger: "off"
+    buildCommand: npm ci
+    startCommand: npm start
+    # Process liveness only.
+    healthCheckPath: /health
+
+    # Retain checks beyond the startup seed on a persistent disk.
+    disk:
+      name: verdicts
+      mountPath: /var/data
+      sizeGB: 1
+
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+
+      - key: NODE_ENV
+        value: production
+
+      - key: DATA_DIR
+        value: /var/data
+
+      # Set credentials in the Render dashboard. Upstream quota headers are authoritative;
+      # sweep pacing defaults to 3s with this key and 30s without one.
+      - key: SCAN8004_API_KEY
+        sync: false
+
+      # Dedicated BSC RPC read capacity; unavailable reads leave activity unknown.
+      - key: BSC_RPC_URL
+        sync: false
+
+      # Browser origin for the production frontend.
+      - key: ALLOWED_ORIGIN
+        value: https://findyouragent.xyz

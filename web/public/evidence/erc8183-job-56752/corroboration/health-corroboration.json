@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "status": "complete",
+  "checkedAt": "2026-09-09T00:56:36.852Z",
+  "blockNumber": 120785441,
+  "blockTag": "0x7330a21",
+  "chainId": 56,
+  "account": "0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173",
+  "comptroller": "0xfD36E2c2a6789Db23113685031d7F16329158384",
+  "rpcOrigin": "https://bsc-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3",
+  "source": "https://docs.nodereal.io/reference/getting-started-with-your-api",
+  "temporalProxy": "funding block; provider supplied no observation/source block",
+  "blockHash": "0xb9bd0a539fbedaf1f3d92a33a0e9a21912e4f44fda180c3aba235d3ce5b3d0dc",
+  "blockTimestamp": "2026-09-09T00:52:09.000Z",
+  "liquidity": {
+    "errorCode": "0",
+    "liquidityRaw": "1227027113395988243",
+    "shortfallRaw": "0"
+  },
+  "oracle": "0x6592b5DE802159F3E74B2486b091D11a8256ab8A",
+  "mintedVAIRaw": "0",
+  "markets": [
+    {
+      "vToken": "0xA07c5b74C9B40447a954e1466938b865b6BBea36",
+      "symbol": "vBNB",
+      "underlying": null,
+      "underlyingDecimals": 18,
+      "snapshotError": "0",
+      "vTokenBalanceRaw": "19643732",
+      "borrowBalanceRaw": "0",
+      "exchangeRateRaw": "249457742332243874981397382",
+      "oracleUnderlyingPriceRaw": "756073300000000000000",
+      "borrowUsdRaw": "0"
+    },
+    {
+      "vToken": "0xfD5840Cd36d94D7229439859C0112a4185BC0255",
+      "symbol": "vUSDT",
+      "underlying": "0x55d398326f99059fF775485246999027B3197955",
+      "underlyingDecimals": 18,
+      "snapshotError": "0",
+      "vTokenBalanceRaw": "0",
+      "borrowBalanceRaw": "1737068581415586590",
+      "exchangeRateRaw": "264815599602460675967068282",
+      "oracleUnderlyingPriceRaw": "999931855344252200",
+      "borrowUsdRaw": "1736950209475095705"
+    }
+  ],
+  "totals": {
+    "borrowUsdRaw": "1736950209475095705",
+    "borrowUsd": "1.736950209475095705",
+    "liquidityUsd": "1.227027113395988243",
+    "shortfallUsd": "0.0",
+    "healthRatio": "1.706426186947"
+  },
+  "borrowingPower": {
+    "errorCode": "0",
+    "availableRaw": "1227027113395988243",
+    "deficitRaw": "0",
+    "availableUsd": "1.227027113395988243"
+  },
+  "providerReport": {
+    "healthFactor": "1.704",
+    "borrowedUsd": "1.74",
+    "liquidationHeadroomUsd": "1.22"
+  },
+  "comparison": {
+    "borrowedNearestCent": "1.74",
+    "borrowedMatchesNearestCent": true,
+    "liquidityNearestCent": "1.23",
+    "deliveredHeadroom": "1.22",
+    "headroomMatchesNearestCent": false,
+    "headroomMatchesTruncationToCents": true,
+    "headroomSemanticsVerified": false,
+    "healthRatioAtProxy": "1.706426186947",
+    "deliveredHealthFactor": "1.704",
+    "healthRatioRounded3": "1.706",
+    "healthRatioExactMatch": false,
+    "healthFactorDifference": "0.002426186947"
+  },
+  "scope": "Independent NodeReal eth_call reconstruction at funding block 120785441, used as temporal proxy because delivery had no source block; it does not establish the provider observation block or future safety."
+}

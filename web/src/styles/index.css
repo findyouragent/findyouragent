@@ -1,0 +1,3702 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg-0);
+  color: var(--text-hi);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The drafting surface sits behind everything and is never interactive. The
+   app itself takes a stacking context above it, so no child needs a z-index
+   of its own to stay in front. */
+.topo-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Behind, explicitly. At z-index 0 a fixed element paints in the same
+     phase as positioned siblings and ABOVE ordinary in-flow content, so the
+     field could cover the page and leave only positioned children — the
+     search box, say — showing through. -1 puts it under everything inside
+     .app and above nothing else, which is what a background is. */
+  z-index: -1;
+  pointer-events: none;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 20px 56px;
+  flex: 1;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.micro-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* topbar */
+.topbar {
+  max-width: var(--maxw);
+  width: 100%;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+  color: var(--text-hi);
+  text-decoration: none;
+  transition: opacity var(--ease);
+}
+
+.brand:hover {
+  opacity: 0.78;
+}
+
+/* The logo mark. It replaced a 7px green dot, and it keeps that dot's one
+   rule: it holds still. A glowing mark that breathes is the house style of
+   every dashboard mockup ever generated, and the only motion on this page is
+   a check that is actually running. */
+.brand-mark {
+  display: block;
+  flex-shrink: 0;
+}
+
+@keyframes heartbeat {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-md);
+  letter-spacing: -0.02em;
+}
+
+.topbar-search {
+  flex: 1;
+  max-width: 460px;
+  position: relative;
+  display: flex;
+}
+
+/* Inline icons (lucide / web3icons) ride the text baseline, never float. */
+.lucide,
+.token-mark,
+svg[class*="web3icons"] {
+  display: inline-block;
+  vertical-align: -0.15em;
+  flex-shrink: 0;
+}
+/* A token mark leads its amount with a hair of space; badges inherit gap. */
+.act-amount .token-mark { margin-right: 5px; }
+.proto .token-mark { margin-right: 4px; vertical-align: -0.12em; }
+
+.topbar-search .search-icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  pointer-events: none;
+}
+.topbar-search input {
+  width: 100%;
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 8px 34px 8px 32px;
+  color: var(--text-hi);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  outline: none;
+  transition: border-color var(--ease);
+}
+
+.topbar-search input:focus {
+  border-color: var(--hairline-strong);
+}
+
+.topbar-search input::placeholder {
+  color: var(--text-dim);
+}
+
+.topbar-search kbd {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: 1px 5px;
+  background: var(--bg-2);
+}
+
+.topbar-right {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* The header links take the view tabs' travelling mark. Same motion, tighter
+   box: this row shares its line with a search field and the chain chip, so it
+   keeps the tabs' rhythm without their height. */
+.topnav {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+}
+
+.topnav-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 6px 12px;
+}
+
+/* The pill fills the nav's own height rather than the tab row's fixed 28px. */
+.topnav .tab-pill {
+  top: 1px;
+  bottom: 1px;
+  height: auto;
+}
+
+/* No container hairline to sit on up here, so it underlines the link itself. */
+.topnav .tab-bar {
+  bottom: 0;
+}
+
+.chain-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* explorer band: title + stat tiles, scan-genre convention */
+.explorer-band {
+  padding: 16px 0 10px;
+}
+
+/* An empty category states what we checked, rather than looking broken. */
+.table-empty {
+  display: block;
+  text-align: left;
+  max-width: 62ch;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.table-empty p { margin: 0 0 6px; }
+.table-empty p + p { color: var(--text-dim); }
+
+/* The completed-hire exhibit: frozen tx facts + a live kernel read. */
+.exhibit-live {
+  font-size: var(--text-sm);
+  color: var(--text-mid);
+  padding: 8px 0 10px;
+}
+.exhibit-live strong { color: var(--finding); font-weight: 600; }
+.exhibit-steps {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--hairline);
+  margin-bottom: 10px;
+}
+.exhibit-step {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: var(--text-sm);
+}
+.exhibit-when { color: var(--text-dim); }
+.exhibit-label { color: var(--text-mid); }
+.exhibit-step a {
+  color: var(--finding);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline-strong);
+}
+.exhibit-step a:hover { border-bottom-color: var(--finding); }
+
+/* Live check narration: one line per probe, landing as each real call
+   resolves. Quiet mono log, no colour theatrics — the timing IS the show. */
+.check-log {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: -6px 0 14px;
+  padding: 10px 14px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  background: var(--bg-1);
+  font-size: var(--text-sm);
+  color: var(--text-mid);
+}
+.check-log-line {
+  animation: check-line-in 240ms ease;
+}
+@keyframes check-line-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* One-click retry inside the unavailable banner: hairline, mono, no weight —
+   a utility, not a call to action. */
+.banner-retry {
+  margin-left: auto;
+  background: none;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text-mid);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  padding: 2px 9px;
+  cursor: pointer;
+}
+.banner-retry:hover {
+  color: var(--text-hi);
+  border-color: var(--text-dim);
+}
+
+
+/* One readout on one rule, not five identical boxes.
+
+   This was the hero-metric template: same-size bordered cards, each a small
+   uppercase label over a big number. It is the shape a page reaches for when
+   it has figures and no argument, and on a narrow screen the fifth card
+   orphaned itself at half width. These numbers are not a hero — they are the
+   scale everything below is read against — so they read as one instrument
+   line and the border comes off. */
+.stat-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 34px;
+  padding: 2px 0 14px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-value {
+  font-size: var(--text-md);
+  color: var(--text-hi);
+}
+
+/* Use the same inset and hairline dividers as the category row. The counts
+   share one strip, with values aligned even when their labels wrap. */
+.stat-funnel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  padding: 0;
+  align-items: stretch;
+}
+
+.funnel-run {
+  display: contents;
+}
+
+.stat-funnel .stat {
+  min-width: 0;
+  justify-content: flex-end;
+  gap: 2px;
+  padding: 6px 14px;
+}
+
+.funnel-run > .stat {
+  border-inline-start: 1px solid var(--hairline);
+}
+
+.stat-funnel + .registry-count-note {
+  padding-inline: 14px;
+}
+
+@media (max-width: 700px) {
+  .stat-funnel .stat {
+    padding: 6px 10px;
+  }
+
+  .stat-funnel + .registry-count-note {
+    padding-inline: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .stat-funnel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stat-funnel > .stat {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .funnel-run > .stat:first-child {
+    border-inline-start: 0;
+  }
+}
+
+/* The landing coverage grid, held to the width it has on the methodology page.
+   The same object at 1240px puts a row's first figure 200px from its own label,
+   which is the defect the template was tightened to fix; capping the section is
+   one declaration where re-deriving the tracks for a second width would be a
+   second template to keep in step. */
+.cov-landing {
+  max-width: 720px;
+}
+
+/* Tighter rows than the methodology page's. There the grid is the section a
+   reader opened the page for; here it is the second line of a readout above a
+   table, and 2px a row is 10px of the agent list back. */
+.cov-landing .coverage-row {
+  padding: 5px 0;
+}
+
+/* The row that used to sit under the tabs, moved up to caption the grid it
+   filters. Left where it was it would have been a control row under a control
+   row over a third row of categories, which is the arrangement seven chips were
+   deleted for; here it is the quiet alternative to the four rows beneath it and
+   the tabs are the only control row on the page. */
+.cov-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 0 6px;
+}
+
+/* On the methodology page these names sit in a table a reader opened the page
+   to read, and plain text is right there. On the landing page they ARE the
+   category navigation — the row of chips was deleted and the select demoted, so
+   if these do not read as links there is nothing on the first screen that says
+   a category can be opened. Four white words in a grid of figures read as row
+   labels, which is a table of results rather than a way in.
+
+   A resting hairline underline, the same one prose links carry on this site.
+   It costs no vertical space and no colour: the rule is the affordance. */
+.cov-landing .coverage-cat {
+  border-bottom: 1px solid var(--hairline-strong);
+  padding-bottom: 1px;
+}
+
+.cov-landing .coverage-cat:hover {
+  border-bottom-color: var(--brand);
+}
+
+/* Which category the table below is showing. Brand, because this is the page's
+   own furniture saying where you are; the green family on this site means one
+   agent answered. The rule goes solid at the same time, so the current row is
+   marked by weight as well as hue and does not rely on colour alone. */
+.coverage-cat[aria-current='page'] {
+  color: var(--brand);
+}
+
+.cov-landing .coverage-cat[aria-current='page'] {
+  border-bottom-color: var(--brand);
+}
+
+/* Reads at the site's prose measure. `.tab-note` sets no width because the notes
+   under the table are one short line each; this one runs to two sentences, and
+   1240px of 12px type is not a line anyone finishes. No rule above it: the
+   grid's last row already draws one, and a second hairline 12px under it is a
+   seam rather than a separator. */
+.cov-foot {
+  max-width: var(--measure);
+  margin: 6px 0 0;
+}
+
+/* The one line on this page that no mirror of the registry could print.
+
+   It reads at note size and note colour, with the figures in --finding: the
+   register this site writes a completed check in. Not --danger, because the
+   registry is not broken and this is not an accusation; not --live, which on
+   this site means one specific agent answered. A finding is a third thing. */
+.regap-line {
+  max-width: var(--measure);
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--hairline);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.regap-line strong {
+  color: var(--finding);
+  font-weight: 600;
+}
+
+/* Names the line without a heading. A heading here would make the band three
+   sections deep; this is one word riding in the sentence's own first line. */
+.regap-line-mark {
+  margin-right: 8px;
+  color: var(--finding);
+}
+
+.regap-line a {
+  color: var(--text-mid);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline-strong);
+  white-space: nowrap;
+}
+
+.regap-line a:hover {
+  color: var(--text-hi);
+  border-bottom-color: var(--brand);
+}
+
+/* The same comparison on the agent's page, where there is room for the rows.
+
+   Panel furniture rather than a table's: it sits inside the evidence panel
+   directly under the verdict, so it takes the surface one step up from the
+   panel and a hairline, like every other block on this site. */
+/* Owns the gap under itself rather than leaving it to whatever follows. The
+   actions below used to pull themselves up by 4px, which was invisible while a
+   run of text sat above them and became a bordered panel's bottom rule running
+   straight through two buttons the moment this block did. */
+.regap {
+  margin: 12px 0 14px;
+  padding: 12px var(--pad-panel);
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+}
+
+.regap > .micro-label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.regap-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.regap-row {
+  display: grid;
+  /* The two value columns are equal and the label takes what is left: the
+     point of the block is reading across a row, and unequal value columns
+     make one side look like the correction of the other. */
+  grid-template-columns: minmax(96px, 1.2fr) minmax(90px, 1fr) minmax(90px, 1fr);
+  gap: 10px;
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: var(--text-sm);
+}
+
+.regap-row:last-child {
+  border-bottom: none;
+}
+
+.regap-head {
+  color: var(--text-dim);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+}
+
+.regap-label {
+  color: var(--text-mid);
+}
+
+.regap-src {
+  color: var(--text-faint);
+}
+
+/* Their reading stays quiet; ours is the one this page is accountable for. */
+.regap-theirs {
+  color: var(--text-dim);
+  min-width: 0;
+}
+
+.regap-ours {
+  color: var(--text-hi);
+  min-width: 0;
+}
+
+/* Only the row where they differ is marked, and it is marked on OUR side.
+   Colouring their cell would read as a correction; the claim being made here
+   is about what we found, not about what they got wrong. */
+.regap-differs .regap-ours {
+  color: var(--finding);
+}
+
+/* Says whose attempt the string below was. Prose, so it takes the body face
+   rather than the mono of the cell it sits in — the machine output is the
+   line under it, not this. */
+.regap-note-lead {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+
+/* Their own error string, echoed rather than paraphrased. It is long, it is
+   theirs, and it belongs under the value it explains rather than in the row. */
+.regap-note-inline {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+  overflow-wrap: anywhere;
+}
+
+.regap-foot {
+  margin: 10px 0 0;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--text-dim);
+  max-width: var(--measure);
+}
+
+.regap-foot strong {
+  color: var(--finding);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  /* Three columns at 12px inside a padded panel floors near 300px; below that
+     the row stacks as label, then the two readings side by side, so a reader
+     never sees one party's number without the other's. */
+  .regap-row {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2px;
+  }
+
+  .regap-label {
+    grid-column: 1 / -1;
+  }
+
+  .regap-head {
+    display: none;
+  }
+}
+
+/* controls: tabs + category chips */
+/* One row: the four views on the left, the one filter that crosses all four on
+   the right. The rule moved off `.tabs` and onto this row so it still spans the
+   full width with something sitting at its right-hand end — a hairline that
+   stopped where the tabs stopped read as an underline for the tabs rather than
+   as the edge of the control band. `.tabs` keeps `position: relative`, and its
+   bottom still lands on this border, so the travelling mark is unmoved. */
+/* The filter sits beside the tabs rather than at the far edge of the row.
+   space-between pinned it ~900px away from the only other control on the line,
+   which read as a stray box in the margin rather than part of the row. */
+.controls {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 22px;
+  flex-wrap: wrap;
+  padding: 6px 0 0;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.tabs {
+  position: relative;
+  display: flex;
+  gap: 2px;
+}
+
+/* Two marks share the row and both are positioned from the buttons: a pill
+   that follows the pointer, and the underline that says which view is on.
+   One indicator that travels reads as a single object moving, where a border
+   drawn on whichever tab is active reads as four separate borders. */
+.tab-pill,
+.tab-bar {
+  position: absolute;
+  pointer-events: none;
+  transition:
+    left 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    width 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 140ms ease;
+}
+
+.tab-pill {
+  top: 4px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-2);
+}
+
+/* Sits ON the container hairline rather than above it. */
+.tab-bar {
+  bottom: -1px;
+  height: 2px;
+  background: var(--brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-pill,
+  .tab-bar {
+    transition: none;
+  }
+}
+
+.tab {
+  position: relative;
+  z-index: 1;
+  background: none;
+  border: none;
+  color: var(--text-mid);
+  padding: 8px 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition: color var(--ease);
+}
+
+.tab:hover {
+  color: var(--text-hi);
+}
+
+.tab-active {
+  color: var(--text-hi);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.category-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.category-select .sel { min-width: 190px; }
+.category-select .sel-trigger {
+  background: var(--bg-1);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  padding: 5px 10px;
+}
+
+/* A text-link styled button (compare page add/remove). */
+.row-act-btn {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--hairline-strong);
+  font-family: var(--font-body);
+  cursor: pointer;
+  padding: 0 0 1px;
+}
+.row-act-btn:disabled { color: var(--text-dim); border-color: var(--hairline); cursor: not-allowed; }
+/* The agent page's way into a comparison: one quiet line under hire. */
+.compare-from {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  font-size: var(--text-sm);
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration-color: var(--hairline-strong);
+}
+.compare-add {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+}
+.compare-add input {
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text-hi);
+  font-size: var(--text-sm);
+  padding: 5px 10px;
+  width: 220px;
+  outline: none;
+}
+.compare-add input:focus { border-color: var(--brand); }
+.compare-remove {
+  font-family: var(--font-body);
+  background: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: var(--text-base);
+  margin-left: 6px;
+  padding: 0 2px;
+  line-height: 1;
+}
+.compare-remove:hover { color: var(--text-hi); }
+
+/* A job's proof line: every step that happened, each with its BscScan tx. */
+.job-receipt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  padding: 4px 0 2px;
+}
+.job-receipt a {
+  color: var(--finding);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline-strong);
+}
+.job-receipt a:hover { border-bottom-color: var(--finding); }
+
+/* Structured tool replies: the agent's own values, laid out for reading. */
+.reply-structured { overflow-x: auto; }
+.reply-table {
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  width: 100%;
+}
+.reply-table th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-dim);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 14px 3px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.reply-table td {
+  padding: 4px 14px 4px 0;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--text-mid);
+  white-space: nowrap;
+}
+.reply-kv {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 3px 0;
+  font-size: var(--text-sm);
+}
+.reply-kv .mono { color: var(--text-mid); overflow-wrap: anywhere; text-align: right; }
+.reply-kv > span:last-child { color: var(--text-mid); overflow-wrap: anywhere; text-align: right; }
+
+/* Nested data reads as labelled sections, not as source code. */
+.reply-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px 0 2px;
+  font-size: var(--text-sm);
+}
+.reply-block > .micro-label { color: var(--text-dim); }
+.reply-nested {
+  border-left: 1px solid var(--hairline);
+  padding-left: 12px;
+  margin-left: 1px;
+}
+.reply-list { display: flex; flex-direction: column; gap: 8px; }
+.reply-item {
+  padding-left: 10px;
+  border-left: 1px solid var(--hairline);
+}
+.reply-null { color: var(--text-dim); font-style: italic; }
+.reply-long { display: block; line-height: 1.55; color: var(--text-mid); }
+.reply-more { font-size: var(--text-xs); color: var(--text-dim); padding-top: 4px; }
+.reply-json {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+/* The liveness stamp under an auto-run reply: measured, not asserted. */
+/* The dot belongs to the first line, not to the block. Centring it against a
+   stamp that wraps — and on a narrow screen the payment terms do — floats it
+   into the gutter between two lines, pointing at neither. */
+.try-stamp {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  color: var(--text-dim);
+  margin-top: 5px;
+}
+
+.try-stamp .dot { margin-top: 5px; }
+
+/* ── Compare page ─────────────────────────────────────────────────────── */
+.compare { margin-top: 14px; }
+.compare h1 { margin: 10px 0 6px; }
+.compare-sub {
+  max-width: var(--measure);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text-dim);
+  max-width: 70ch;
+  margin: 0 0 14px;
+}
+.compare-grid {
+  padding: var(--pad-panel);
+  display: grid;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  background: var(--bg-1);
+}
+.compare-row {
+  display: contents;
+}
+.compare-row > * {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--hairline);
+  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.compare-head > * { background: var(--bg-2); min-height: 52px; }
+.compare-agent { flex-direction: column; align-items: flex-start; gap: 2px; }
+.compare-name { color: var(--text-hi); font-weight: 600; text-decoration: none; }
+.compare-name:hover { text-decoration: underline; }
+.compare-id { font-size: var(--text-xs); color: var(--text-dim); }
+.cmp-cell { font-family: var(--font-mono); font-size: var(--text-sm); }
+.cmp-ok { color: var(--finding); }
+.cmp-gap { color: var(--stale); }
+.cmp-bad { color: var(--text-dim); }
+.cmp-unknown { color: var(--text-dim); font-style: italic; }
+.compare-actions > * { border-bottom: none; }
+.compare-btns { gap: 10px; }
+
+/* Per-row actions: quiet text links; "hire" keeps the gold button. */
+.row-act {
+  font-size: var(--text-sm);
+  color: var(--text-mid);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline-strong);
+  padding-bottom: 1px;
+}
+.row-act:hover { color: var(--text-hi); }
+/* Calling the agent is an action you take, so it sits in gold with hire, not
+   in the green that reports what the agent is. */
+.row-act-try { color: var(--gold); border-bottom-color: var(--gold-line); }
+.row-act-try:hover { color: var(--gold); border-bottom-color: var(--gold); }
+/* Hire is the money action, so it keeps gold — but as ink, not as a filled
+   capsule per row. Forty CTA pills down a page is the loudest thing on it and
+   the least useful; the colour alone is enough to find. */
+.row-hire {
+  color: var(--gold);
+  border-bottom-color: var(--gold-line);
+  white-space: nowrap;
+}
+.row-hire:hover { color: var(--gold); border-bottom-color: var(--gold); }
+.row-price { color: var(--text-dim); font-size: var(--text-sm); }
+
+/* These sit in the hire panel and pick what you are about to pay for, so they
+   wear the same shape as the button they feed rather than the pill they had.
+   No travelling arrow: an arrow says "this goes somewhere", and choosing an
+   offering goes nowhere — it sets a price. Selection is shown by filling the
+   chip, which is the same flood the hire button ends its hover in. */
+.chip {
+  background: transparent;
+  border: 1px solid var(--hairline);
+  color: var(--text-mid);
+  border-radius: var(--radius-md);
+  padding: 6px 12px;
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color var(--ease), color var(--ease), background-color var(--ease);
+}
+
+.chip:hover {
+  color: var(--text-hi);
+  border-color: var(--hairline-strong);
+}
+
+/* Gold, not green: green is this site's word for live, and what is being
+   chosen here is a price. The ink matches the hire button's flooded label. */
+.chip-active,
+.chip-active:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #23190a;
+  font-weight: 500;
+}
+
+.tab-note {
+  max-width: var(--measure);
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+  padding-bottom: 8px;
+}
+
+/* the instrument */
+/* Every major surface on this site is --bg-1 with a hairline and the same
+   radius; the table was the one exception, painted at ground level, which
+   read as a hole under the panel directly above it. It is opaque either way,
+   so the drafting field still stops at its edge. */
+.agent-table {
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.trow {
+  display: grid;
+  /* The liveness column is gone: its state is a dot on the portrait and its
+     reading is in that dot's tooltip. The width it held goes to the agent,
+     which is what people actually scan, and to the actions, which now carry
+     the probe button as well. */
+  grid-template-columns: minmax(260px, 2.2fr) minmax(150px, 1fr) 76px 66px 92px 212px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 var(--pad-panel);
+  min-height: 60px;
+  border-bottom: 1px solid var(--hairline);
+  transition: background var(--ease);
+}
+
+.trow:last-child {
+  border-bottom: none;
+}
+
+/* One rung up from the table, which is --bg-1 itself. This rule used to say
+   --bg-1 back when the table sat at ground level; once the table moved up to
+   match its neighbouring panels the hover was setting the colour the row
+   already had, so pointing at a row did nothing at all. */
+.trow:not(.thead):hover {
+  background: var(--bg-2);
+}
+
+.thead {
+  background: var(--bg-2);
+  min-height: 34px;
+}
+
+.thead .micro-label {
+  color: var(--text-hi);
+}
+
+.tcell {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The chips wrap inside their own cell rather than being squeezed onto one
+   line. Unwrapped, a flex row shrinks its items past their content: a
+   two-word label broke mid-phrase ("serves / it") and the capability chip,
+   which is nowrap and cannot shrink, overflowed into the next column and
+   painted over the feedback count. It landed on exactly one kind of row —
+   the agent that is curated AND placed on a served basis AND reports its
+   declared-vs-served count, which is to say the best-evidenced row on the
+   page. Two lines of chips come to about 44px against a 60px min-height, so
+   nothing here changes the height of a row. */
+.tcell-proto {
+  flex-wrap: wrap;
+  row-gap: 4px;
+}
+
+/* A chip is a label, not a paragraph. Wrapping belongs between chips. */
+.proto,
+.cap {
+  white-space: nowrap;
+}
+
+/* Big enough to be a portrait rather than a bullet, and the anchor the
+   liveness dot hangs off. */
+.avatar-wrap {
+  position: relative;
+  display: block;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  /* The gradient is set inline from the token id and lives HERE, behind the
+     portrait, so an image that is slow or on a dead gateway reveals the
+     agent's own colour rather than an empty grey tile. */
+  background-size: cover;
+}
+
+.tcell-agent img,
+.avatar-fallback {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  background: transparent;
+}
+
+.avatar-fallback {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-base);
+  /* The gradient is set inline, derived from the token id. This is only the
+     letter that rides on top of it. */
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* Presence, in the corner of the picture — the convention every roster uses.
+   The ring is the panel colour, so the dot reads as sitting on the portrait
+   rather than punched through it. */
+.live-dot {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-1);
+  background: var(--unproven);
+}
+
+.trow:hover .live-dot {
+  border-color: var(--bg-2);
+}
+
+.live-dot.dot-live { background: var(--live); }
+.live-dot.dot-stale { background: var(--stale); }
+.live-dot.dot-unproven { background: var(--unproven); }
+
+/* Never checked is not a state we have measured, so it is hollow rather than
+   grey: an empty socket, not a verdict. */
+.live-dot.dot-unchecked {
+  background: var(--bg-3);
+  box-shadow: inset 0 0 0 1px var(--hairline-strong);
+}
+
+.live-dot.dot-checking {
+  background: var(--text-dim);
+  animation: heartbeat 0.8s ease-in-out infinite;
+}
+
+.agent-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.agent-name {
+  max-width: 100%;
+  min-width: 0;
+  font-size: var(--text-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  color: var(--text-hi);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+
+.agent-name:hover {
+  color: var(--brand);
+}
+
+.agent-token {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+/* The verdict, in the row.
+
+   `.agent-identity` is `overflow: hidden` so its two nowrap children can
+   ellipsis; a sentence has to opt back into wrapping or it would be truncated
+   at the column edge mid-clause, which on a finding is worse than not saying
+   it. Two lines is the ceiling — past that a fifty-row list becomes a page of
+   paragraphs — and the clamp cuts at a line rather than mid-word.
+
+.tcell-num {
+  justify-content: flex-end;
+  color: var(--text-mid);
+}
+
+.tcell-num.micro-label {
+  color: var(--text-dim);
+}
+
+/* Three columns of "—" per row is most of this table. An absent reading is
+   punctuation, not a value, so it sits below the text it stands in for. */
+.nodata {
+  color: var(--text-faint);
+}
+
+/* liveness language: dot + label, green reserved for proven-live */
+.liveness {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* State is carried by colour. A halo and a heartbeat on top of the colour say
+   nothing the colour did not already say, and forty of them down a table is
+   ornament. The only dot that still moves is dot-checking, where the motion
+   means a probe is in flight right now. */
+.dot-live {
+  background: var(--live);
+}
+
+.dot-beat {
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+.dot-stale {
+  background: var(--stale);
+}
+
+.dot-unproven {
+  background: var(--unproven);
+}
+
+.dot-checking {
+  background: var(--text-dim);
+  animation: heartbeat 0.8s ease-in-out infinite;
+}
+
+.liveness-label {
+  font-size: var(--text-sm);
+  color: var(--text-mid);
+}
+
+.liveness-latency {
+  color: var(--text-dim);
+  font-size: var(--text-xs);
+}
+
+.check-btn {
+  background: transparent;
+  border: 1px solid var(--hairline);
+  color: var(--text-mid);
+  border-radius: var(--radius-sm);
+  padding: 4px 12px;
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color var(--ease), color var(--ease);
+}
+
+.check-btn:hover:not(:disabled) {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+.check-btn:disabled {
+  color: var(--text-dim);
+  border-color: var(--hairline);
+  cursor: default;
+}
+
+/* Three kinds of thing used to share one tinted-pill costume, and a row of
+   filled pills reads as ornament rather than data. They are separated now:
+   a tag is a chip, a measurement is a number, a judgement is a word. */
+.proto {
+  background: transparent;
+  border: 1px solid var(--hairline);
+  color: var(--text-dim);
+  border-radius: var(--radius-sm);
+  padding: 1px 7px;
+  font-size: var(--text-xs);
+}
+
+.proto-x402 {
+  /* deliberately identical to .proto: nothing about accepting x402 makes it
+     worth more ink than "MCP" standing next to it. */
+}
+
+/* Curated is a disclosure, not an endorsement, and gold is the hire colour —
+   spending it here left two golds competing in one row. */
+.proto-curated {
+  color: var(--text-mid);
+  border-color: var(--hairline-strong);
+}
+
+/* Category placement basis: earned through a declared skill, or merely a
+   words-matched guess. A judgement about the agent, so it is written as one —
+   the difference between them carries in weight, not in a coloured capsule. */
+.proto-declared,
+.proto-text {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  font-size: var(--text-xs);
+}
+
+.proto-declared {
+  color: var(--text-hi);
+}
+
+.proto-text {
+  color: var(--text-dim);
+}
+
+/* The matched capability name, and the fleet it may belong to.
+
+   Both are evidence rather than decoration, so they are written the way the
+   placement basis above is written — weight, not a coloured capsule. The tool
+   name is the strongest thing a search row can say, so it keeps the bright
+   ink; the fleet count is a caveat about the row and takes the dim. */
+.proto-matched,
+.proto-fleet {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  font-size: var(--text-xs);
+  /* A tool name is the one string here a reader may retype against the agent's
+     own endpoint, so it wraps rather than being cut off mid-identifier. */
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.proto-matched {
+  color: var(--text-hi);
+}
+
+.proto-fleet {
+  color: var(--text-dim);
+}
+
+/* Declared against served, as one aligned fraction. The served count carries
+   whatever colour there is, the denominator stays dim, and nothing is filled:
+   reading the column should feel like reading a gauge. A shortfall is stated
+   plainly rather than coloured as a failure, because an agent serving fewer
+   tools than it advertises is a fact about its metadata, not a verdict on
+   whether it works. */
+.cap {
+  display: inline-flex;
+  align-items: baseline;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.cap-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.cap-full .cap-num {
+  color: var(--text-hi);
+}
+
+.cap-short .cap-num {
+  color: var(--stale);
+}
+
+.cap-den {
+  color: var(--text-dim);
+}
+
+.cap-noun {
+  color: var(--text-dim);
+  margin-left: 5px;
+}
+
+/* Shown when the build has no verification service configured. Deliberately
+   loud: a silent hollow build is indistinguishable from a working one. */
+.config-warning {
+  margin: 0 0 20px;
+  padding: 12px 16px;
+  border: 1px solid var(--stale);
+  border-radius: var(--radius-md);
+  background: var(--stale-dim);
+  color: var(--text-hi);
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+.config-warning strong {
+  color: var(--stale);
+}
+
+/* Category coverage: the drop-off from checked to verified is the exhibit, so
+   the columns are aligned and the zeros are not hidden.
+
+   No panel chrome. This is a section of the methodology, not a widget embedded
+   in it: a filled, bordered card put its heading inside a box while every
+   neighbouring section heading sat flush at the page margin, and on a phone the
+   two paddings ate 36px from an already narrow measure. Its heading now takes
+   the same `.method h2` rhythm as every other section on the page. */
+.coverage {
+  margin: 0;
+}
+/* Colour, size and measure come from `.method p`, which wins on the cascade
+   here; repeating them locally only invited the two to drift apart. */
+.coverage-sub {
+  margin: 10px 0 14px;
+}
+
+.coverage-head h2 {
+  margin: 0 0 4px;
+}
+
+.coverage-head p {
+  margin: 0 0 12px;
+  color: var(--text-dim);
+  font-size: var(--text-base);
+  max-width: 68ch;
+}
+
+.coverage-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.coverage-row {
+  display: grid;
+  /* The label column was wide enough to strand a row's first number half a
+     column away from the row it belongs to. Tightening it pulls the four
+     figures back into one scannable block.
+
+     The track count is --cov-cols, set inline by whichever grid is rendering
+     from COVERAGE_COLUMNS, so a new column is one entry in that array and no
+     edit here. The fallback of 4 is what this resolves to if it never arrives. */
+  grid-template-columns: minmax(140px, 1.3fr) repeat(var(--cov-cols, 4), minmax(58px, 0.62fr));
+  align-items: center;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+/* Headers sit on the row's bottom edge, not its centre. "serves it" and
+   "verified live" wrap to two lines on a phone while "placed" and "answered"
+   do not, and centring made the wrapped pair straddle the unwrapped one for a
+   header band that read as broken. Aligning to the end gives every header one
+   shared baseline at whatever height the row needs.
+
+   Rules run under each row, matching `.method-table`, so this table and the
+   signals table above it are visibly the same object. */
+/* The same register as every other column header on the site. These were
+   lowercase mono while the section label above them and the agent table below
+   them were uppercase micro-labels, so one grid was speaking in a voice the
+   page does not otherwise use. */
+.coverage-row-head {
+  align-items: end;
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.coverage-cat {
+  color: var(--text-hi);
+  text-decoration: none;
+  font-size: var(--text-base);
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: color var(--ease);
+}
+
+.coverage-cat:hover {
+  color: var(--brand);
+}
+
+.coverage-num {
+  text-align: right;
+  font-size: var(--text-base);
+  cursor: help;
+}
+
+/* Headers align with the numbers they head. They inherited the default left
+   alignment while every value below them was right-aligned, which put "placed"
+   a full column away from its own figure and made the table look misread. */
+.coverage-row-head [role='columnheader'] + [role='columnheader'] {
+  text-align: right;
+}
+
+.coverage-zero {
+  color: var(--text-dim);
+  opacity: 0.55;
+}
+
+.coverage-live {
+  color: var(--finding);
+}
+
+/* A zero that carries its reason. Reads as a finding, not an apology.
+   No rule of its own: the table's last row already draws one, and a second
+   hairline 22px below it was a seam rather than a separator. */
+.coverage-findings {
+  margin-top: 14px;
+}
+
+/* Reads at page-prose size and colour, from `.method p`. It carries the
+   section's actual finding, so shrinking it to footnote type would have buried
+   the one paragraph a reader came here for. */
+.coverage-findings p {
+  line-height: 1.6;
+  margin: 0 0 6px;
+}
+
+.coverage-findings strong {
+  color: var(--text-hi);
+}
+
+.coverage-note {
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--hairline);
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+  max-width: var(--measure);
+}
+
+@media (max-width: 640px) {
+  .coverage-row {
+    grid-template-columns: minmax(72px, 1.15fr) repeat(var(--cov-cols, 4), minmax(34px, 0.62fr));
+    gap: 6px;
+  }
+
+  .coverage-cat {
+    font-size: var(--text-sm);
+  }
+
+  /* The figures drop a rung where the label does not. Four columns floored at
+     84 + 4x38 + 4x7 = 264px against a 280px content width, which left nothing
+     for a fifth: 84 + 5x38 + 5x7 is 309px, and a landing page 29px wider than
+     the phone it is on does not read as a narrow layout, it reads as a document
+     scrolled sideways. At 11px a four-digit count measures 33px, so five
+     columns floor at 72 + 5x34 + 5x6 = 272px and it still fits. */
+  .coverage-num {
+    font-size: var(--text-xs);
+  }
+}
+
+.tcell-actions {
+  justify-content: flex-end;
+  gap: 11px;
+  flex-wrap: nowrap;
+}
+
+.tcell-actions .check-btn {
+  padding: 3px 10px;
+  font-size: var(--text-sm);
+}
+
+.row-link {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+  transition: color var(--ease);
+}
+
+.row-link:hover {
+  color: var(--text-mid);
+}
+
+.hire-btn {
+  background: var(--gold-dim);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 4px 14px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: filter var(--ease);
+}
+
+.hire-btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.hire-btn:disabled {
+  background: transparent;
+  border-color: var(--hairline);
+  color: var(--text-dim);
+  font-weight: 400;
+  cursor: default;
+}
+
+.table-status {
+  padding: 56px 0;
+  text-align: center;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+}
+
+/* The page working, not the agent answering — furniture, so it wears --brand.
+   The trace's own spinner stays neutral: it sits inside a log, not on a page. */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--hairline);
+  border-top-color: var(--brand);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  color: var(--danger);
+  padding: 10px 0;
+}
+
+/* pager */
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding-top: 24px;
+}
+
+.pager button {
+  font-family: var(--font-body);
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  color: var(--text-mid);
+  border-radius: var(--radius-sm);
+  padding: 6px 16px;
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition: color var(--ease), border-color var(--ease);
+}
+
+.pager button:hover:not(:disabled) {
+  color: var(--text-hi);
+  border-color: var(--hairline-strong);
+}
+
+/* A dead control should not still look like a button. Swapping opacity for
+   named colours fixed the 1.1:1 contrast but left the border and shape
+   intact, so "next" on the verdict-store view read as clickable and simply
+   did nothing. The border goes too: dim label, no frame, nothing to press. */
+.pager button:disabled {
+  color: var(--text-dim);
+  border-color: transparent;
+  background: transparent;
+  cursor: default;
+}
+
+.pager-page {
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────
+   Two bands: what you can go and do, then what you are owed in writing. The
+   identity column is wider than the nav columns because the sentence under the
+   wordmark is the only place the site says plainly what it is for. */
+/* A surface the page rests on, not the point where the page stops.
+   A hairline and then nothing is the cheapest possible ending, and it reads
+   as running out rather than arriving. The slab is inset to the content
+   width, one rung up the surface ladder, with its top corners turned so the
+   ground stays visible beside it — the one compositional idea worth taking
+   from the reference. Its glow and blurred seam are not: an 8% white radial
+   wash and a blurred light-leak are decoration standing in for the structure
+   this gets from the surface itself. */
+footer {
+  width: 100%;
+  /* The content column, not the page width: main pads 20px inside --maxw, so
+     a slab at the full 1280 overhung every panel above it by 20px a side. */
+  max-width: calc(var(--maxw) - 40px);
+  margin: 20px auto 0;
+  padding: 32px var(--pad-panel) 34px;
+  /* Ambient light spilling down from the top edge, over the slab's own
+     surface: 128px tall, a third of the width, 8% white at the crown.
+     Colour and image are declared separately rather than stacked in one
+     background shorthand — the painted result is identical, but a reader
+     resolving the shorthand layer by layer can see the solid surface the
+     wash sits on instead of compositing the text against the wash alone. */
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-bottom: none;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+  position: relative;
+  isolation: isolate;
+}
+
+/* Ambient light spilling down from the top edge: 128px tall, a third of the
+   width, 8% white at the crown. It rides its own layer above the surface and
+   below the type rather than living in the slab's background, which is what
+   it actually is — a wash over the surface, not the surface. The text's
+   backdrop stays the flat --bg-1 it reads against. */
+footer::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 128px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: radial-gradient(35% 128px at 50% 0%, rgba(255, 255, 255, 0.08), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer-top {
+  position: relative;
+  z-index: 1;
+}
+
+/* The seam: a hairline of light straddling the top edge, blurred so it reads
+   as a glow escaping the join rather than as a drawn rule. A third of the
+   width, so it fades out well before the corners turn. */
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 33%;
+  height: 1px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: rgba(234, 236, 239, 0.55);
+  filter: blur(6px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.footer-top {
+  max-width: none;
+}
+
+.footer-top {
+  display: grid;
+  /* Fixed nav columns rather than fractions: on a wide viewport equal fr
+     units pushed the two link lists a third of the page apart and the
+     footer read as three unrelated things. */
+  grid-template-columns: minmax(0, 1fr) repeat(3, 180px);
+  gap: 32px 40px;
+}
+
+.footer-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.footer-tagline {
+  max-width: 46ch;
+  margin: 0;
+  color: var(--text-mid);
+  line-height: 1.6;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.footer-nav .micro-label {
+  margin: 0 0 2px;
+}
+
+/* The slab is a rung up the surface ladder and carries a light wash at its
+   crown, so its type steps up with it. --text-dim measured 4.19:1 against the
+   glow at full strength — under the floor — while clearing it comfortably on
+   the flat page below. Labels take the brightest rung, which also gives each
+   column the head the old uniform-dim version never had. */
+.footer-nav .micro-label {
+  color: var(--text-hi);
+}
+
+.footer-nav a {
+  color: var(--text-mid);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+
+.footer-nav a:hover {
+  color: var(--text-hi);
+}
+
+@media (max-width: 900px) {
+  .footer-top {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 26px 20px;
+  }
+
+  .footer-identity {
+    grid-column: 1 / -1;
+  }
+}
+
+/* agent detail: identity card + evidence panel */
+.detail {
+  padding-top: 20px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: var(--text-base);
+  transition: color var(--ease);
+}
+
+.back-link:hover {
+  color: var(--text-mid);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  /* The evidence panel comes FIRST in the DOM so phones and screen readers
+     meet the verdict before the agent's self-description and the hire
+     button. Areas keep the identity card visually on the left on desktop. */
+  grid-template-areas: 'identity evidence';
+  gap: 16px;
+  margin-top: 14px;
+  align-items: start;
+}
+
+/* Below the width the two columns need, they stack — and the DOM order the
+   grid areas were overriding becomes the right one on its own: the verdict,
+   then the agent's own description of itself. Without this the page was a
+   fixed 320 + content, which on a phone is not a narrow layout but a wider
+   document than the viewport, scrolled sideways.
+
+   This order is only defensible now that the title is not in the aside. It
+   used to send the agent's NAME to the bottom along with its self-description,
+   which is not what "verdict first" ever meant. */
+@media (max-width: 760px) {
+  .detail-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'evidence' 'identity';
+  }
+}
+
+/* A grid item's min-width is auto, so one unbreakable mono string — an
+   address, a tool id — sets the column's floor and pushes the page wider than
+   the screen. Nothing here needs to be wider than its track. */
+.detail-grid > * {
+  min-width: 0;
+}
+
+.detail-grid > .identity-card {
+  grid-area: identity;
+}
+
+.detail-grid > .evidence-panel {
+  grid-area: evidence;
+}
+
+.identity-card {
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: var(--pad-panel);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.identity-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* The page title sits between the back link and the two columns, at every
+   width. It keeps .identity-head only for the avatar-and-name row it still
+   is; what it adds is the space the grid used to take for itself. */
+.detail-header {
+  margin-top: 14px;
+}
+
+.detail-header + .detail-grid {
+  margin-top: 14px;
+}
+
+.avatar-wrap-lg {
+  width: 48px;
+  height: 48px;
+}
+
+.identity-head img,
+.avatar-lg {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.avatar-lg {
+  font-size: var(--text-lg);
+}
+
+.detail-header h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.identity-desc {
+  color: var(--text-mid);
+  font-size: var(--text-base);
+}
+
+.identity-rows {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--hairline);
+}
+
+.identity-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.evidence-panel {
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: var(--pad-panel);
+}
+
+.evidence-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.evidence-stamp {
+  color: var(--text-dim);
+  font-size: var(--text-xs);
+}
+
+/* The headline answer. It used to be a colour-washed capsule with a matching
+   outline — the shape a page uses when it does not trust its own sentence to
+   land. The sentence lands: the verdict word takes the state colour, the
+   reason follows it in prose, and a single rule closes the line. */
+.tier-banner {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  border-bottom: 1px solid var(--hairline);
+  padding: 2px 0 14px;
+  font-size: var(--text-base);
+  color: var(--text-mid);
+  margin-bottom: 14px;
+}
+
+.tier-banner .dot {
+  align-self: center;
+}
+
+/* Sans, not mono.
+
+   Mono on this site means a machine emitted it — an address, a hash, a
+   latency, a count. The tier is a computed enum, which is why it was set in
+   mono, but it is also the one line where the site states its own conclusion
+   to a reader, and the plain answers below say the same word in prose. Set in
+   mono it also put a third face on a line that already carries an uppercase
+   label and a sans sentence.
+
+   Colour, weight and a size step from 12px still make it the answer; it no
+   longer needs a different alphabet to do it. */
+.tier-banner strong {
+  color: var(--text-hi);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-md);
+  letter-spacing: -0.01em;
+}
+
+/* The banner aligns on the baseline so the verdict word and its sentence sit
+   on one line; an 11px label baselined against a 15px word rides too low, so
+   this one centres instead. */
+.banner-label {
+  align-self: center;
+  flex: 0 0 auto;
+}
+
+.banner-verified_live strong {
+  color: var(--live);
+}
+
+.banner-active strong {
+  color: var(--stale);
+}
+
+.banner-registered strong {
+  color: var(--text-mid);
+}
+
+.banner-why {
+  color: var(--text-mid);
+  font-size: var(--text-sm);
+}
+
+.evidence-section {
+  border-top: 1px solid var(--hairline);
+  padding: 10px 0 4px;
+}
+
+/* ── Collapsible evidence sections ───────────────────────────────────────
+   Every section collapses to ONE line: label · honest summary phrase · chevron.
+   All rows survive one click down; nothing is removed from the page. */
+.ev-toggle {
+  font-family: var(--font-body);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 2px 0 4px;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+}
+.ev-toggle .micro-label { flex-shrink: 0; }
+.ev-summary {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-sm);
+  color: var(--text-mid);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ev-summary.ev-ok { color: var(--finding); }
+.ev-summary.ev-bad { color: var(--text-dim); }
+.ev-chevron {
+  flex-shrink: 0;
+  color: var(--text-dim);
+  font-size: var(--text-xs);
+  transition: transform var(--ease);
+}
+.evidence-section.is-open .ev-chevron { transform: rotate(90deg); }
+.ev-toggle:hover .ev-summary { color: var(--text-hi); }
+.ev-body { padding-top: 2px; }
+
+/* ── Verdict actions: the two things a visitor came to do, right under the
+   answer. Try previews read-only; hire opens the escrow flow inline. */
+/* No negative top margin. Every block that can precede this one — the trace,
+   the registry-gap panel, the verdict banner — carries its own bottom gap, so
+   pulling up here only ever overlapped whichever of them was present. */
+.detail-actions {
+  display: flex;
+  gap: 10px;
+  margin: 0 0 14px;
+  scroll-margin-top: 20px;
+  flex-wrap: wrap;
+}
+.action-why {
+  flex-basis: 100%;
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  margin: -2px 0 0;
+}
+/*
+  The escrow record sits under the hire button, in the same column as the price
+  it answers. Two lines, deliberately: the counts read at a glance, the basis
+  under them in the size everything else's provenance is written in. No badge,
+  no bar, no tint — a filled meter reading 100% off six jobs is the exact
+  overclaim this project exists to refuse.
+*/
+.escrow-record {
+  flex-basis: 100%;
+  margin: 2px 0 0;
+  font-size: var(--text-sm);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.escrow-record.is-muted { color: var(--text-dim); }
+.escrow-record strong { font-weight: 600; }
+.escrow-record-basis {
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.escrow-record a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+.detail-inline-panel { margin: 0 0 14px; }
+.detail-inline-panel .try-panel,
+.detail-inline-panel .hire-panel { margin-top: 0; }
+.activity-bare { padding-top: 2px; }
+
+.evidence-section h3 {
+  padding-bottom: 4px;
+}
+
+.evidence-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 5px 0;
+}
+
+.evidence-row .micro-label {
+  flex-shrink: 0;
+}
+
+.evidence-value {
+  font-size: var(--text-sm);
+  color: var(--text-mid);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.evidence-value a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--hairline-strong);
+}
+
+.ev-ok {
+  color: var(--finding);
+}
+
+.ev-bad {
+  color: var(--text-dim);
+}
+
+.evidence-note {
+  max-width: var(--measure);
+  border-top: 1px solid var(--hairline);
+  padding-top: 12px;
+  margin-top: 6px;
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+.check-history {
+  display: flex;
+  flex-direction: column;
+}
+
+.check-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  font-size: var(--text-sm);
+  color: var(--text-mid);
+}
+
+.check-line + .check-line {
+  border-top: 1px solid var(--hairline);
+}
+
+.check-tier {
+  min-width: 70px;
+}
+
+.check-latency {
+  color: var(--text-dim);
+}
+
+.check-ts {
+  margin-left: auto;
+  color: var(--text-dim);
+}
+
+.evidence-note a {
+  color: var(--text-mid);
+}
+
+/* try panel */
+.try-panel {
+  margin-top: 16px;
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: var(--pad-panel);
+}
+
+.try-sub {
+  max-width: var(--measure);
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+  margin-top: 4px;
+}
+
+.exchange {
+  border-top: 1px solid var(--hairline);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.exchange-q {
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+.exchange-a {
+  margin-top: 8px;
+  color: var(--text-hi);
+  font-size: var(--text-base);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.exchange-err {
+  color: var(--danger);
+}
+
+/*
+  A 402 has no container of its own.
+
+  It was a --stale-dim slab inside a full-saturation --stale border, and then a
+  2px coloured rail — a callout either way, sitting on top of the exchange
+  instead of in it. Both are what a page reaches for when it has not decided
+  what the thing is. It is the agent's reply, whose content happens to be a
+  price, so it is assembled from the reply's own parts and needs nothing here
+  but the amount's emphasis and the action's offset.
+*/
+.payment-amount { color: var(--text-hi); }
+
+.payment-act {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 9px;
+}
+
+/* The reason the button is dead sits beside it, on its baseline. .try-sub
+   carries a top margin for the stacked case it was written for, which puts it
+   below centre in a row. */
+.payment-act .try-sub { margin-top: 0; }
+
+.receipt {
+  margin-top: 8px;
+  font-size: var(--text-sm);
+  color: var(--finding);
+}
+
+.receipt a {
+  color: inherit;
+}
+
+.try-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* MCP agents are invoked by naming a tool with typed arguments, not by sending
+   prose, so this form stacks instead of sitting on one line. */
+.try-form-tool {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.try-form-tool textarea {
+  background: var(--bg-0);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  color: var(--text-hi);
+  font-size: var(--text-base);
+  outline: none;
+  width: 100%;
+}
+
+.try-form-tool > .sel .sel-trigger {
+  padding: 10px 14px;
+}
+
+.try-form-tool textarea {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.try-form-tool textarea:focus {
+  border-color: var(--hairline-strong);
+}
+
+.try-form-tool button:not(:where(.flow-btn)) {
+  align-self: flex-start;
+  padding: 9px 22px;
+}
+
+.try-tool-desc {
+  margin: 0;
+}
+
+.try-form input {
+  flex: 1;
+  background: var(--bg-0);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  color: var(--text-hi);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  outline: none;
+}
+
+.try-form input:focus {
+  border-color: var(--hairline-strong);
+}
+
+.try-form button:not(:where(.flow-btn)) {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold-line);
+  border-radius: var(--radius-sm);
+  padding: 8px 22px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition: border-color var(--ease), background var(--ease);
+}
+
+.try-form button:not(:where(.flow-btn)):hover:not(:disabled) {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+}
+
+.try-form button:not(:where(.flow-btn)):disabled {
+  color: var(--text-dim);
+  border-color: var(--hairline-strong);
+  cursor: default;
+}
+
+.try-run-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── Tool arguments ──────────────────────────────────────────────────────
+   The agent's schema already names every argument, its type, its choices and
+   what it means. Rendering that as an empty "{}" for the visitor to fill in
+   published none of it, and asked a person who wanted to know whether an
+   agent works to hand-write JSON. One row per property, required ones first;
+   the JSON is assembled underneath. "edit as JSON" is still there for anyone
+   who prefers the brace. */
+.arg-grid {
+  display: grid;
+  gap: 13px;
+}
+
+.arg-field {
+  display: grid;
+  gap: 5px;
+}
+
+.arg-label {
+  font-size: var(--text-sm);
+  color: var(--text-mid);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.arg-req,
+.arg-opt {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.arg-req { color: var(--stale); }
+.arg-opt { color: var(--text-dim); }
+
+.try-form-tool .arg-field input,
+.try-form-tool .arg-field textarea {
+  background: var(--bg-0);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: 8px 11px;
+  color: var(--text-hi);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  outline: none;
+  width: 100%;
+  resize: vertical;
+}
+
+.arg-field .sel-trigger {
+  border-radius: var(--radius-sm);
+  padding: 8px 11px;
+  font-size: var(--text-sm);
+}
+
+.arg-field .sel-opt { font-size: var(--text-sm); }
+
+.try-form-tool .arg-field input:focus,
+.try-form-tool .arg-field textarea:focus {
+  border-color: var(--hairline-strong);
+}
+
+.arg-hint {
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.arg-error {
+  color: var(--danger);
+}
+
+/* An escape hatch, not a mode the page defaults to: it reads as a link. */
+.try-form-tool .arg-mode {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--hairline-strong);
+  border-radius: 0;
+  padding: 0 0 1px;
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.try-form-tool .arg-mode:hover {
+  color: var(--text-mid);
+  background: none;
+}
+
+/* hire panel */
+.hire-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.hire-budget {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 260px;
+}
+
+.hire-budget input {
+  background: var(--bg-0);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  color: var(--text-hi);
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  outline: none;
+}
+
+.hire-form textarea {
+  background: var(--bg-0);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  color: var(--text-hi);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  resize: vertical;
+  outline: none;
+}
+
+.hire-form textarea:focus,
+.hire-budget input:focus {
+  border-color: var(--hairline-strong);
+}
+
+.hire-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.hire-actions .hire-lg {
+  width: auto;
+  padding: 9px 22px;
+}
+
+/*
+  Job -> review -> run, above the form.
+
+  A segmented track rather than a list of words: three lit-or-unlit bars say
+  how far along you are and how much is left in one glance, which a row of
+  labels cannot. Gold fills the segments behind you — the stylesheet reserves
+  it for the chain chip and hire, and this IS hire, so it is spent where it
+  was saved for.
+*/
+.hire-steps {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hire-steps-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.hire-steps-now { color: var(--gold); }
+
+.hire-steps-track {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hire-steps-track li {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.hire-step-bar {
+  height: 3px;
+  border-radius: 2px;
+  background: var(--bg-3);
+  transition: background-color 220ms var(--ease);
+}
+
+/* Behind you, and where you are: the same gold, because both are ground the
+   flow has covered. Nothing here distinguishes a step you finished from the
+   one you are on — the label above already says which that is. */
+.is-done .hire-step-bar,
+.is-now .hire-step-bar { background: var(--gold); }
+
+.hire-step-name {
+  color: var(--text-faint);
+  transition: color 220ms var(--ease);
+}
+
+.is-done .hire-step-name { color: var(--text-dim); }
+.is-now .hire-step-name { color: var(--gold); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hire-step-bar,
+  .hire-step-name { transition: none; }
+}
+
+/* The picker sits in the column the textarea defines, so it runs full width
+   rather than sitting in the budget field's short lane: a served capability
+   name is a long machine string, and a 260px box would clip most of them. */
+.hire-job {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/*
+  The last screen before money moves.
+
+  Not a card. The panel it sits in is already the card, and a bordered, tinted
+  box inside one is a second frame around content that never left the first.
+  It takes the rule this stylesheet uses everywhere a section follows another
+  — a hairline above it — and its rows are label/value pairs in the register
+  the job rows below already use, so the review reads as the same object the
+  receipt will.
+*/
+.hire-review {
+  border-top: 1px solid var(--hairline);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hire-review-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0;
+}
+
+.hire-review-rows > div {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.hire-review-rows dt {
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+.hire-review-rows dd {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-mid);
+  overflow-wrap: anywhere;
+}
+
+/* The amount is the number the whole screen is about. */
+.hire-review-rows .hire-review-amount { color: var(--text-hi); }
+
+/* The string that goes on-chain, in the same box the delivered manifest comes
+   back in: this is the literal payload, and the two ends of the job should
+   look like the same kind of thing. Wrapped, never truncated — an ellipsis
+   would hide half of what is being approved. */
+.hire-review-task {
+  background: var(--bg-0);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  white-space: pre-wrap;
+  font-family: var(--font-mono);
+  color: var(--text-hi);
+}
+
+@media (max-width: 640px) {
+  .hire-review-rows > div { grid-template-columns: 1fr; gap: 3px; }
+}
+
+.hire-jobs {
+  margin-top: 16px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.job-row {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.job-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: var(--text-sm);
+  color: var(--text-mid);
+  flex-wrap: wrap;
+}
+
+.job-head a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+.job-refresh {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  margin-left: auto;
+}
+
+.job-status {
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+  border: 1px solid var(--hairline);
+}
+
+.status-funded {
+  color: var(--stale);
+  border-color: var(--stale);
+  background: var(--stale-dim);
+}
+
+.status-submitted,
+.status-completed {
+  color: var(--finding);
+  border-color: var(--finding);
+  background: var(--gold-dim);
+}
+
+.status-rejected,
+.status-expired {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.job-desc {
+  font-size: var(--text-base);
+  color: var(--text-mid);
+}
+
+.job-note {
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+/* A gap between what an agent charges for and what it proved: the same yellow
+   the narrative and the comparison table already use for exactly this. */
+.job-note-warn { color: var(--stale); }
+
+.deliverable {
+  background: var(--bg-0);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: var(--text-base);
+}
+
+.deliverable pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--font-body);
+}
+
+.job-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* methodology */
+.method {
+  max-width: 720px;
+  padding-top: 20px;
+}
+
+.method h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 14px 0 10px;
+}
+
+.method h2 {
+  margin: 26px 0 10px;
+}
+
+.method-intro,
+.method p {
+  max-width: var(--measure);
+  color: var(--text-mid);
+  font-size: var(--text-md);
+}
+
+.method-tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.method-tier {
+  display: flex;
+  gap: 12px;
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: var(--pad-panel);
+}
+
+.method-tier .dot {
+  margin-top: 5px;
+}
+
+.method-tier strong {
+  color: var(--text-hi);
+}
+
+.method-tier p {
+  font-size: var(--text-base);
+  margin-top: 4px;
+}
+
+.method-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-base);
+}
+
+.method-table th {
+  text-align: left;
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 600;
+  padding: 8px 12px 8px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.method-table td {
+  vertical-align: top;
+  color: var(--text-mid);
+  padding: 10px 12px 10px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.method-table td:first-child {
+  color: var(--text-hi);
+  white-space: nowrap;
+}
+
+.method-note {
+  margin-top: 14px;
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+/* mobile: the table reflows to cards, same component */
+/* ── verdict in sentences ────────────────────────────────────────────────────
+   Sits between the tier banner and the evidence table. Reads as prose, not as
+   another data panel, so it deliberately does not use the mono stack. */
+.narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: var(--pad-panel);
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+}
+
+.narrative-headline {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-hi);
+  margin: 0;
+}
+
+.narrative-line {
+  /* No rail and no indent. The amber left border marked the lines whose tone
+     was 'gap', which meant every finding sentence was saying its own weight
+     twice — once in words, once in a stripe — and the transparent border on
+     the others existed only to keep the unmarked lines from jumping 2px left.
+     The sentences now start where the headline above them starts. */
+  margin: 0;
+}
+
+.narrative-text {
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--text-mid);
+  margin: 0;
+}
+
+/* Echoed card material: mono and dim, visually machine-text, never our voice. */
+.narrative-data {
+  margin: 2px 0 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  /* text-mid, not text-dim: these identifiers are content a reader is meant
+     to act on, and dim fell below AA contrast at this size. */
+  color: var(--text-mid);
+  font-family: var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+.narrative-jump {
+  background: none;
+  border: none;
+  padding: 0 4px;
+  margin-left: 6px;
+  color: var(--text-mid);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  vertical-align: baseline;
+}
+
+.narrative-jump:hover {
+  color: var(--gold);
+}
+
+.narrative-coach {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 10px;
+}
+
+/* The evidence block a jump lands on: one gold ring that fades, so the link
+   is visible without the landing looking like a permanent state. An outline
+   rather than a box-shadow, because forced-colors mode strips shadows and
+   would leave keyboard users with no landing indicator at all. */
+@keyframes ev-flash {
+  from {
+    outline-color: var(--gold);
+  }
+
+  to {
+    outline-color: transparent;
+  }
+}
+
+.ev-flash {
+  border-radius: var(--radius-sm);
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  animation: ev-flash 1.6s ease forwards;
+}
+
+/* Focus is moved programmatically on jump and the flash ring is the landing
+   indicator, so the browser's default focus outline is suppressed - but only
+   once the flash has ended, or the suppression would out-specify the ring. */
+.evidence-section:focus:not(.ev-flash) {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ev-flash {
+    animation: none;
+    outline-color: var(--gold);
+  }
+}
+
+.narrative-note {
+  border-top: 1px solid var(--hairline);
+  padding-top: 10px;
+  margin: 4px 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+/* ── checks by day ───────────────────────────────────────────────────────────
+   Colour carries the argument here. `up-bad` is the ONLY red: it is the one
+   state that is the agent's fault. A missing reply and an undeclared endpoint
+   are unknowns, so they sit in the neutral family and must never be given a
+   failure colour. */
+.uptime {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--hairline);
+}
+
+.uptime-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.uptime-title {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.uptime-count {
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+.uptime-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.uptime-day {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  border: 1px solid var(--hairline);
+  cursor: default;
+}
+
+.up-ok {
+  background: var(--live);
+  border-color: var(--live);
+}
+
+.up-bad {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+/* Unknown, not failure. Filled faintly so a reader can see a square was drawn
+   without reading it as a mark against the agent. */
+.up-unknown {
+  background: var(--unproven-dim);
+  border-color: var(--unproven);
+}
+
+.up-none {
+  background: transparent;
+  border-color: var(--hairline-strong);
+}
+
+.uptime-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+/* One key-label pair per item, so a square can never read as belonging to the
+   label on its other side. */
+.uptime-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.uptime-key {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  border: 1px solid var(--hairline);
+  flex-shrink: 0;
+}
+
+.uptime-note {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+/* Visible to screen readers only. The squares carry their meaning in colour and
+   in a title attribute, neither of which a screen reader announces reliably. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── 3d agent model ───────────────────────────────────────────────────────────
+   Fixed height, never aspect-ratio: the viewer needs a bounded box inside a
+   scrolling column. Interactive on the detail page, matching the pattern the
+   asset was authored for. */
+.agent-model {
+  display: block;
+  width: 100%;
+  height: 260px;
+  background: var(--bg-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+}
+
+.agent-model-fallback {
+  object-fit: cover;
+}
+
+.agent-model-loading {
+  /* A quiet placeholder while the viewer library loads; the poster replaces
+     it the moment either resolves. */
+  background: var(--bg-2);
+}
+
+/* ── plain answers ───────────────────────────────────────────────────────────
+   The layer for readers with no protocol vocabulary: question left, answer
+   right, above the precise narrative. Same bordered card family as the
+   narrative so the two read as one document in two registers. */
+.plain-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: var(--pad-panel);
+  background: var(--bg-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+}
+
+/* Wraps on its own, without a breakpoint.
+
+   As a 150px + 1fr grid this row had one width for every context, and it has
+   at least three: the full-width panel on a phone, the 1fr column beside a
+   320px sidebar on a laptop, and the panel on a wide screen. At 900px — a
+   perfectly ordinary laptop — the sidebar left the answer 286px, or about 44
+   characters; at 360px it left 82px, and the first answer set 29 words over
+   16 lines, under two words each.
+
+   A viewport media query cannot fix that, because the viewport is not what is
+   short here: at 900px the WINDOW is wide and the column inside it is not.
+   Flex wrapping asks the only question that matters — does the answer still
+   have 340px beside its label — and drops the label onto its own line when it
+   does not, whatever the window is doing. */
+.plain-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  /* Tighter between a wrapped label and its answer (4px) than between one row
+     and the next (12px, from .plain-answers), so a stacked pair still reads as
+     one question rather than two loose lines. */
+  gap: 4px 12px;
+}
+
+.plain-q {
+  flex: 0 0 150px;
+  text-align: left;
+}
+
+.plain-a {
+  /* 340px is the floor a sentence needs to be worth setting: about 52
+     characters here, just above the width below which lines start to rag. */
+  flex: 1 1 340px;
+  max-width: var(--measure);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plain-text {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--text-mid);
+}
+
+/* The question is the control. It is the widest, most obviously hittable thing
+   in the row, and it names what the reader wants the evidence for; an 11px
+   arrow at the end of a sentence is neither. Button reset first, because the
+   micro-label class carries only type, not the UA chrome. */
+.plain-q-jump {
+  appearance: none;
+  background: none;
+  border: none;
+  /* The type is 11px, so the natural box is an 18px-tall target — under the
+     24px minimum, and this is the row's primary control on a phone. Symmetric
+     padding with a cancelling negative margin grows the hit area to 26px
+     without moving the text: baseline alignment reads the first line box, and
+     the negative margin removes the padding again from the grid's layout. */
+  padding: 4px 0;
+  margin: -4px 0;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: color var(--ease);
+}
+
+/* Underline on hover only. At rest the row must read as a question, not as a
+   link — the page already carries glossary terms, proof links and row actions,
+   and a fourth resting link register would flatten all of them. */
+.plain-q-jump:hover,
+.plain-q-jump:focus-visible {
+  color: var(--brand);
+  text-decoration: underline;
+  text-decoration-color: var(--brand-line);
+}
+
+/* The jump control, matching the narrative's below. Mono and small so it reads
+   as apparatus attached to the sentence rather than punctuation inside it. */
+.plain-jump {
+  background: none;
+  border: none;
+  padding: 0 4px;
+  margin-left: 6px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  vertical-align: baseline;
+  transition: color var(--ease);
+}
+
+.plain-jump:hover {
+  color: var(--brand);
+}
+
+/* A long list of the agent's own identifiers. It wraps and breaks anywhere,
+   because these are machine names and a 60-character one must not push the row
+   into a horizontal scroll. */
+.evidence-ids {
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.plain-note {
+  max-width: var(--measure);
+  border-top: 1px solid var(--hairline);
+  padding-top: 10px;
+  margin: 2px 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+/* ── term tooltips ───────────────────────────────────────────────────────────
+   Dotted underline on terms of art; the definition comes from the frozen
+   dictionary in terms.js and shows on hover or focus (tap focuses, so touch
+   works). */
+.term {
+  position: relative;
+  border-bottom: 1px dotted var(--text-dim);
+  cursor: help;
+  outline: none;
+}
+
+.term:focus {
+  border-bottom-color: var(--gold);
+}
+
+.term-tip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  width: 300px;
+  max-width: 80vw;
+  padding: 10px 12px;
+  background: var(--bg-3);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--text-mid);
+  font-family: var(--font-body);
+  text-align: left;
+}
+
+.term:hover .term-tip,
+.term:focus .term-tip,
+.term:focus-within .term-tip {
+  display: block;
+}
+
+/* ── missing-list disclosure ────────────────────────────────────────────────
+   The echoed identifiers collapse behind a control; the finding's strength
+   stays in the visible prose sentence. */
+.narrative-datawrap {
+  margin-top: 2px;
+}
+
+.narrative-disclose {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.narrative-disclose:hover {
+  color: var(--gold);
+}
+
+/* ── evidence section subtitles ──────────────────────────────────────────── */
+.evidence-sub {
+  margin: -2px 0 4px;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+/* ── On-chain activity feed ─────────────────────────────────────────────
+   Badge colour marks the ORIGIN class, never a quality. framework uses the
+   gold accent (notable/distinct), NOT the green pass colour, because the
+   activity behind it can be owner-gamed; nothing here should read as good. */
+.activity-subject {
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+  margin: 2px 0 8px;
+}
+.activity-coverage {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text-dim);
+  margin: 0 0 10px;
+}
+.activity-empty {
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  padding: 6px 0;
+}
+.activity-feed {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--hairline);
+}
+.activity-row {
+  display: grid;
+  grid-template-columns: 64px 1fr auto auto 14px;
+  align-items: baseline;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: var(--text-sm);
+}
+.act-when { color: var(--text-dim); font-size: var(--text-xs); white-space: nowrap; }
+.act-what { color: var(--text-mid); }
+.act-amount { color: var(--text-mid); text-align: right; white-space: nowrap; overflow-wrap: anywhere; }
+.act-tx { color: var(--text-dim); text-decoration: none; }
+.act-tx:hover { color: var(--text-mid); }
+.act-badge {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: 1px 7px;
+  font-size: var(--text-xs);
+  color: var(--text-mid);
+  background: var(--bg-2);
+  white-space: nowrap;
+}
+.act-framework { color: var(--gold); border-color: var(--gold); background: var(--gold-dim); }
+.act-triggered { color: var(--stale); border-color: var(--stale); }
+.act-payment { color: var(--text-mid); border-color: var(--hairline-strong); }
+.act-transfer { color: var(--text-dim); }
+.act-unknown { color: var(--text-dim); border-style: dashed; }
+.activity-legend {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.activity-legend-row {
+  display: grid;
+  grid-template-columns: minmax(72px, auto) 1fr;
+  gap: 10px;
+  align-items: start;
+}
+.activity-legend-row .act-badge { justify-self: start; }
+.act-legend-text {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+@media (max-width: 860px) {
+  .trow {
+    grid-template-columns: 1fr 1fr;
+    padding: 12px 14px;
+    row-gap: 8px;
+  }
+
+  .thead {
+    display: none;
+  }
+
+  .tcell-agent {
+    grid-column: 1 / -1;
+  }
+
+  .tcell-num {
+    justify-content: flex-start;
+  }
+
+  .tcell-num::before {
+    content: attr(data-label);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-right: 6px;
+  }
+
+  .tcell-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+
+  .topbar-search kbd {
+    display: none;
+  }
+
+  /* Four items on one row ran past 390px and cut the chain chip in half.
+     The identity and the network stay on the first line; search takes the
+     second, where it has room to be typed into. */
+  .topbar {
+    flex-wrap: wrap;
+    gap: 12px 14px;
+    padding: 12px 16px;
+  }
+
+  .topbar-search {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .topbar-right {
+    margin-left: auto;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+    /* Single column: verdict first, identity after, matching the DOM. */
+    grid-template-areas: 'evidence' 'identity';
+  }
+}
+
+
+/* ── Select ──────────────────────────────────────────────────────────────
+   The closed control is a button drawn from the palette; the list is a real
+   listbox, because an <option> popup is drawn by the OS and no rule below
+   reaches inside it. See components/ui/select.jsx for why that trade was
+   worth making. */
+.sel {
+  position: relative;
+}
+
+.sel-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--bg-0);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  color: var(--text-hi);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--ease);
+}
+
+.sel-mono .sel-trigger,
+.sel-mono .sel-opt { font-family: var(--font-mono); }
+
+.sel-trigger:hover:not(:disabled) { border-color: var(--hairline-strong); }
+.sel-trigger[aria-expanded='true'] { border-color: var(--hairline-strong); }
+
+.sel-trigger:disabled {
+  color: var(--text-dim);
+  cursor: not-allowed;
+}
+
+.sel-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sel-chev {
+  color: var(--text-dim);
+  flex-shrink: 0;
+  transition: transform 200ms var(--ease);
+}
+
+.sel-chev.is-open { transform: rotate(180deg); }
+
+/* Elevation by value, not by shadow: one surface step above the panel it
+   opens over, which is how every other layer on this site separates itself. */
+.sel-list {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  max-height: 264px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--bg-2);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-md);
+  animation: sel-in 130ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes sel-in {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: none; }
+}
+
+.sel-opt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  color: var(--text-mid);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Where the keyboard is, or the pointer. One highlight for both, so arrowing
+   down and hovering cannot disagree about what Enter would pick. */
+.sel-opt.is-active {
+  background: var(--bg-3);
+  color: var(--text-hi);
+}
+
+.sel-opt.is-selected { color: var(--text-hi); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sel-list { animation: none; }
+  .sel-chev { transition: none; }
+}
+
+/* ── Browser surfaces ────────────────────────────────────────────────────
+   The parts of a page nobody draws still ship with defaults that belong to no
+   design system: a bright blue selection, an OS-light scrollbar, a white
+   caret, a default focus ring. On a #0b0e11 surface every one of them was
+   visibly borrowed. They are the cheapest evidence a page was built rather
+   than assembled, so they are drawn here from the same palette as everything
+   else. */
+::selection {
+  background: var(--gold-dim);
+  color: var(--text-hi);
+}
+
+:root {
+  color-scheme: dark;
+  scrollbar-color: var(--bg-3) var(--bg-0);
+  scrollbar-width: thin;
+  accent-color: var(--brand);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-0);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-3);
+  border: 2px solid var(--bg-0);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-4);
+}
+
+input,
+textarea,
+select {
+  caret-color: var(--brand);
+}
+
+/* One focus ring for the whole site, keyboard-only, on the action colour.
+   Nothing here had a visible focus state that was not a browser default. */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+a {
+  /* Colour is set per context here — a row action, a proof link, a hash — so
+     the base rule carried none, and any link written without a class of its
+     own fell through to the browser's defaults. One had: the coverage
+     footnote rendered in Chrome's visited-link purple, a colour this palette
+     does not contain, which also changed after the first click. Inheriting
+     means an unclassed link reads as the sentence it sits in. */
+  color: inherit;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+/* Data reads as data: tabular figures wherever a number can change under the
+   reader, so columns of latencies and counts do not jitter between renders. */
+.tcell-num,
+.stat-value,
+.coverage-num,
+.liveness-latency,
+.cap {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep the state change, drop the travel: the checking dot still marks a
+     probe in flight, it just stops pulsing. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .dot-checking {
+    animation: none;
+    opacity: 0.55;
+  }
+}
+
+
+/* ── Footer entrance ─────────────────────────────────────────────────────
+   One observer on the slab, and the stagger is pure CSS: each block carries
+   its own delay, so the columns settle left to right a tenth of a second
+   apart. Blur and lift resolve together over 0.8s on an ease-out, from -8px,
+   so the blocks come down onto the slab rather than rising past it. */
+[data-reveal] {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(-8px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+footer.is-in [data-reveal] {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+[data-reveal='1'] { transition-delay: 0.1s; }
+[data-reveal='2'] { transition-delay: 0.2s; }
+[data-reveal='3'] { transition-delay: 0.3s; }
+[data-reveal='4'] { transition-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* Never a hidden footer: the entrance is the thing that is skipped, not the
+     content. The hook also refuses to arm, so this is belt and braces. */
+  [data-reveal] {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
+
+
+@media (max-width: 620px) {
+  .ev-toggle {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+
+  .ev-chevron {
+    margin-left: auto;
+  }
+
+  .ev-summary {
+    order: 3;
+    flex-basis: 100%;
+    white-space: normal;
+    overflow: visible;
+  }
+}
+
+
+/* The measured value inside a plain answer. Weight and a step up the text
+   ramp, no colour and no rule: this is a skim aid, not a claim that the
+   number matters more than the sentence around it. */
+.measured {
+  font-weight: 600;
+  color: var(--text-hi);
+}

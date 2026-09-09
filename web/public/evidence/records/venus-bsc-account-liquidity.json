@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fya-observed-agent-result",
+  "runId": "ddc6c01d-b40d-401e-a4b4-5faae2ccc5c7",
+  "agent": {
+    "chainId": 56,
+    "tokenId": "43129",
+    "endpointUsed": "https://erc8004.heyanon.ai/mcp/venus"
+  },
+  "request": {
+    "protocol": "mcp",
+    "tool": "getAccountLiquidity",
+    "arguments": {
+      "chainNames": [
+        "bsc"
+      ],
+      "pool": "CORE",
+      "userAddress": "0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173"
+    },
+    "presetId": "venus-bsc-account-liquidity",
+    "presetVersion": 1,
+    "inputKind": "public-fixture"
+  },
+  "observation": {
+    "version": 1,
+    "runId": "ddc6c01d-b40d-401e-a4b4-5faae2ccc5c7",
+    "protocol": "mcp",
+    "endpoint": "https://erc8004.heyanon.ai/mcp/venus",
+    "phase": "tools/call",
+    "startedAt": "2026-09-07T22:33:52.517Z",
+    "finishedAt": "2026-09-07T22:33:54.596Z",
+    "checkedAt": "2026-09-07T22:33:54.596Z",
+    "latencyMs": 2079,
+    "captureComplete": true,
+    "transport": {
+      "status": 201,
+      "ok": true,
+      "received": true
+    },
+    "outcome": "response_received",
+    "reason": "mcp-content-received",
+    "task": {
+      "presetId": "venus-bsc-account-liquidity",
+      "presetVersion": 1,
+      "criteriaVersion": 1,
+      "checks": [
+        {
+          "id": "task",
+          "label": "Reply identifies the requested Venus account lookup",
+          "passed": true
+        },
+        {
+          "id": "scope",
+          "label": "One BSC CORE result; any account echo matches the request",
+          "passed": true
+        },
+        {
+          "id": "metrics",
+          "label": "Borrow limit and shortfall are nonnegative decimal strings",
+          "passed": true
+        }
+      ],
+      "status": "passed",
+      "limitation": "Checks confirm BSC, Venus CORE and decimal-shaped reported values. The provider does not echo the account in its usual reply; this record preserves the request, not independent account attribution. Units and field semantics are unconfirmed. This is not a health factor, safety judgment or ongoing protection."
+    },
+    "providerTaskId": null
+  },
+  "response": {
+    "body": {
+      "jsonrpc": "2.0",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"project\":\"venus\",\"operation\":\"getAccountLiquidity\",\"data\":[{\"chain\":\"bsc\",\"pool\":\"CORE\",\"borrowLimit\":\"1.16\",\"shortfall\":\"0.00\"}]}"
+          }
+        ],
+        "structuredContent": {
+          "project": "venus",
+          "operation": "getAccountLiquidity",
+          "data": [
+            {
+              "chain": "bsc",
+              "pool": "CORE",
+              "borrowLimit": "1.16",
+              "shortfall": "0.00"
+            }
+          ]
+        }
+      },
+      "id": 1
+    },
+    "captureComplete": true
+  },
+  "limitations": "FYA observed this response. Task checks do not independently verify the provider data. This file is not a provider-signed attestation or settlement receipt."
+}

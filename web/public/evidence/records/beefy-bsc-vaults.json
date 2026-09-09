@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fya-observed-agent-result",
+  "runId": "97f94d25-497c-4b8e-9fbe-e85ca7ddcac9",
+  "agent": {
+    "chainId": 56,
+    "tokenId": "45422",
+    "endpointUsed": "https://erc8004.heyanon.ai/mcp/beefy"
+  },
+  "request": {
+    "protocol": "mcp",
+    "tool": "getVaultsWithChains",
+    "arguments": {
+      "chainNames": [
+        "bsc"
+      ]
+    },
+    "presetId": "beefy-bsc-vaults",
+    "presetVersion": 1,
+    "inputKind": "public-fixture"
+  },
+  "observation": {
+    "version": 1,
+    "runId": "97f94d25-497c-4b8e-9fbe-e85ca7ddcac9",
+    "protocol": "mcp",
+    "endpoint": "https://erc8004.heyanon.ai/mcp/beefy",
+    "phase": "tools/call",
+    "startedAt": "2026-09-07T22:10:10.873Z",
+    "finishedAt": "2026-09-07T22:10:11.734Z",
+    "checkedAt": "2026-09-07T22:10:11.734Z",
+    "latencyMs": 861,
+    "captureComplete": true,
+    "transport": {
+      "status": 201,
+      "ok": true,
+      "received": true
+    },
+    "outcome": "response_received",
+    "reason": "mcp-content-received",
+    "task": {
+      "presetId": "beefy-bsc-vaults",
+      "presetVersion": 1,
+      "criteriaVersion": 1,
+      "checks": [
+        {
+          "id": "task",
+          "label": "Reply identifies the requested Beefy vault lookup",
+          "passed": true
+        },
+        {
+          "id": "chain",
+          "label": "All returned groups and vaults identify BSC",
+          "passed": true
+        },
+        {
+          "id": "vaults",
+          "label": "At least one vault has an identifier, name and asset",
+          "passed": true
+        },
+        {
+          "id": "metrics",
+          "label": "Every vault includes numeric reported TVL and APY",
+          "passed": true
+        }
+      ],
+      "status": "passed",
+      "limitation": "Checks confirm the requested chain and required fields. They do not independently verify market data, returns or safety."
+    },
+    "providerTaskId": null
+  },
+  "response": {
+    "body": {
+      "jsonrpc": "2.0",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"project\":\"beefy\",\"operation\":\"getVaultsWithChains\",\"data\":[{\"chain\":\"bsc\",\"vaults\":[{\"id\":\"pancake-cow-bsc-pepe-wbnb-vault\",\"name\":\"PEPE-WBNB\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"PEPE-WBNB\",\"tokenAddress\":\"0x3e5067c68EA8B3661d65B6d817e669898A711B9B\",\"tvl\":4213.515301788414,\"poolTvl\":254857.3758837988,\"apy\":46.33656767565813},{\"id\":\"pancake-cow-bsc-doge-wbnb-vault\",\"name\":\"DOGE-WBNB\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"DOGE-WBNB\",\"tokenAddress\":\"0x364aaFb34D8d98D9ea87aCAFc884bbd52f262cb4\",\"tvl\":51820.964544665425,\"poolTvl\":678113.8225153681,\"apy\":1.8536760024036476},{\"id\":\"pancake-cow-bsc-cake-wbnb-vault\",\"name\":\"CAKE-WBNB\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"CAKE-WBNB\",\"tokenAddress\":\"0xB40e61BbC7b188fe658a8687DCb30619610Be39b\",\"tvl\":100847.64308006087,\"poolTvl\":5160429.700526021,\"apy\":0.31920138884079896},{\"id\":\"pancake-cow-bsc-btcb-wbnb-vault\",\"name\":\"BTCB-WBNB\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"BTCB-WBNB\",\"tokenAddress\":\"0xa0fb8EDB90F4D0527F08f41D7a2c93105f9f581E\",\"tvl\":40933.92934523041,\"poolTvl\":25969254.063296545,\"apy\":0.16476183218349316},{\"id\":\"pancake-cow-bsc-cake-usdt-vault\",\"name\":\"CAKE-USDT\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"CAKE-USDT\",\"tokenAddress\":\"0x07F015C14C536B3fFaA1b14ea06E224E9cCF5630\",\"tvl\":79442.93120124345,\"poolTvl\":5240009.705162835,\"apy\":0.09842866022694263},{\"id\":\"pancake-cow-bsc-eth-wbnb-vault\",\"name\":\"ETH-WBNB\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"ETH-WBNB\",\"tokenAddress\":\"0xcE033c748aBd4B5e9aE16efFdb0b0c91fB0c99F1\",\"tvl\":11132.053443331217,\"poolTvl\":15897838.777085107,\"apy\":0.08015251441927407},{\"id\":\"pancake-cow-bsc-sol-wbnb-vault\",\"name\":\"SOL-WBNB\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"SOL-WBNB\",\"tokenAddress\":\"0x06DFa5747f0B6F4f1332267A5376aD3f4eeeff55\",\"tvl\":44682.55395515761,\"poolTvl\":484125.5934467226,\"apy\":0.07182763109720258},{\"id\":\"pancake-cow-bsc-axlusdc-usdt-vault\",\"name\":\"axlUSDC-USDT\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"axlUSDC-USDT\",\"tokenAddress\":\"0x1400E7A2b7AA779a324a750CcF4cE00349bBdbA6\",\"tvl\":67371.96661720658,\"poolTvl\":202896.02885734953,\"apy\":0.07017200916123456},{\"id\":\"pancake-cow-bsc-usdt-sol-vault\",\"name\":\"SOL-USDT\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"SOL-USDT\",\"tokenAddress\":\"0x61E9a8dD14D6cF17E04D2AC61b995bcC7bDA50Fa\",\"tvl\":6227.049516309633,\"poolTvl\":653187.7736746196,\"apy\":0.0640952793966938},{\"id\":\"pancake-cow-bsc-eth-btcb-vault\",\"name\":\"ETH-BTCB\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"ETH-BTCB\",\"tokenAddress\":\"0xC0885E2B72E2Ff70E6a947387a70435c6E59a477\",\"tvl\":13823.64585685769,\"poolTvl\":1173752.2634638948,\"apy\":0.02505222354659109},{\"id\":\"pancake-cow-bsc-eth-usdt-vault\",\"name\":\"ETH-USDT\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"ETH-USDT\",\"tokenAddress\":\"0x574818b97c7c925C542d74ad8463c8dA83392939\",\"tvl\":54655.31204753202,\"poolTvl\":5194961.262316512,\"apy\":0.02007216181585414},{\"id\":\"pancake-cow-bsc-usdt-wbnb-vault\",\"name\":\"WBNB-USDT\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"WBNB-USDT\",\"tokenAddress\":\"0x39D16B4B83C43207668De708E55ecc721cC27990\",\"tvl\":107165.61422604072,\"poolTvl\":11077217.185643163,\"apy\":0.01637834232464863},{\"id\":\"pancake-cow-bsc-usdt-btcb-vault\",\"name\":\"BTCB-USDT\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"BTCB-USDT\",\"tokenAddress\":\"0xE5654eB3f76F6758a89EDcc9843D11eF89bDDf3D\",\"tvl\":56979.14181506769,\"poolTvl\":16471604.794922238,\"apy\":0.011184747511011839},{\"id\":\"pancake-cow-bsc-usdt-usdc-vault\",\"name\":\"USDT-USDC\",\"chain\":\"bsc\",\"tokenProviderId\":\"pancakeswap\",\"platform\":\"pancakeswap\",\"token\":\"USDT-USDC\",\"tokenAddress\":\"0xEE800276e4c9AAc5bC7d7e196Df86AbE3f49c520\",\"tvl\":15155.93144036874,\"poolTvl\":29790500.916763827,\"apy\":0.00019707963922344085}]}]}"
+          }
+        ],
+        "structuredContent": {
+          "project": "beefy",
+          "operation": "getVaultsWithChains",
+          "data": [
+            {
+              "chain": "bsc",
+              "vaults": [
+                {
+                  "id": "pancake-cow-bsc-pepe-wbnb-vault",
+                  "name": "PEPE-WBNB",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "PEPE-WBNB",
+                  "tokenAddress": "0x3e5067c68EA8B3661d65B6d817e669898A711B9B",
+                  "tvl": 4213.515301788414,
+                  "poolTvl": 254857.3758837988,
+                  "apy": 46.33656767565813
+                },
+                {
+                  "id": "pancake-cow-bsc-doge-wbnb-vault",
+                  "name": "DOGE-WBNB",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "DOGE-WBNB",
+                  "tokenAddress": "0x364aaFb34D8d98D9ea87aCAFc884bbd52f262cb4",
+                  "tvl": 51820.964544665425,
+                  "poolTvl": 678113.8225153681,
+                  "apy": 1.8536760024036476
+                },
+                {
+                  "id": "pancake-cow-bsc-cake-wbnb-vault",
+                  "name": "CAKE-WBNB",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "CAKE-WBNB",
+                  "tokenAddress": "0xB40e61BbC7b188fe658a8687DCb30619610Be39b",
+                  "tvl": 100847.64308006087,
+                  "poolTvl": 5160429.700526021,
+                  "apy": 0.31920138884079896
+                },
+                {
+                  "id": "pancake-cow-bsc-btcb-wbnb-vault",
+                  "name": "BTCB-WBNB",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "BTCB-WBNB",
+                  "tokenAddress": "0xa0fb8EDB90F4D0527F08f41D7a2c93105f9f581E",
+                  "tvl": 40933.92934523041,
+                  "poolTvl": 25969254.063296545,
+                  "apy": 0.16476183218349316
+                },
+                {
+                  "id": "pancake-cow-bsc-cake-usdt-vault",
+                  "name": "CAKE-USDT",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "CAKE-USDT",
+                  "tokenAddress": "0x07F015C14C536B3fFaA1b14ea06E224E9cCF5630",
+                  "tvl": 79442.93120124345,
+                  "poolTvl": 5240009.705162835,
+                  "apy": 0.09842866022694263
+                },
+                {
+                  "id": "pancake-cow-bsc-eth-wbnb-vault",
+                  "name": "ETH-WBNB",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "ETH-WBNB",
+                  "tokenAddress": "0xcE033c748aBd4B5e9aE16efFdb0b0c91fB0c99F1",
+                  "tvl": 11132.053443331217,
+                  "poolTvl": 15897838.777085107,
+                  "apy": 0.08015251441927407
+                },
+                {
+                  "id": "pancake-cow-bsc-sol-wbnb-vault",
+                  "name": "SOL-WBNB",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "SOL-WBNB",
+                  "tokenAddress": "0x06DFa5747f0B6F4f1332267A5376aD3f4eeeff55",
+                  "tvl": 44682.55395515761,
+                  "poolTvl": 484125.5934467226,
+                  "apy": 0.07182763109720258
+                },
+                {
+                  "id": "pancake-cow-bsc-axlusdc-usdt-vault",
+                  "name": "axlUSDC-USDT",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "axlUSDC-USDT",
+                  "tokenAddress": "0x1400E7A2b7AA779a324a750CcF4cE00349bBdbA6",
+                  "tvl": 67371.96661720658,
+                  "poolTvl": 202896.02885734953,
+                  "apy": 0.07017200916123456
+                },
+                {
+                  "id": "pancake-cow-bsc-usdt-sol-vault",
+                  "name": "SOL-USDT",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "SOL-USDT",
+                  "tokenAddress": "0x61E9a8dD14D6cF17E04D2AC61b995bcC7bDA50Fa",
+                  "tvl": 6227.049516309633,
+                  "poolTvl": 653187.7736746196,
+                  "apy": 0.0640952793966938
+                },
+                {
+                  "id": "pancake-cow-bsc-eth-btcb-vault",
+                  "name": "ETH-BTCB",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "ETH-BTCB",
+                  "tokenAddress": "0xC0885E2B72E2Ff70E6a947387a70435c6E59a477",
+                  "tvl": 13823.64585685769,
+                  "poolTvl": 1173752.2634638948,
+                  "apy": 0.02505222354659109
+                },
+                {
+                  "id": "pancake-cow-bsc-eth-usdt-vault",
+                  "name": "ETH-USDT",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "ETH-USDT",
+                  "tokenAddress": "0x574818b97c7c925C542d74ad8463c8dA83392939",
+                  "tvl": 54655.31204753202,
+                  "poolTvl": 5194961.262316512,
+                  "apy": 0.02007216181585414
+                },
+                {
+                  "id": "pancake-cow-bsc-usdt-wbnb-vault",
+                  "name": "WBNB-USDT",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "WBNB-USDT",
+                  "tokenAddress": "0x39D16B4B83C43207668De708E55ecc721cC27990",
+                  "tvl": 107165.61422604072,
+                  "poolTvl": 11077217.185643163,
+                  "apy": 0.01637834232464863
+                },
+                {
+                  "id": "pancake-cow-bsc-usdt-btcb-vault",
+                  "name": "BTCB-USDT",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "BTCB-USDT",
+                  "tokenAddress": "0xE5654eB3f76F6758a89EDcc9843D11eF89bDDf3D",
+                  "tvl": 56979.14181506769,
+                  "poolTvl": 16471604.794922238,
+                  "apy": 0.011184747511011839
+                },
+                {
+                  "id": "pancake-cow-bsc-usdt-usdc-vault",
+                  "name": "USDT-USDC",
+                  "chain": "bsc",
+                  "tokenProviderId": "pancakeswap",
+                  "platform": "pancakeswap",
+                  "token": "USDT-USDC",
+                  "tokenAddress": "0xEE800276e4c9AAc5bC7d7e196Df86AbE3f49c520",
+                  "tvl": 15155.93144036874,
+                  "poolTvl": 29790500.916763827,
+                  "apy": 0.00019707963922344085
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "id": 1
+    },
+    "captureComplete": true
+  },
+  "limitations": "FYA observed this response. Task checks do not independently verify the provider data. This file is not a provider-signed attestation or settlement receipt."
+}

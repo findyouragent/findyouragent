@@ -1,0 +1,61 @@
+{
+  "checkedAt": "2026-09-09T00:55:01.968Z",
+  "cid": "Qmb9hHNafffcmHQCdbnbdTdxngCfvhMD2c8ntM5ERqWnxg",
+  "gateway": "https://gateway.pinata.cloud/ipfs/Qmb9hHNafffcmHQCdbnbdTdxngCfvhMD2c8ntM5ERqWnxg?format=raw",
+  "rootBlockSha256": "be59737972adf79a1923e4a898bd240e8569e0726d1d3139291fc9e2ed2b65b9",
+  "fileSha256": "0e2012b082803cb5560c984bbb3d0d15d539d61c01a3b499549ca30756738d80",
+  "checks": {
+    "dagPbHashMatchesOnchainCommitment": true,
+    "singleBlockUnixfsFileVerified": true,
+    "jobMatches": true,
+    "providerMatches": true,
+    "agentMatches": true,
+    "nonemptyDelivery": true
+  },
+  "manifest": {
+    "bort8183": 2,
+    "jobId": "56752",
+    "agentId": 11168,
+    "provider": "0x35573171fedc3528421a4aaf625d7be56c93f9ee",
+    "deliverable": "Venus account health report, protocol/network: Venus on BSC.\n\nAccount: 0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173\nObservation time (UTC): unknown (tool output did not include a timestamp)\nHealth factor: 1.704 (1.0 is the liquidation line)\nBorrowed value: $1.74\nRemaining headroom before liquidation: $1.22\nDebt status: the position has borrows ($1.74), so it is not debt-free.\n\nNote on the \"remaining borrowing headroom\" field: the tool reports $1.22 as headroom before liquidation, not as unused borrowing capacity. I am reporting it exactly as returned rather than relabeling it.\n\nActual tool output: \"Venus position for 0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173: health factor 1.704 (1.0 is the liquidation line). Borrowed $1.74, headroom $1.22 before liquidation.\"\n\nSource block / txHash: none available. No transaction was executed. This was a read-only assessment; I did not repay, trade, approve, transfer, or start monitoring.",
+    "generatedAt": "2026-09-09T00:53:49.716Z",
+    "version": 1,
+    "job_id": 56752,
+    "chain_id": 56,
+    "contracts": {
+      "commerce": "0xEa4DAa3100A767e86FDed867729ae7446476EBA6",
+      "router": "0x51895229E12F9876011789B04f8698af06cCD6DA",
+      "policy": "0x9C01845705b3078Aa2e8cfF7520a6376FD766dE5"
+    },
+    "response": {
+      "content": "Venus account health report, protocol/network: Venus on BSC.\n\nAccount: 0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173\nObservation time (UTC): unknown (tool output did not include a timestamp)\nHealth factor: 1.704 (1.0 is the liquidation line)\nBorrowed value: $1.74\nRemaining headroom before liquidation: $1.22\nDebt status: the position has borrows ($1.74), so it is not debt-free.\n\nNote on the \"remaining borrowing headroom\" field: the tool reports $1.22 as headroom before liquidation, not as unused borrowing capacity. I am reporting it exactly as returned rather than relabeling it.\n\nActual tool output: \"Venus position for 0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173: health factor 1.704 (1.0 is the liquidation line). Borrowed $1.74, headroom $1.22 before liquidation.\"\n\nSource block / txHash: none available. No transaction was executed. This was a read-only assessment; I did not repay, trade, approve, transfer, or start monitoring.",
+      "content_type": "text/plain"
+    }
+  },
+  "correctness": {
+    "status": "partially_corroborated",
+    "assessmentDelivered": true,
+    "fullCorrectnessEstablished": false,
+    "requestedAccountMatches": true,
+    "protocolMatches": true,
+    "providerObservationTime": null,
+    "providerSourceBlock": null,
+    "providerToolOutputForm": "Text quoted inside the delivered report; not an independently captured tool execution trace.",
+    "historicalCheck": "/evidence/erc8183-job-56752/corroboration/health-corroboration.json",
+    "comparison": {
+      "borrowedNearestCent": "1.74",
+      "borrowedMatchesNearestCent": true,
+      "liquidityNearestCent": "1.23",
+      "deliveredHeadroom": "1.22",
+      "headroomMatchesNearestCent": false,
+      "headroomMatchesTruncationToCents": true,
+      "headroomSemanticsVerified": false,
+      "healthRatioAtProxy": "1.706426186947",
+      "deliveredHealthFactor": "1.704",
+      "healthRatioRounded3": "1.706",
+      "healthRatioExactMatch": false,
+      "healthFactorDifference": "0.002426186947"
+    },
+    "limitation": "Funding block is a preselected temporal proxy. Borrowed value matches to cents. Health ratio differs at displayed precision; liquidity rounds to 1.23 rather than the reported liquidation headroom of 1.22. Provider timing and headroom semantics remain unverified. This does not prove either exact correctness or provider error at its unknown observation block."
+  }
+}

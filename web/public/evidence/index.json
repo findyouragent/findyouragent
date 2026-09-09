@@ -1,0 +1,612 @@
+{
+  "schemaVersion": 1,
+  "recordType": "fya-evidence-index",
+  "title": "Find Your Agent: dated evidence",
+  "qualification": {
+    "environment": "local-development",
+    "evidenceKind": "development-integration-qa",
+    "liveProviderResponses": true,
+    "paidHireEvidence": false,
+    "deployedReleaseEvidence": false,
+    "independentBenchmarkEvidence": false,
+    "explanation": "Original reviewed public read-only responses captured through a local FYA development build, plus separately scoped archives. The paidCall archive records a returned assessment and a matching settled payment. Each archive retains its own provenance and limits; these are not a deployed-release verification or partner-track submission.",
+    "paidCallEvidence": true,
+    "paidHireEvidenceScope": "Completed ERC-8183 escrow hire; separate from the recorded x402 paid call.",
+    "escrowFundingEvidence": true,
+    "escrowDeliveryCommitmentEvidence": true,
+    "escrowAssessmentDeliveredEvidence": true
+  },
+  "selection": "Three reviewed task examples selected from developer QA, a later failed local release check, and separately scoped range-assessment and paid-call archives. This is not an exhaustive run history or a success-rate estimate.",
+  "providerGroups": [
+    {
+      "id": "heyanon-associated",
+      "name": "HeyAnon-associated provider group",
+      "memberIds": [
+        "56:45422",
+        "56:43129",
+        "56:45650"
+      ],
+      "basis": "All three captured endpoints use erc8004.heyanon.ai and the reviewed registry names use HeyAnon branding. Treat them as one associated supply group, not three independent providers.",
+      "observedRegistryOwner": {
+        "chainId": 56,
+        "tokenId": "45650",
+        "address": "0xda977767452c5dd021624511f14df67b6c9c2c1b",
+        "evidenceHref": "/evidence/sources/v3-registry-response.json"
+      },
+      "ownerScope": "The raw registry response in this package directly establishes the recorded owner field for V3 Pools only. A prior development review also recorded matching Beefy ownership; that comparison is not independently reproduced by the three task downloads. Venus ownership is not established by this package.",
+      "limitation": "Domain, branding and registry ownership observations do not establish legal ownership, beneficial ownership, independent operation or provider-signed delivery."
+    }
+  ],
+  "records": [
+    {
+      "id": "beefy-bsc-vaults",
+      "title": "Discover BSC vaults",
+      "summary": "Read 14 BSC vault entries with names, assets and provider-reported TVL/APY fields.",
+      "provider": {
+        "name": "Beefy powered by HeyAnon",
+        "chainId": 56,
+        "tokenId": "45422",
+        "groupId": "heyanon-associated",
+        "endpointUsed": "https://erc8004.heyanon.ai/mcp/beefy",
+        "registryUrl": "https://8004scan.io/agents/bsc/45422",
+        "agentPage": "/#/agent/56/45422"
+      },
+      "request": {
+        "protocol": "mcp",
+        "tool": "getVaultsWithChains",
+        "arguments": {
+          "chainNames": [
+            "bsc"
+          ]
+        },
+        "presetId": "beefy-bsc-vaults",
+        "presetVersion": 1,
+        "inputKind": "public-fixture"
+      },
+      "observation": {
+        "version": 1,
+        "runId": "97f94d25-497c-4b8e-9fbe-e85ca7ddcac9",
+        "protocol": "mcp",
+        "endpoint": "https://erc8004.heyanon.ai/mcp/beefy",
+        "phase": "tools/call",
+        "startedAt": "2026-09-07T22:10:10.873Z",
+        "finishedAt": "2026-09-07T22:10:11.734Z",
+        "checkedAt": "2026-09-07T22:10:11.734Z",
+        "latencyMs": 861,
+        "captureComplete": true,
+        "transport": {
+          "status": 201,
+          "ok": true,
+          "received": true
+        },
+        "outcome": "response_received",
+        "reason": "mcp-content-received",
+        "task": {
+          "presetId": "beefy-bsc-vaults",
+          "presetVersion": 1,
+          "criteriaVersion": 1,
+          "checks": [
+            {
+              "id": "task",
+              "label": "Reply identifies the requested Beefy vault lookup",
+              "passed": true
+            },
+            {
+              "id": "chain",
+              "label": "All returned groups and vaults identify BSC",
+              "passed": true
+            },
+            {
+              "id": "vaults",
+              "label": "At least one vault has an identifier, name and asset",
+              "passed": true
+            },
+            {
+              "id": "metrics",
+              "label": "Every vault includes numeric reported TVL and APY",
+              "passed": true
+            }
+          ],
+          "status": "passed",
+          "limitation": "Checks confirm the requested chain and required fields. They do not independently verify market data, returns or safety."
+        },
+        "providerTaskId": null
+      },
+      "provenance": {
+        "captureRevision": null,
+        "captureRevisionReason": "The original browser download did not record a Git revision. No current commit is substituted for that missing fact.",
+        "sourceArtifact": "browser-downloaded-result.json",
+        "format": "original-browser-json-download",
+        "originalBytesPreserved": true,
+        "note": "Complete browser result JSON, including the parsed provider response and server observation. This is not a byte-for-byte HTTP exchange or a provider signature."
+      },
+      "rawCapture": {
+        "href": "/evidence/records/beefy-bsc-vaults.json",
+        "mediaType": "application/json",
+        "bytes": 14564,
+        "sha256": "d71a0385a9d9385f7430ae6bc0af70af30ae699032f6831959b79828bf563614"
+      },
+      "reproduce": {
+        "requires": "A running FYA verification API with public registry and provider access. A new run is a new dated observation; data may differ and external services may be unavailable.",
+        "interface": {
+          "method": "GET",
+          "path": "/api/try/56/45422/interface"
+        },
+        "request": {
+          "method": "POST",
+          "path": "/api/try/56/45422",
+          "body": {
+            "presetId": "beefy-bsc-vaults"
+          }
+        },
+        "steps": [
+          "Open the agent page and select the reviewed task.",
+          "Inspect the exact public inputs and read-only scope.",
+          "Run once, inspect the observation time and task checks, then download the full result.",
+          "If lookup fails, the task is unavailable or payment is required, record that outcome; do not treat it as a completed task or automatically pay."
+        ]
+      },
+      "limits": [
+        "Checks confirm the requested chain and required fields. They do not independently verify market data, returns or safety.",
+        "FYA observed this response. Task checks do not independently verify the provider data. This file is not a provider-signed attestation or settlement receipt.",
+        "Reported TVL/APY units and mapping were not independently established. Values are retained as received; no currency or percentage conversion is asserted.",
+        "No wallet connection, payment submission, trade, deposit, rebalance or ongoing monitoring was demonstrated by this read. A registry identity or provider response does not establish independent beneficial ownership."
+      ]
+    },
+    {
+      "id": "venus-bsc-account-liquidity",
+      "title": "Check a public Venus account",
+      "summary": "Read one BSC CORE reply containing reported borrow limit and shortfall.",
+      "provider": {
+        "name": "Venus powered by HeyAnon",
+        "chainId": 56,
+        "tokenId": "43129",
+        "groupId": "heyanon-associated",
+        "endpointUsed": "https://erc8004.heyanon.ai/mcp/venus",
+        "registryUrl": "https://8004scan.io/agents/bsc/43129",
+        "agentPage": "/#/agent/56/43129"
+      },
+      "request": {
+        "protocol": "mcp",
+        "tool": "getAccountLiquidity",
+        "arguments": {
+          "chainNames": [
+            "bsc"
+          ],
+          "pool": "CORE",
+          "userAddress": "0x94bD6175e45f5b1054700bbb4CaBcA1Ab4c15173"
+        },
+        "presetId": "venus-bsc-account-liquidity",
+        "presetVersion": 1,
+        "inputKind": "public-fixture"
+      },
+      "observation": {
+        "version": 1,
+        "runId": "ddc6c01d-b40d-401e-a4b4-5faae2ccc5c7",
+        "protocol": "mcp",
+        "endpoint": "https://erc8004.heyanon.ai/mcp/venus",
+        "phase": "tools/call",
+        "startedAt": "2026-09-07T22:33:52.517Z",
+        "finishedAt": "2026-09-07T22:33:54.596Z",
+        "checkedAt": "2026-09-07T22:33:54.596Z",
+        "latencyMs": 2079,
+        "captureComplete": true,
+        "transport": {
+          "status": 201,
+          "ok": true,
+          "received": true
+        },
+        "outcome": "response_received",
+        "reason": "mcp-content-received",
+        "task": {
+          "presetId": "venus-bsc-account-liquidity",
+          "presetVersion": 1,
+          "criteriaVersion": 1,
+          "checks": [
+            {
+              "id": "task",
+              "label": "Reply identifies the requested Venus account lookup",
+              "passed": true
+            },
+            {
+              "id": "scope",
+              "label": "One BSC CORE result; any account echo matches the request",
+              "passed": true
+            },
+            {
+              "id": "metrics",
+              "label": "Borrow limit and shortfall are nonnegative decimal strings",
+              "passed": true
+            }
+          ],
+          "status": "passed",
+          "limitation": "Checks confirm BSC, Venus CORE and decimal-shaped reported values. The provider does not echo the account in its usual reply; this record preserves the request, not independent account attribution. Units and field semantics are unconfirmed. This is not a health factor, safety judgment or ongoing protection."
+        },
+        "providerTaskId": null
+      },
+      "provenance": {
+        "captureRevision": null,
+        "captureRevisionReason": "The original browser download did not record a Git revision. No current commit is substituted for that missing fact.",
+        "sourceArtifact": "venus-qa-result.json",
+        "format": "original-browser-json-download",
+        "originalBytesPreserved": true,
+        "note": "Complete browser result JSON, including the parsed provider response and server observation. This is not a byte-for-byte HTTP exchange or a provider signature."
+      },
+      "rawCapture": {
+        "href": "/evidence/records/venus-bsc-account-liquidity.json",
+        "mediaType": "application/json",
+        "bytes": 3001,
+        "sha256": "ef479d9f2cd2dcdb7fd7446a4be253b197f6510ae15140dad0e6e7037be3f328"
+      },
+      "reproduce": {
+        "requires": "A running FYA verification API with public registry and provider access. A new run is a new dated observation; data may differ and external services may be unavailable.",
+        "interface": {
+          "method": "GET",
+          "path": "/api/try/56/43129/interface"
+        },
+        "request": {
+          "method": "POST",
+          "path": "/api/try/56/43129",
+          "body": {
+            "presetId": "venus-bsc-account-liquidity"
+          }
+        },
+        "steps": [
+          "Open the agent page and select the reviewed task.",
+          "Inspect the exact public inputs and read-only scope.",
+          "Run once, inspect the observation time and task checks, then download the full result.",
+          "If lookup fails, the task is unavailable or payment is required, record that outcome; do not treat it as a completed task or automatically pay."
+        ]
+      },
+      "limits": [
+        "Checks confirm BSC, Venus CORE and decimal-shaped reported values. The provider does not echo the account in its usual reply; this record preserves the request, not independent account attribution. Units and field semantics are unconfirmed. This is not a health factor, safety judgment or ongoing protection.",
+        "FYA observed this response. Task checks do not independently verify the provider data. This file is not a provider-signed attestation or settlement receipt.",
+        "No wallet connection, payment submission, trade, deposit, rebalance or ongoing monitoring was demonstrated by this read. A registry identity or provider response does not establish independent beneficial ownership."
+      ]
+    },
+    {
+      "id": "pancake-bsc-lp-position",
+      "title": "Inspect a public Pancake position",
+      "summary": "Read public PancakeSwap V3 position #7337249, including its reported USDT/WBNB amounts and price range.",
+      "provider": {
+        "name": "V3 Pools powered by HeyAnon",
+        "chainId": 56,
+        "tokenId": "45650",
+        "groupId": "heyanon-associated",
+        "endpointUsed": "https://erc8004.heyanon.ai/mcp/v3pools",
+        "registryUrl": "https://8004scan.io/agents/bsc/45650",
+        "agentPage": "/#/agent/56/45650"
+      },
+      "request": {
+        "protocol": "mcp",
+        "tool": "getLpPosition",
+        "arguments": {
+          "lpPositions": [
+            {
+              "chainName": "bsc",
+              "positionId": "7337249"
+            }
+          ]
+        },
+        "presetId": "pancake-bsc-lp-position",
+        "presetVersion": 1,
+        "inputKind": "public-fixture"
+      },
+      "observation": {
+        "version": 1,
+        "runId": "75a37619-cd92-4286-ba6b-79c3e0448e68",
+        "protocol": "mcp",
+        "endpoint": "https://erc8004.heyanon.ai/mcp/v3pools",
+        "phase": "tools/call",
+        "startedAt": "2026-09-07T23:52:30.262Z",
+        "finishedAt": "2026-09-07T23:52:36.087Z",
+        "checkedAt": "2026-09-07T23:52:36.087Z",
+        "latencyMs": 5825,
+        "captureComplete": true,
+        "transport": {
+          "status": 201,
+          "ok": true,
+          "received": true
+        },
+        "outcome": "response_received",
+        "reason": "mcp-content-received",
+        "task": {
+          "presetId": "pancake-bsc-lp-position",
+          "presetVersion": 1,
+          "criteriaVersion": 1,
+          "checks": [
+            {
+              "id": "task",
+              "label": "Reply identifies the requested concentrated-liquidity lookup",
+              "passed": true
+            },
+            {
+              "id": "scope",
+              "label": "One BSC Pancake position matches #7337249",
+              "passed": true
+            },
+            {
+              "id": "assets",
+              "label": "The reported USDT/WBNB assets and 0.05% fee match the public fixture",
+              "passed": true
+            },
+            {
+              "id": "metrics",
+              "label": "Liquidity, amounts, fees and prices preserve nonnegative decimal precision",
+              "passed": true
+            }
+          ],
+          "status": "passed",
+          "limitation": "Checks confirm the requested position, protocol, asset pair and decimal-shaped reported fields. They do not independently verify current amounts, prices, ownership or returns. The historical position was created outside FYA; this task only reads it."
+        },
+        "providerTaskId": null
+      },
+      "provenance": {
+        "captureRevision": null,
+        "captureRevisionReason": "The original browser download did not record a Git revision. No current commit is substituted for that missing fact.",
+        "sourceArtifact": "live-journey-result.json",
+        "format": "original-browser-json-download",
+        "originalBytesPreserved": true,
+        "note": "Complete browser result JSON, including the parsed provider response and server observation. This is not a byte-for-byte HTTP exchange or a provider signature."
+      },
+      "rawCapture": {
+        "href": "/evidence/records/pancake-bsc-lp-position.json",
+        "mediaType": "application/json",
+        "bytes": 4569,
+        "sha256": "d5cd7c089105c5ca40ccd78ee1cbbd673c25d39e18edc4bbd221b40e2413e55c"
+      },
+      "reproduce": {
+        "requires": "A running FYA verification API with public registry and provider access. A new run is a new dated observation; data may differ and external services may be unavailable.",
+        "interface": {
+          "method": "GET",
+          "path": "/api/try/56/45650/interface"
+        },
+        "request": {
+          "method": "POST",
+          "path": "/api/try/56/45650",
+          "body": {
+            "presetId": "pancake-bsc-lp-position"
+          }
+        },
+        "steps": [
+          "Open the agent page and select the reviewed task.",
+          "Inspect the exact public inputs and read-only scope.",
+          "Run once, inspect the observation time and task checks, then download the full result.",
+          "If lookup fails, the task is unavailable or payment is required, record that outcome; do not treat it as a completed task or automatically pay."
+        ]
+      },
+      "limits": [
+        "Checks confirm the requested position, protocol, asset pair and decimal-shaped reported fields. They do not independently verify current amounts, prices, ownership or returns. The historical position was created outside FYA; this task only reads it.",
+        "FYA observed this response. Task checks do not independently verify the provider data. This file is not a provider-signed attestation or settlement receipt.",
+        "No wallet connection, payment submission, trade, deposit, rebalance or ongoing monitoring was demonstrated by this read. A registry identity or provider response does not establish independent beneficial ownership."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "href": "/evidence/sources/v3-registry-response.json",
+      "mediaType": "application/json",
+      "bytes": 17753,
+      "sha256": "2413660329c3c18876bf2373067006c3668f7405393936915ffb95458dd8c65e",
+      "requestedAt": "2026-09-08T00:01:48.033Z",
+      "httpStatus": 200,
+      "sourceUrl": "https://api.8004scan.io/api/v1/agents/56/45650",
+      "timestampBasis": "Recorded request start in the saved registry probe summary; not the registry metadata update time.",
+      "format": "original-saved-parsed-json-response",
+      "originalBytesPreserved": true,
+      "note": "The saved public response contains no request credentials. Registry declarations and registry scores are not FYA findings."
+    }
+  ],
+  "implementationSources": [
+    {
+      "sourcePath": "server/src/try-result.js",
+      "description": "Classify transport, protocol errors and pending responses before a task-passed claim.",
+      "claims": [
+        "reject-false-success"
+      ],
+      "href": "/evidence/source/src--try-result.js",
+      "mediaType": "text/javascript",
+      "bytes": 5370,
+      "sha256": "fddec3674a7061e9e6ca593dcee640dc9d98566b2fe65a989e898fa8f5cad37a",
+      "kind": "implementation-reference",
+      "note": "Source snapshot from the working implementation when this evidence package was prepared. It is not the recorded revision of any historical provider capture. Tests use synthetic fixtures; their passing is not a live provider or paid-hire result."
+    },
+    {
+      "sourcePath": "server/src/task-presets.js",
+      "description": "Bind each reviewed task to an agent, tool, version and exact public input; assess output scope and fields.",
+      "claims": [
+        "reviewed-task",
+        "reject-false-success"
+      ],
+      "href": "/evidence/source/src--task-presets.js",
+      "mediaType": "text/javascript",
+      "bytes": 19918,
+      "sha256": "e5aac04256ee34216684f5671c8c39b21d3d875d328546a14ba1e56f4a80ef87",
+      "kind": "implementation-reference",
+      "note": "Source snapshot from the working implementation when this evidence package was prepared. It is not the recorded revision of any historical provider capture. Tests use synthetic fixtures; their passing is not a live provider or paid-hire result."
+    },
+    {
+      "sourcePath": "server/src/verify/score.js",
+      "description": "Require corroboration for top tier, discount shared wallets and reject an unverified A2A card subject.",
+      "claims": [
+        "subject-binding",
+        "conservative-tiering"
+      ],
+      "href": "/evidence/source/src--verify--score.js",
+      "mediaType": "text/javascript",
+      "bytes": 10051,
+      "sha256": "7cbefb7b6355b426ca36db6bbd50316aedb130d86e282c5acbc39282ceec9d2a",
+      "kind": "implementation-reference",
+      "note": "Source snapshot from the working implementation when this evidence package was prepared. It is not the recorded revision of any historical provider capture. Tests use synthetic fixtures; their passing is not a live provider or paid-hire result."
+    },
+    {
+      "sourcePath": "server/src/verify/wallet.js",
+      "description": "Check public wallet claims and A2A card subject references. This is not a universal agent identity proof.",
+      "claims": [
+        "subject-binding"
+      ],
+      "href": "/evidence/source/src--verify--wallet.js",
+      "mediaType": "text/javascript",
+      "bytes": 7848,
+      "sha256": "fe001e8b515d98b7bbae48b6b631b44dd66856f6b68f4767a236c0ce67cde0f1",
+      "kind": "implementation-reference",
+      "note": "Source snapshot from the working implementation when this evidence package was prepared. It is not the recorded revision of any historical provider capture. Tests use synthetic fixtures; their passing is not a live provider or paid-hire result."
+    },
+    {
+      "sourcePath": "server/src/verify/run.js",
+      "description": "Connect subject and attribution checks to the verdict; preserve unknown evidence as unknown.",
+      "claims": [
+        "subject-binding"
+      ],
+      "href": "/evidence/source/src--verify--run.js",
+      "mediaType": "text/javascript",
+      "bytes": 21615,
+      "sha256": "33b760f57c456aa02b6cbda58d47eb9a16ed9a7a5185c7bd695e8ffb8684ac84",
+      "kind": "implementation-reference",
+      "note": "Source snapshot from the working implementation when this evidence package was prepared. It is not the recorded revision of any historical provider capture. Tests use synthetic fixtures; their passing is not a live provider or paid-hire result."
+    },
+    {
+      "sourcePath": "server/test/try-result.test.mjs",
+      "description": "Network-disabled tests of protocol false positives, pending results, payment-required states and task relay failures.",
+      "claims": [
+        "reject-false-success"
+      ],
+      "href": "/evidence/source/test--try-result.test.mjs",
+      "mediaType": "text/javascript",
+      "bytes": 11286,
+      "sha256": "173c5bb9c54bb2bac92a296ad77306c91268ca3e946c765b6ee8c5cbcd9177c2",
+      "kind": "implementation-reference",
+      "note": "Source snapshot from the working implementation when this evidence package was prepared. It is not the recorded revision of any historical provider capture. Tests use synthetic fixtures; their passing is not a live provider or paid-hire result."
+    },
+    {
+      "sourcePath": "server/test/task-presets.test.mjs",
+      "description": "Tests rejecting task schema drift, wrong scope and malformed reported values.",
+      "claims": [
+        "reviewed-task",
+        "reject-false-success"
+      ],
+      "href": "/evidence/source/test--task-presets.test.mjs",
+      "mediaType": "text/javascript",
+      "bytes": 16240,
+      "sha256": "5c956f365ba9d96321a459790455962be8729c27978433c07b6b2ecbe90cf8bc",
+      "kind": "implementation-reference",
+      "note": "Source snapshot from the working implementation when this evidence package was prepared. It is not the recorded revision of any historical provider capture. Tests use synthetic fixtures; their passing is not a live provider or paid-hire result."
+    },
+    {
+      "sourcePath": "server/src/range-assessment.js",
+      "description": "Corroborate the reviewed LP range facts through bounded, fixed-address reads at the provider block.",
+      "claims": [
+        "reviewed-task",
+        "reject-false-success"
+      ],
+      "href": "/evidence/source/src--range-assessment.js",
+      "mediaType": "text/javascript",
+      "bytes": 20919,
+      "sha256": "77e5f195d6d1d6c48e540d010a241ea59e921a0cb74e3ff70f684f31090f355f",
+      "kind": "implementation-reference",
+      "note": "Source snapshot from the working implementation when this evidence package was prepared. It is not the recorded revision of any historical provider capture. Tests use synthetic fixtures; their passing is not a live provider or paid-hire result."
+    },
+    {
+      "sourcePath": "server/test/range-assessment.test.mjs",
+      "description": "Synthetic RPC tests for range boundaries, malformed facts, mismatches, stale blocks and unavailable reads.",
+      "claims": [
+        "reviewed-task",
+        "reject-false-success"
+      ],
+      "href": "/evidence/source/test--range-assessment.test.mjs",
+      "mediaType": "text/javascript",
+      "bytes": 9266,
+      "sha256": "aa6685117f991fd75767344215b8805fea555d928794dcb577fffc9d58868b2c",
+      "kind": "implementation-reference",
+      "note": "Source snapshot from the working implementation when this evidence package was prepared. It is not the recorded revision of any historical provider capture. Tests use synthetic fixtures; their passing is not a live provider or paid-hire result."
+    },
+    {
+      "sourcePath": "server/test/range-task-preset.test.mjs",
+      "description": "Network-disabled integration tests for exact task binding, retained responses and required RPC corroboration.",
+      "claims": [
+        "reviewed-task",
+        "reject-false-success"
+      ],
+      "href": "/evidence/source/test--range-task-preset.test.mjs",
+      "mediaType": "text/javascript",
+      "bytes": 6209,
+      "sha256": "27038c402627f42fe160cc9d390c73707c530b0b773e40a1ea33cbecf5c0784f",
+      "kind": "implementation-reference",
+      "note": "Source snapshot from the working implementation when this evidence package was prepared. It is not the recorded revision of any historical provider capture. Tests use synthetic fixtures; their passing is not a live provider or paid-hire result."
+    },
+    {
+      "sourcePath": "server/src/try.js",
+      "description": "Relay the reviewed task and retain its original reply when a separate chain check cannot complete.",
+      "claims": [
+        "reviewed-task",
+        "reject-false-success"
+      ],
+      "href": "/evidence/source/src--try.js",
+      "mediaType": "text/javascript",
+      "bytes": 16776,
+      "sha256": "7086ee0f2463b4ffc937f527a92a038ce0cd4a08d918ca57de66f3b78503d8ae",
+      "kind": "implementation-reference",
+      "note": "Source snapshot from the working implementation when this evidence package was prepared. It is not the recorded revision of any historical provider capture. Tests use synthetic fixtures; their passing is not a live provider or paid-hire result."
+    }
+  ],
+  "reliability": {
+    "href": "/evidence/release-check-2026-09-08.json",
+    "mediaType": "application/json",
+    "bytes": 3870,
+    "sha256": "cacd84d875246b7002c077a0a02decf192e65bf39560239c0bc53d21a54eb367",
+    "observedDate": "2026-09-08",
+    "status": "failed",
+    "counts": {
+      "passed": 6,
+      "failed": 1,
+      "incomplete": 6
+    },
+    "scope": "Later failed local development check; not a current uptime monitor or deployment result."
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "explanation": "Digests detect changes to the published files. They are not provider signatures, third-party attestations or proofs that an observation was truthful."
+  },
+  "rights": "Provider and registry outputs retain their original rights. FYA does not relicense third-party payloads through the repository code license. These files are supplied as dated verification examples.",
+  "rangeAssessment": {
+    "id": "range-assessment-2026-09-09",
+    "href": "/evidence/range-assessment-2026-09-09/index.json",
+    "mediaType": "application/json",
+    "bytes": 2905,
+    "sha256": "d9edbf8ff37d62096711ae20dd26fd5e9be95d790fbb057d6b9967d902c6007a"
+  },
+  "paidCall": {
+    "id": "paid-call-2026-09-09",
+    "title": "Paid Venus account assessment",
+    "observedDate": "2026-09-08",
+    "environment": "local-development",
+    "href": "/evidence/paid-call-2026-09-09/index.json",
+    "mediaType": "application/json",
+    "bytes": 6317,
+    "sha256": "11b43da08e14ede3e7d1ad3ec587b13ab94b8dcc5563b804eba8bfe9e1b51bc2",
+    "description": "A 0.1 U x402 quote, returned Venus assessment and matching BSC settlement, with original records and separate historical RPC corroboration of all three displayed health figures at the payment block."
+  },
+  "providerGroupsScope": "The providerGroups array describes the three original records. Additional archives identify their own providers and provenance.",
+  "escrowHire": {
+    "id": "erc8183-job-56751",
+    "title": "ERC-8183 hire and funding",
+    "observedDate": "2026-09-09",
+    "environment": "local-development",
+    "href": "/evidence/erc8183-job-56751/index.json",
+    "mediaType": "application/json",
+    "bytes": 8163,
+    "sha256": "6de2d99f70d0e20e6d8c079463fb42f3d2f125e401b34e63e30834d7e075280a",
+    "description": "Five original screenshots of hire, request review, wallet confirmations and 1 U funding for job #56751. The separately verified on-chain delivery contains an input-validation error; no successful assessment or final settlement is claimed."
+  },
+  "escrowAssessment": {
+    "id": "erc8183-job-56752",
+    "title": "ERC-8183 Venus account report",
+    "observedDate": "2026-09-09",
+    "environment": "local-development",
+    "href": "/evidence/erc8183-job-56752/index.json",
+    "mediaType": "application/json",
+    "bytes": 8304,
+    "sha256": "432cf040bd1cd3007ec71f582a571412de220582f5fbf35930f54255c944892c",
+    "description": "Corrected request: 1 U funded and an authentic committed Venus report submitted 102 seconds later. Partial numerical corroboration, source-time limitations and pending final settlement are retained."
+  }
+}
