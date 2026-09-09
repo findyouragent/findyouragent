@@ -36,7 +36,7 @@ export const config = {
   // Use persistent storage to retain checks beyond the bundled startup seed.
   dataDir: process.env.DATA_DIR || null,
 
-  // Default CORS is public; deployments may set one allowed site origin.
+  // Default CORS is public; deployments may set one or more allowed site origins.
   allowedOrigin: process.env.ALLOWED_ORIGIN || '*',
 
   // Per-IP bounds for verification reads and calls to third-party agent servers.

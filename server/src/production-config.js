@@ -17,6 +17,41 @@ const INTEGER_LIMITS = {
   SWEEP_PAGE_SIZE: 100,
 };
 
+const ALLOWED_ORIGIN_ERROR = 'ALLOWED_ORIGIN must explicitly be * or a comma-separated list of canonical HTTP(S) origins without paths';
+
+/**
+ * Parse the CORS origin setting without retaining or reporting supplied values.
+ * Whitespace around comma-separated members is formatting; whitespace inside a
+ * member remains invalid because the browser Origin header is exact.
+ */
+export function parseAllowedOrigins(value) {
+  if (typeof value !== 'string' || value.length === 0 || /[\0-\u001f\u007f]/.test(value)) {
+    return { ok: false, error: ALLOWED_ORIGIN_ERROR };
+  }
+  const members = value.split(',').map((member) => member.trim());
+  if (members.length === 1 && members[0] === '*') {
+    return { ok: true, wildcard: true, origins: [] };
+  }
+  if (!members.length || members.some((member) => !member || member === '*')) {
+    return { ok: false, error: ALLOWED_ORIGIN_ERROR };
+  }
+
+  const origins = [];
+  for (const member of members) {
+    let url;
+    try {
+      url = new URL(member);
+    } catch {
+      return { ok: false, error: ALLOWED_ORIGIN_ERROR };
+    }
+    if (!['http:', 'https:'].includes(url.protocol) || url.origin !== member) {
+      return { ok: false, error: ALLOWED_ORIGIN_ERROR };
+    }
+    origins.push(member);
+  }
+  return { ok: true, wildcard: false, origins };
+}
+
 /** Pure validation: no file access, network calls, credentials, or value dumps. */
 export function productionConfigErrors(env) {
   const errors = [];
@@ -29,17 +64,9 @@ export function productionConfigErrors(env) {
   }
 
   // CORS is intentionally public when the operator explicitly selects '*'.
-  // A fixed value must match the Origin header form, including no trailing '/'.
-  const origin = env.ALLOWED_ORIGIN;
-  if (origin !== '*') {
-    let valid = false;
-    try {
-      const url = new URL(origin);
-      valid = typeof origin === 'string' && ['http:', 'https:'].includes(url.protocol)
-        && url.origin === origin;
-    } catch { /* Report only the variable name, never a supplied URL. */ }
-    if (!valid) errors.push('ALLOWED_ORIGIN must explicitly be * or one canonical HTTP(S) origin without a path');
-  }
+  // Fixed values must match the Origin header form, including no trailing '/'.
+  const allowedOrigins = parseAllowedOrigins(env.ALLOWED_ORIGIN);
+  if (!allowedOrigins.ok) errors.push(allowedOrigins.error);
 
   for (const [name, max] of Object.entries(INTEGER_LIMITS)) {
     const value = env[name];

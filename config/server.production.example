@@ -4,6 +4,10 @@ PORT=8787
 DATA_DIR=/var/data
 ALLOWED_ORIGIN=https://findyouragent.xyz
 SWEEP_ENABLED=false
+SWEEP_INTERVAL_MS=30000
+SWEEP_PAGE_CYCLE=40
+SWEEP_PAGE_SIZE=25
+SWEEP_BASELINE_SAMPLE=25
 
 # Provision these separately if required by your deployment.
 # SCAN8004_API_KEY=your-registry-key

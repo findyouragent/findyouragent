@@ -27,7 +27,8 @@ test('production defaults remain valid after storage and CORS are explicitly cho
   const env = Object.freeze(validEnv());
   assert.deepEqual(productionConfigErrors(env), []);
   assert.doesNotThrow(() => assertProductionConfig(env));
-  for (const origin of ['*', 'https://example.test', 'http://localhost:5173', 'https://[::1]:8443']) {
+  for (const origin of ['*', '  *  ', 'https://example.test', 'http://localhost:5173', 'https://[::1]:8443',
+    'https://findyouragent.xyz, https://findyouragent-seven.vercel.app']) {
     assert.deepEqual(productionConfigErrors({ ...env, ALLOWED_ORIGIN: origin }), []);
   }
 });
@@ -42,7 +43,8 @@ test('production rejects absent, relative, blank and malformed storage paths', (
 test('a fixed CORS origin must match a browser Origin value exactly', () => {
   const invalid = [undefined, '', ' ', 'null', 'example.test', 'https://example.test/',
     'https://example.test/path', 'https://example.test?x=1', 'https://example.test#fragment',
-    'https://example.test:443', 'https://EXAMPLE.test', 'https://example.test,https://other.test',
+    'https://example.test:443', 'https://EXAMPLE.test', 'https://example.test,,https://other.test',
+    'https://example.test, *', '* ,https://other.test',
     'https://example.test\n', 'ftp://example.test', 'https://redacted:placeholder@example.test'];
   for (const origin of invalid) {
     assert.match(productionConfigErrors({ ...validEnv(), ALLOWED_ORIGIN: origin }).join('\n'), /ALLOWED_ORIGIN/);

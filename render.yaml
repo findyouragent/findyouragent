@@ -29,8 +29,7 @@ services:
       - key: DATA_DIR
         value: /var/data
 
-      # Set credentials in the Render dashboard. Upstream quota headers are authoritative;
-      # sweep pacing defaults to 3s with this key and 30s without one.
+      # Set credentials in the Render dashboard. Upstream quota headers are authoritative.
       - key: SCAN8004_API_KEY
         sync: false
 
@@ -38,6 +37,18 @@ services:
       - key: BSC_RPC_URL
         sync: false
 
-      # Browser origin for the production frontend.
+      # Comma-separated exact browser origins; add other deployed frontend URLs as needed.
       - key: ALLOWED_ORIGIN
         value: https://findyouragent.xyz
+
+      # Enable after provider readiness and persistent storage have been checked.
+      - key: SWEEP_ENABLED
+        value: "false"
+      - key: SWEEP_INTERVAL_MS
+        value: "30000"
+      - key: SWEEP_PAGE_CYCLE
+        value: "40"
+      - key: SWEEP_PAGE_SIZE
+        value: "25"
+      - key: SWEEP_BASELINE_SAMPLE
+        value: "25"

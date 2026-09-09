@@ -26,6 +26,7 @@ import { mediaFromMeta, mediaFromRegistration } from './sources/registry.js';
 import { bap578FromCard } from './sources/bap578.js';
 import { mountMachineRoutes } from './machine.js';
 import { FORMULA_VERSION } from './verify/score.js';
+import { createCorsMiddleware } from './cors.js';
 import {
   admittedHandler, capacityResponse, createSseSender, WorkCapacityError,
 } from './work-admission.js';
@@ -71,16 +72,10 @@ const sweeper = createSweeper({
 app.set('trust proxy', 1);
 
 app.use(express.json({ limit: '32kb' }));
-app.use((req, res, next) => {
-  res.set('access-control-allow-origin', config.allowedOrigin);
-  // mcp-session-id and mcp-protocol-version are sent by MCP clients running in
-  // a browser. Without them on this list the preflight fails and the endpoint
-  // is reachable only from a server, which is half the point of serving it.
-  res.set('access-control-allow-headers', 'content-type, mcp-session-id, mcp-protocol-version');
-  if (config.allowedOrigin !== '*') res.set('vary', 'origin');
-  if (req.method === 'OPTIONS') return res.sendStatus(204);
-  next();
-});
+// mcp-session-id and mcp-protocol-version are sent by MCP clients running in
+// a browser. Without them on this list the preflight fails and the endpoint
+// is reachable only from a server, which is half the point of serving it.
+app.use(createCorsMiddleware(config.allowedOrigin));
 
 const limitVerify = createRateLimiter({
   windowMs: config.rateWindowMs, max: config.verifyRateMax, name: 'verification',
