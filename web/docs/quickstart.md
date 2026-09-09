@@ -3,8 +3,9 @@
 > Three public reads: inspect coverage, search stored capabilities and read a verdict's evidence.
 > Results depend on this deployment's stored coverage and availability.
 
-Everything below is a plain `GET`. There is no signup, no token, and CORS is open, so the same calls
-work from a browser console, a shell, or an agent loop.
+Everything below is a plain `GET`, with no signup or API token required. Shell and server clients
+can make these public reads directly. Browser calls must come from an origin allowed by the
+deployment's CORS configuration. See [Access and limits](/docs/limits).
 
 Base URL for this build: `{{API}}`
 

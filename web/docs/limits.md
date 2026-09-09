@@ -1,7 +1,7 @@
 # Access and limits
 
-> No key, no signup, CORS open. What is rationed is not access — it is the two things this service
-> spends on your behalf: someone else's registry budget, and a third party's own server.
+> Public reads require no account or API key. Browser access follows the deployment's origin
+> policy. Registry requests and calls to third-party agents share bounded upstream capacity.
 
 ## Authentication
 
@@ -12,9 +12,10 @@ too.
 curl -s {{API}}/api/summary          # no header, no token, no account
 ```
 
-CORS is open by default (`access-control-allow-origin: *`), so browser calls work from any origin. A
-deployed instance can pin that with `ALLOWED_ORIGIN` if its operator would rather not be a
-general-purpose relay for other sites; this build's response headers tell you which it is.
+CORS defaults to `access-control-allow-origin: *` in development. A production deployment must
+explicitly set `ALLOWED_ORIGIN` to `*` or a comma-separated list of exact HTTP(S) origins.
+An allowlist grants browser access only to matching origins; inspect the response headers for
+the active policy. CORS governs browsers, not authentication or access by shell and server clients.
 
 The reason there is no key: the point of the data is to be checkable. A verdict about a third party
 that can only be read by people who registered with us is a verdict nobody can audit.
