@@ -1,0 +1,76 @@
+.topbar-search-submit,
+.search-results-heading {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  /* A 16px input prevents Safari's focus zoom from cropping the page. */
+  .app .topbar-search input {
+    min-height: 44px;
+    min-width: 0;
+    padding-right: 48px;
+    font-size: 16px;
+  }
+
+  .app .topbar-search-submit {
+    position: absolute;
+    inset-block: 0;
+    right: 0;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    background: transparent;
+    color: var(--text-hi);
+    cursor: pointer;
+  }
+
+  .topbar-search-submit:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: -3px;
+  }
+
+  .app .topbar-search kbd,
+  .app.is-searching .topnav,
+  .app.is-searching .explorer-band,
+  .app.is-searching .task-entry,
+  .app.is-searching .controls,
+  .app.is-searching .comparison-selection:not(.has-selection) {
+    display: none;
+  }
+
+  .is-searching .search-results-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-block: 8px;
+  }
+
+  .search-results-heading h1 {
+    margin: 0;
+    font-size: var(--text-base);
+    font-weight: 500;
+  }
+
+  .search-results-heading a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 36px;
+    color: var(--text-mid);
+    font-size: var(--text-sm);
+    text-underline-offset: 3px;
+  }
+
+  .is-searching .browse-results {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .is-searching .search-results-context {
+    order: 1;
+  }
+}

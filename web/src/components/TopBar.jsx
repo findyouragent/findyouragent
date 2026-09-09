@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Search } from 'lucide-react';
+import { ArrowRight, Search } from 'lucide-react';
 import BrandMark from './BrandMark.jsx';
 import { useSlidingMarks, SlidingMarks } from './SlidingMarks.jsx';
 import { useI18n } from '../i18n/index.jsx';
@@ -82,9 +82,16 @@ export default function TopBar({ search, onSearchChange, onSearchSubmit, page })
       </a>
       <form
         className="topbar-search"
+        role="search"
         onSubmit={(e) => {
           e.preventDefault();
           onSearchSubmit();
+          if (window.matchMedia('(max-width: 700px)').matches) {
+            inputRef.current?.blur();
+            requestAnimationFrame(() => {
+              inputRef.current?.closest('header')?.scrollIntoView({ block: 'start', behavior: 'instant' });
+            });
+          }
         }}
       >
         <Search className="search-icon" size={14} strokeWidth={2} aria-hidden="true" />
@@ -93,11 +100,19 @@ export default function TopBar({ search, onSearchChange, onSearchSubmit, page })
             asked as a task. */}
         <input
           ref={inputRef}
+          type="search"
+          enterKeyHint="search"
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder={t('search by name, or what you need done')}
           aria-label={t('search agents by name, or by what you need done')}
         />
+        <button className="topbar-search-submit" type="submit" aria-label={t('Search')}>
+          <ArrowRight size={16} aria-hidden="true" />
+        </button>
         <kbd aria-hidden="true">/</kbd>
       </form>
       <div className="topbar-right">

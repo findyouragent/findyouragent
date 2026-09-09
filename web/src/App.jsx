@@ -19,6 +19,7 @@ import Compare from './pages/Compare.jsx';
 import { recoverRegistryRows, registryFailureMessage, bscCountFromStats, bscCountFromList, newestRegistryCount } from './lib/browse-recovery.js';
 import './styles/task-browse.css';
 import './styles/registry-recovery.css';
+import './styles/mobile-search.css';
 import { useI18n } from './i18n/index.jsx';
 
 const COMPARE_STORAGE = 'fya:compare-selection:v1';
@@ -498,6 +499,14 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
+  const onSearchChange = useCallback((value) => {
+    setSearch(value);
+    if (!value) {
+      setQuery('');
+      setPage(1);
+    }
+  }, []);
+
   const onSearchSubmit = useCallback(() => {
     // Searching from an agent page returns home carrying the query, rather than
     // clearing the hash and losing the rest of the visitor's filters.
@@ -513,12 +522,13 @@ export default function App() {
   }, []);
 
   const bscTotal = registryObservation?.total ?? null;
+  const isSearchActive = Boolean(query.trim());
 
   if (route.page === 'agent' || route.page === 'methodology' || route.page === 'compare') {
     return (
       <div className="app">
         <TopoBackground />
-        <TopBar search={search} onSearchChange={setSearch} onSearchSubmit={onSearchSubmit} page={route.page} />
+        <TopBar search={search} onSearchChange={onSearchChange} onSearchSubmit={onSearchSubmit} page={route.page} />
         <main>
           {route.page === 'agent' && (
             <AgentDetail
@@ -548,10 +558,14 @@ export default function App() {
   }
 
   return (
-    <div className="app">
+    <div className={`app${isSearchActive ? ' is-searching' : ''}`}>
       <TopoBackground />
-      <TopBar search={search} onSearchChange={setSearch} onSearchSubmit={onSearchSubmit} page={route.page} />
+      <TopBar search={search} onSearchChange={onSearchChange} onSearchSubmit={onSearchSubmit} page={route.page} />
       <main>
+        {isSearchActive && <div className="search-results-heading">
+          <h1>{t('Search results')}</h1>
+          <a href={homeHash({ tabKey, categoryKey })}><X size={14} aria-hidden="true" />{t('Clear search')}</a>
+        </div>}
         <section className="explorer-band">
           {/* Accessible page heading; the visible strip carries the registry summary. */}
           <h1 className="sr-only">{t('ai agent explorer · bnb chain')}</h1>
@@ -571,6 +585,7 @@ export default function App() {
 
         <div className="controls">
           <ViewTabs
+            key={isSearchActive ? 'search' : 'browse'}
             tabs={TABS}
             activeKey={tabKey}
             onSelect={(key) => { setTabKey(key); setPage(1); }}
@@ -597,36 +612,40 @@ export default function App() {
               : <>{t('{count} agents from FYA’s saved checks.', { count: verifiedCount })}{registryTail === 'loading' ? ` ${t('The newest registry registrations are still loading.')}` : ''}</>}
           </p>
         )}
-        {/* Identify search matches from capabilities listed by an endpoint. */}
-        {capabilityHits > 0 && !loading && (
-          <p className="tab-note">
-            {t('The first {rows} served a capability matching "{query}" when we called {subject}, and each names the tool that matched. Anything below them matched a name or description instead — text the agent wrote about itself.', {
-              rows: capabilityHits === 1 ? t('row') : t('{count} rows', { count: capabilityHits }), query: query.trim(), subject: capabilityHits === 1 ? 'it' : 'them',
-            })}
-          </p>
-        )}
-        {/* Distinguish registry text matches when no saved capability matches the query. */}
-        {query.trim() && capabilityHits === 0 && !loading && agents.length > 0 && (
-          <p className="tab-note">
-            {t('No agent we have checked served a capability matching "{query}" when we called it. These rows matched the registry’s names and descriptions only. An agent absent here may simply never have been checked — absence is not evidence.', { query: query.trim() })}
-          </p>
-        )}
-        {category.searchTerm && !query.trim() && !loading && (
-          <p className="tab-note">
-            {t('The registry can only search names and descriptions, so this list starts as a text match. The sort above does not apply to it. Run a check on a row to see whether the agent actually declares a skill that does this work.')}
-          </p>
-        )}
-        {(!error || agents.length > 0) && <AgentTable
-          agents={agents}
-          verdicts={verdicts}
-          onVerdict={onVerdict}
-          loading={loading}
-          category={categoryKey}
-          coverage={summary?.coverage?.[categoryKey] ?? null}
-          categoryLabel={category.label}
-          selectedKeys={selected.map((item) => item.key)}
-          onToggleSelection={toggleComparison}
-        />}
+        <div className="browse-results">
+          <div className="search-results-context">
+            {/* Identify search matches from capabilities listed by an endpoint. */}
+            {capabilityHits > 0 && !loading && (
+              <p className="tab-note">
+                {t('The first {rows} served a capability matching "{query}" when we called {subject}, and each names the tool that matched. Anything below them matched a name or description instead — text the agent wrote about itself.', {
+                  rows: capabilityHits === 1 ? t('row') : t('{count} rows', { count: capabilityHits }), query: query.trim(), subject: capabilityHits === 1 ? 'it' : 'them',
+                })}
+              </p>
+            )}
+            {/* Distinguish registry text matches when no saved capability matches the query. */}
+            {query.trim() && capabilityHits === 0 && !loading && agents.length > 0 && (
+              <p className="tab-note">
+                {t('No agent we have checked served a capability matching "{query}" when we called it. These rows matched the registry’s names and descriptions only. An agent absent here may simply never have been checked — absence is not evidence.', { query: query.trim() })}
+              </p>
+            )}
+            {category.searchTerm && !query.trim() && !loading && (
+              <p className="tab-note">
+                {t('The registry can only search names and descriptions, so this list starts as a text match. The sort above does not apply to it. Run a check on a row to see whether the agent actually declares a skill that does this work.')}
+              </p>
+            )}
+          </div>
+          {(!error || agents.length > 0) && <AgentTable
+            agents={agents}
+            verdicts={verdicts}
+            onVerdict={onVerdict}
+            loading={loading}
+            category={isSearchActive ? 'all' : categoryKey}
+            coverage={isSearchActive ? null : summary?.coverage?.[categoryKey] ?? null}
+            categoryLabel={isSearchActive ? '' : category.label}
+            selectedKeys={selected.map((item) => item.key)}
+            onToggleSelection={toggleComparison}
+          />}
+        </div>
 
         <nav className="pager" aria-label={t('pagination')}>
           <button disabled={page <= 1 || loading || browseBusy} onClick={() => setPage((p) => p - 1)}>
